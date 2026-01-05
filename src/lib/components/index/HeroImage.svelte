@@ -1,5 +1,5 @@
 <script>
-    import hero from "$lib/assets/hero.png"
+    import hero from "$lib/assets/index/hero.png"
     import background from "$lib/assets/index/hero-background.png"
 </script>
 
