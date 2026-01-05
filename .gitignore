@@ -1,0 +1,11 @@
+node_modules
+
+.wrangler
+.svelte-kit
+
+.env
+.env.*
+!.env.test
+
+.vite
+
