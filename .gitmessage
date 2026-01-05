@@ -1,14 +1,13 @@
-<type>: <short-summary>
+<type>[+type]...: <short-summary up to 50 chars>
+# Types: fix, feat, style, content, config, update, chore, misc
 
-# --- Changes ---
-# - <description>
-#   Context: <why this change was made>
+--- Changes ---
+Description:
+ - 
 
-# --- Merged Branches (if any) ---
+Context:
+ - 
+
+--- Merged Branches (if any) ---
 # - <branch-name>
 
-# ------------------------------------------------------------------
-# Types: fix, feat, style, content, config, update, chore, misc
-# Format: <type>: <short-summary>
-# Note: Keep the first line under 50 characters.
-# ------------------------------------------------------------------
