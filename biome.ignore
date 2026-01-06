@@ -1,0 +1,9 @@
+node_modules/
+pnpm-lock.yaml
+pnpm-workspace.yaml
+.env
+.env.*
+*.bak
+.svelte-kit/
+build/
+src/lib/assets/
