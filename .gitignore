@@ -1,11 +1,8 @@
-node_modules
-
-.svelte-kit
+node_modules/
+.svelte-kit/
+build/
 *.bak
-
 .env
 .env.*
 !.env.test
-
 .vite
-
