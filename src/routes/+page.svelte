@@ -1,7 +1,5 @@
 <script lang="ts">
-	import FaqList from "$lib/components/index/FaqList.svelte";
-	import HeroImage from "$lib/components/index/HeroImage.svelte";
-	import TestimonialList from "$lib/components/index/TestimonialList.svelte";
+import { FaqList, HeroImage, TestimonialList } from "$components/home";
 </script>
 
 <svelte:head>
