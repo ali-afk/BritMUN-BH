@@ -27,6 +27,9 @@ importers:
       '@sveltejs/vite-plugin-svelte':
         specifier: ^6.2.1
         version: 6.2.1(svelte@5.46.1)(vite@7.3.0(@types/node@24.10.4)(lightningcss@1.30.2)(yaml@2.8.2))
+      husky:
+        specifier: ^9.1.7
+        version: 9.1.7
       lightningcss:
         specifier: ^1.30.2
         version: 1.30.2
@@ -690,6 +693,11 @@ packages:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
+
+  husky@9.1.7:
+    resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   is-reference@3.0.3:
     resolution: {integrity: sha512-ixkJoqQvAP88E6wLydLGGqCJsrFUnqoH6HnaczB8XmDH1oaWU+xxdptvikTgaEhtZ53Ky6YXiBuUI2WXLMCwjw==}
@@ -1362,6 +1370,8 @@ snapshots:
 
   fsevents@2.3.3:
     optional: true
+
+  husky@9.1.7: {}
 
   is-reference@3.0.3:
     dependencies:
