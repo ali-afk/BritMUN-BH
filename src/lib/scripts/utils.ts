@@ -2,7 +2,7 @@ let idCounter = 0; // This is just to make sure the generateId function doesn't 
 
 /**
  * Generates a unique, semantically prefixed ID for ARIA linking.
- * @param prefix - Descriptive string (e.g., 'faq', 'btn', 'content')
+ * @param prefix - Defaults to 'id'. (e.g., 'faq', 'content')
  */
 export function generateId(prefix: string = "id"): string {
 	idCounter++;
