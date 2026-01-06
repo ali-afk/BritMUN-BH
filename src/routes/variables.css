@@ -1,0 +1,253 @@
+/* --- Brand Purples --- */
+@property --purple-deep {
+	syntax: "<color>";
+	initial-value: #381446;
+	inherits: true;
+}
+@property --purple-main {
+	syntax: "<color>";
+	initial-value: #653568;
+	inherits: true;
+}
+@property --purple-mid {
+	syntax: "<color>";
+	initial-value: #934599;
+	inherits: true;
+}
+@property --purple-light {
+	syntax: "<color>";
+	initial-value: #d192d6;
+	inherits: true;
+}
+@property --purple-pale {
+	syntax: "<color>";
+	initial-value: #d9aecf;
+	inherits: true;
+}
+@property --magenta {
+	syntax: "<color>";
+	initial-value: #b00e63;
+	inherits: true;
+}
+
+/* --- Action Colors --- */
+@property --action-red {
+	syntax: "<color>";
+	initial-value: #ec2c2b;
+	inherits: true;
+}
+@property --action-red-hover {
+	syntax: "<color>";
+	initial-value: #c00000;
+	inherits: true;
+}
+@property --action-blue {
+	syntax: "<color>";
+	initial-value: #1dace8;
+	inherits: true;
+}
+@property --action-blue-hover {
+	syntax: "<color>";
+	initial-value: #53c8fa;
+	inherits: true;
+}
+@property --action-nav-hover {
+	syntax: "<color>";
+	initial-value: #291d84;
+	inherits: true;
+}
+
+/* --- Neutrals --- */
+@property --white {
+	syntax: "<color>";
+	initial-value: #fff;
+	inherits: true;
+}
+@property --black {
+	syntax: "<color>";
+	initial-value: #000;
+	inherits: true;
+}
+@property --gray-light {
+	syntax: "<color>";
+	initial-value: #f8f9fa;
+	inherits: true;
+}
+@property --gray-muted {
+	syntax: "<color>";
+	initial-value: #444;
+	inherits: true;
+}
+@property --border-subtle {
+	syntax: "<color>";
+	initial-value: #ced4da;
+	inherits: true;
+}
+
+/* --- Font Weights --- */
+@property --fw-light {
+	syntax: "<number>";
+	initial-value: 300;
+	inherits: true;
+}
+@property --fw-regular {
+	syntax: "<number>";
+	initial-value: 400;
+	inherits: true;
+}
+@property --fw-semibold {
+	syntax: "<number>";
+	initial-value: 600;
+	inherits: true;
+}
+@property --fw-bold {
+	syntax: "<number>";
+	initial-value: 700;
+	inherits: true;
+}
+
+/* --- Font Sizes --- */
+@property --fs-1 {
+	syntax: "<length>";
+	initial-value: 1.2rem;
+	inherits: true;
+}
+@property --fs-2 {
+	syntax: "<length>";
+	initial-value: 1.4rem;
+	inherits: true;
+}
+@property --fs-3 {
+	syntax: "<length>";
+	initial-value: 1.6rem;
+	inherits: true;
+}
+@property --fs-4 {
+	syntax: "<length>";
+	initial-value: 2rem;
+	inherits: true;
+}
+@property --fs-5 {
+	syntax: "<length>";
+	initial-value: 2.5rem;
+	inherits: true;
+}
+@property --fs-6 {
+	syntax: "<length>";
+	initial-value: 3.5rem;
+	inherits: true;
+}
+@property --fs-7 {
+	syntax: "<length>";
+	initial-value: 5rem;
+	inherits: true;
+}
+
+/* --- Spacing --- */
+@property --space-1 {
+	syntax: "<length>";
+	initial-value: 0.5rem;
+	inherits: true;
+}
+@property --space-2 {
+	syntax: "<length>";
+	initial-value: 1rem;
+	inherits: true;
+}
+@property --space-3 {
+	syntax: "<length>";
+	initial-value: 1.4rem;
+	inherits: true;
+}
+@property --space-4 {
+	syntax: "<length>";
+	initial-value: 2rem;
+	inherits: true;
+}
+@property --space-5 {
+	syntax: "<length>";
+	initial-value: 3rem;
+	inherits: true;
+}
+@property --space-6 {
+	syntax: "<length>";
+	initial-value: 4.5rem;
+	inherits: true;
+}
+@property --space-7 {
+	syntax: "<length>";
+	initial-value: 7rem;
+	inherits: true;
+}
+@property --space-8 {
+	syntax: "<length>";
+	initial-value: 9.5rem;
+	inherits: true;
+}
+
+/* --- Misc --- */
+@property --radius {
+	syntax: "<length>";
+	initial-value: 16px;
+	inherits: true;
+}
+@property --shadow-color {
+	syntax: "<color>";
+	initial-value: rgba(0, 0, 0, 0.25);
+	inherits: true;
+}
+
+:root {
+	/* --- Complex Values (The Engine) --- */
+	--fs-1: clamp(1.2rem, 1.15rem + 0.25vw, 1.4rem);
+	--fs-2: clamp(1.4rem, 1.35rem + 0.25vw, 1.6rem);
+	--fs-3: clamp(1.6rem, 1.55rem + 0.25vw, 1.8rem);
+	--fs-4: clamp(1.8rem, 1.7rem + 0.5vw, 2.2rem);
+	--fs-5: clamp(2.2rem, 2.05rem + 0.75vw, 2.8rem);
+	--fs-6: clamp(2.8rem, 2.5rem + 1.5vw, 4rem);
+	--fs-7: clamp(3.5rem, 2.8rem + 3.5vw, 6.5rem);
+
+	--space-1: clamp(0.4rem, 0.35rem + 0.15vw, 0.6rem);
+	--space-2: clamp(0.8rem, 0.7rem + 0.3vw, 1.2rem);
+	--space-3: clamp(1.2rem, 1.1rem + 0.3vw, 1.6rem);
+	--space-4: clamp(1.6rem, 1.4rem + 0.6vw, 2.4rem);
+	--space-5: clamp(2.4rem, 2rem + 1.2vw, 4rem);
+	--space-6: clamp(3.2rem, 2.4rem + 2.5vw, 6.4rem);
+	--space-7: clamp(4.8rem, 3.6rem + 3.7vw, 9.6rem);
+	--space-8: clamp(6.4rem, 4.8rem + 5vw, 12.8rem);
+
+	/* --- Layout Mapping --- */
+	--bg-main: var(--white);
+	--bg-card: var(--gray-light);
+
+	/* --- Text Mapping --- */
+	--text-main: var(--black);
+	--text-contrast: var(--white);
+	--text-muted: var(--gray-muted);
+	--border-main: var(--black);
+
+	/* --- Links & Accents --- */
+	--link: var(--action-blue);
+	--accent: var(--purple-mid);
+
+	/* --- Component Specific --- */
+	--nav-bg: var(--purple-deep);
+	--btn-primary: var(--purple-deep);
+	--btn-danger: var(--action-red);
+	--btn-info: var(--action-blue);
+
+	/* --- Font Family --- */
+	--font-body: Average, ui-serif, serif;
+	--font-head: Girassol, ui-serif, serif;
+
+	/* --- Complex Values --- */
+	--transition: 0.2s ease-in-out;
+	--shadow-1: 0 2px 4px var(--shadow-color);
+	--shadow-2: 0 10px 40px var(--shadow-color);
+
+	/* --- Breakpoints --- */
+	--bp-1: 480px;
+	--bp-2: 768px;
+	--bp-3: 1024px;
+	--bp-4: 1280px;
+}
