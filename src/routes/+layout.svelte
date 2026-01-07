@@ -4,6 +4,13 @@ import "./layout.css";
 import "./variables.css";
 import "@fontsource/girassol";
 import "@fontsource/average";
+import { onMount } from "svelte";
+import { registerProperties } from "$lib/scripts/register-properties";
+
+onMount(() => {
+	registerProperties();
+	document.documentElement.classList.add("document-loaded");
+});
 
 let { children } = $props();
 </script>

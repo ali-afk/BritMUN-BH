@@ -6,8 +6,8 @@
 	padding: 0;
 
 	transition-duration: var(--transition-duration);
-	transition-timing-function: var(--transition-timing-function);
-	transition-property: color;
+	transition-timing-function: var(--transition-easing);
+	transition-property: color, opacity;
 
 	scrollbar-color: var(--sb-thumb) var(--sb-track);
 	scrollbar-width: thin;
@@ -46,7 +46,7 @@ svg {
 }
 
 :focus-visible {
-	outline: 2px solid var(--color-info-500);
+	outline: 2px solid var(--status-info-500);
 	outline-offset: 2px;
 }
 
@@ -62,6 +62,36 @@ svg {
 
 html {
 	font-size: 62.5%; /* 62.5% of 16px = 10px for REM calculations */
+}
+
+/* Loading animation before css properties load */
+html:not(.document-loaded) body {
+	background: #f0f0f0;
+
+	&::before {
+		content: "";
+		position: fixed;
+		width: 100vw;
+		height: 100dvh;
+		background: linear-gradient(
+			90deg,
+			rgba(255, 255, 255, 0) 0%,
+			rgba(255, 255, 255, 0.6) 50%,
+			rgba(255, 255, 255, 0) 100%
+		);
+		background-size: 200% 100%;
+		animation: shimmer 1.5s infinite;
+		z-index: 9999;
+	}
+}
+
+@keyframes shimmer {
+	0% {
+		background-position: -200% 0;
+	}
+	100% {
+		background-position: 200% 0;
+	}
 }
 
 @media (prefers-reduced-motion: no-preference) {

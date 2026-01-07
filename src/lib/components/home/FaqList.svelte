@@ -24,7 +24,7 @@ import Faq from "./Faq.svelte";
 
 <style>
 section {
-	background-color: var(--primary-700);
+	background-color: var(--color-primary-700);
 
 	h2 {
 		color: var(--h1-contrast);

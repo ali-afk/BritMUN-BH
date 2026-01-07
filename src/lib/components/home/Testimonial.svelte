@@ -5,9 +5,11 @@ import { generateId } from "$scripts/utils";
 const titleId = generateId("testimonial-title");
 
 let { color, title, year, comment, direction } = $props();
-const isContrast = ["primary-900", "primary-700", "primary-500"].includes(
-	color,
-);
+const isContrast = [
+	"color-primary-900",
+	"color-primary-700",
+	"color-primary-500",
+].includes(color);
 </script>
 
 <article
