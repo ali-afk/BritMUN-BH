@@ -1,262 +1,3 @@
-/* --- Brand Primary --- */
-@property --primary-900 {
-	syntax: "<color>";
-	initial-value: #381446;
-	inherits: true;
-}
-
-@property --primary-700 {
-	syntax: "<color>";
-	initial-value: #653568;
-	inherits: true;
-}
-
-@property --primary-500 {
-	syntax: "<color>";
-	initial-value: #934599;
-	inherits: true;
-}
-
-@property --primary-300 {
-	syntax: "<color>";
-	initial-value: #d192d6;
-	inherits: true;
-}
-
-@property --primary-100 {
-	syntax: "<color>";
-	initial-value: #d9aecf;
-	inherits: true;
-}
-
-/* --- Brand Secondary --- */
-@property --secondary-900 {
-	syntax: "<color>";
-	initial-value: #5d0634;
-	inherits: true;
-}
-
-@property --secondary-700 {
-	syntax: "<color>";
-	initial-value: #940c53;
-	inherits: true;
-}
-
-@property --secondary-500 {
-	syntax: "<color>";
-	initial-value: #b00e63;
-	inherits: true;
-}
-
-@property --secondary-300 {
-	syntax: "<color>";
-	initial-value: #e695be;
-	inherits: true;
-}
-
-@property --secondary-100 {
-	syntax: "<color>";
-	initial-value: #faeff5;
-	inherits: true;
-}
-
-/* --- Feedback / Status --- */
-/* Danger (Red) */
-@property --color-danger-500 {
-	syntax: "<color>";
-	initial-value: #ec2c2b;
-	inherits: true;
-}
-
-@property --color-danger-700 {
-	syntax: "<color>";
-	initial-value: #c00000;
-	inherits: true;
-}
-
-/* Info (Blue) */
-@property --color-info-500 {
-	syntax: "<color>";
-	initial-value: #1dace8;
-	inherits: true;
-}
-
-@property --color-info-700 {
-	syntax: "<color>";
-	initial-value: #1682af;
-	inherits: true;
-}
-
-/* Warning (Amber) */
-@property --color-warn-500 {
-	syntax: "<color>";
-	initial-value: #f59e0b;
-	inherits: true;
-}
-
-@property --color-warn-700 {
-	syntax: "<color>";
-	initial-value: #b45309;
-	inherits: true;
-}
-
-/* Success (Green) */
-@property --color-success-500 {
-	syntax: "<color>";
-	initial-value: #22c55e;
-	inherits: true;
-}
-
-@property --color-success-700 {
-	syntax: "<color>";
-	initial-value: #15803d;
-	inherits: true;
-}
-
-/* --- Neutrals --- */
-@property --base-900 {
-	syntax: "<color>";
-	initial-value: #000000;
-	inherits: true;
-}
-
-@property --base-700 {
-	syntax: "<color>";
-	initial-value: #444444;
-	inherits: true;
-}
-
-@property --base-500 {
-	syntax: "<color>";
-	initial-value: #888888;
-	inherits: true;
-}
-
-@property --base-300 {
-	syntax: "<color>";
-	initial-value: #cccccc;
-	inherits: true;
-}
-
-@property --base-100 {
-	syntax: "<color>";
-	initial-value: #ffffff;
-	inherits: true;
-}
-
-/* --- Font Weights --- */
-@property --fw-light {
-	syntax: "<number>";
-	initial-value: 300;
-	inherits: true;
-}
-@property --fw-regular {
-	syntax: "<number>";
-	initial-value: 400;
-	inherits: true;
-}
-@property --fw-semibold {
-	syntax: "<number>";
-	initial-value: 600;
-	inherits: true;
-}
-@property --fw-bold {
-	syntax: "<number>";
-	initial-value: 700;
-	inherits: true;
-}
-
-/* --- Font Sizes --- */
-@property --fs-1 {
-	syntax: "<length>";
-	initial-value: 1.2rem;
-	inherits: true;
-}
-@property --fs-2 {
-	syntax: "<length>";
-	initial-value: 1.4rem;
-	inherits: true;
-}
-@property --fs-3 {
-	syntax: "<length>";
-	initial-value: 1.6rem;
-	inherits: true;
-}
-@property --fs-4 {
-	syntax: "<length>";
-	initial-value: 2rem;
-	inherits: true;
-}
-@property --fs-5 {
-	syntax: "<length>";
-	initial-value: 2.5rem;
-	inherits: true;
-}
-@property --fs-6 {
-	syntax: "<length>";
-	initial-value: 3.5rem;
-	inherits: true;
-}
-@property --fs-7 {
-	syntax: "<length>";
-	initial-value: 5rem;
-	inherits: true;
-}
-
-/* --- Spacing --- */
-@property --space-1 {
-	syntax: "<length>";
-	initial-value: 0.5rem;
-	inherits: true;
-}
-@property --space-2 {
-	syntax: "<length>";
-	initial-value: 1rem;
-	inherits: true;
-}
-@property --space-3 {
-	syntax: "<length>";
-	initial-value: 1.4rem;
-	inherits: true;
-}
-@property --space-4 {
-	syntax: "<length>";
-	initial-value: 2rem;
-	inherits: true;
-}
-@property --space-5 {
-	syntax: "<length>";
-	initial-value: 3rem;
-	inherits: true;
-}
-@property --space-6 {
-	syntax: "<length>";
-	initial-value: 4.5rem;
-	inherits: true;
-}
-@property --space-7 {
-	syntax: "<length>";
-	initial-value: 7rem;
-	inherits: true;
-}
-@property --space-8 {
-	syntax: "<length>";
-	initial-value: 9.5rem;
-	inherits: true;
-}
-
-/* --- Misc --- */
-@property --radius {
-	syntax: "<length>";
-	initial-value: 16px;
-	inherits: true;
-}
-@property --shadow-color {
-	syntax: "<color>";
-	initial-value: rgba(0, 0, 0, 0.25);
-	inherits: true;
-}
-
 :root {
 	/* --- Dynamic Values --- */
 	--space-1: clamp(0.4rem, 0.35rem + 0.15vw, 0.6rem);
@@ -288,38 +29,69 @@
 	/* --- Neutral Color Mix Logic --- */
 	--mix-strength: 10%;
 
-	--base-900: color-mix(in srgb, #000, var(--primary-500) var(--mix-strength));
-	--base-700: color-mix(in srgb, #444, var(--primary-500) var(--mix-strength));
-	--base-500: color-mix(in srgb, #888, var(--primary-500) var(--mix-strength));
-	--base-300: color-mix(in srgb, #ccc, var(--primary-500) var(--mix-strength));
-	--base-100: color-mix(in srgb, #fff, var(--primary-500) var(--mix-strength));
+	--color-base-900: color-mix(
+		in srgb,
+		#000,
+		var(--color-primary-500) var(--mix-strength)
+	);
+	--color-base-700: color-mix(
+		in srgb,
+		#444,
+		var(--color-primary-500) var(--mix-strength)
+	);
+	--color-base-500: color-mix(
+		in srgb,
+		#888,
+		var(--color-primary-500) var(--mix-strength)
+	);
+	--color-base-300: color-mix(
+		in srgb,
+		#ccc,
+		var(--color-primary-500) var(--mix-strength)
+	);
+	--color-base-100: color-mix(
+		in srgb,
+		#fff,
+		var(--color-primary-500) var(--mix-strength)
+	);
 
 	/* --- Component Colors --- */
-	--bg-main: var(--base-100);
-	--bg-card: color-mix(in srgb, var(--base-100), var(--primary-500) 2%);
-	--bg-contrast: color-mix(in srgb, var(--base-500), var(--primary-500) 2%);
+	--bg-main: var(--color-base-100);
+	--bg-card: color-mix(
+		in srgb,
+		var(--color-base-100),
+		var(--color-primary-500) 2%
+	);
+	--bg-contrast: color-mix(
+		in srgb,
+		var(--color-base-500),
+		var(--color-primary-500) 2%
+	);
 
-	--text-main: var(--base-900);
-	--text-muted: var(--base-700);
-	--text-contrast: var(--base-100);
+	--text-main: var(--color-base-900);
+	--text-muted: var(--color-base-700);
+	--text-contrast: var(--color-base-100);
 
-	--h1-main: var(--primary-500);
-	--h1-contrast: var(--base-100);
+	--h1-main: var(--color-primary-500);
+	--h1-contrast: var(--color-base-100);
 
-	--h2-main: var(--primary-500);
-	--h2-contrast: var(--base-100);
+	--h2-main: var(--color-primary-500);
+	--h2-contrast: var(--color-base-100);
 
-	--h3-main: var(--primary-500);
-	--h3-contrast: var(--base-100);
+	--h3-main: var(--color-primary-500);
+	--h3-contrast: var(--color-base-100);
 
-	--h4-main: var(--base-900);
-	--h4-contrast: var(--base-100);
+	--h4-main: var(--color-base-900);
+	--h4-contrast: var(--color-base-100);
 
-	--h5-main: var(--base-900);
-	--h5-contrast: var(--base-100);
+	--h5-main: var(--color-base-900);
+	--h5-contrast: var(--color-base-100);
 
-	--border-main: var(--base-900);
-	--border-subtle: var(--base-300);
+	--border-main: var(--color-base-900);
+	--border-subtle: var(--color-base-300);
+
+	--sb-track: var(--color-primary-100);
+	--sb-thumb: var(--color-primary-900);
 
 	/* --- Interactive State --- */
 	--hover-main: brightness(0.98);
@@ -328,30 +100,26 @@
 	--scale-active: scale(0.98);
 
 	/* --- Buttons & Links --- */
-	--link: var(--color-info-500);
-	--accent: var(--primary-500);
+	--link: var(--status-info-500);
+	--accent: var(--color-primary-500);
 
-	--btn-primary: var(--primary-700);
-	--btn-primary-hover: var(--primary-900);
+	--btn-primary: var(--color-primary-700);
+	--btn-primary-hover: var(--color-primary-900);
 
-	--btn-danger: var(--color-danger-500);
-	--btn-danger-hover: var(--color-danger-700);
+	--btn-danger: var(--status-danger-500);
+	--btn-danger-hover: var(--status-danger-700);
 
-	--btn-info: var(--color-info-500);
-	--btn-info-hover: var(--color-info-700);
+	--btn-info: var(--status-info-500);
+	--btn-info-hover: var(--status-info-700);
 
-	--btn-warn: var(--color-warn-500);
-	--btn-warn-hover: var(--color-warn-700);
+	--btn-warn: var(--status-warn-500);
+	--btn-warn-hover: var(--status-warn-700);
 
-	--btn-success: var(--color-success-500);
-	--btn-success-hover: var(--color-success-700);
+	--btn-success: var(--status-success-500);
+	--btn-success-hover: var(--status-success-700);
 
 	/* --- Effects & Animation --- */
-	--transition-duration: 0.3s;
-	--transition-timing-function: ease-in-out;
-	--transition: var(--transition-duration) var(--transition-timing-function);
-
-	--shadow-color: color-mix(in srgb, var(--base-900), transparent 80%);
+	--shadow-color: color-mix(in srgb, var(--color-base-900), transparent 80%);
 	--shadow-1: 0 2px 4px var(--shadow-color);
 	--shadow-2: 0 10px 40px var(--shadow-color);
 

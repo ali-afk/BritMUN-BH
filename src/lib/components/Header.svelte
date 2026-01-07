@@ -100,10 +100,10 @@ ul {
 		}
 
 		.councils {
-			color: var(--primary-700);
+			color: var(--color-primary-700);
 		}
 		.photos {
-			color: var(--secondary-500);
+			color: var(--color-secondary-500);
 		}
 
 		&.cta {

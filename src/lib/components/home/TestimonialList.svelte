@@ -3,11 +3,11 @@ import { testimonials } from "$data/home/";
 import Testimonial from "./Testimonial.svelte";
 
 const colorCycle = [
-	"primary-900",
-	"primary-700",
-	"primary-500",
-	"primary-300",
-	"primary-100",
+	"color-primary-900",
+	"color-primary-700",
+	"color-primary-500",
+	"color-primary-300",
+	"color-primary-100",
 ];
 </script>
 

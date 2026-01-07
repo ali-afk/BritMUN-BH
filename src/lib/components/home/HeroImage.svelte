@@ -30,6 +30,6 @@ img {
 	object-fit: contain;
 	box-shadow: var(--shadow-2);
 	border-radius: var(--radius);
-	background-color: var(--primary-100);
+	background-color: var(--color-primary-100);
 }
 </style>
