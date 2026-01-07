@@ -2,12 +2,12 @@
 import { testimonials } from "$data/home/";
 import Testimonial from "./Testimonial.svelte";
 
-const brandColors = [
-	"purple-deep",
-	"purple-main",
-	"purple-mid",
-	"purple-light",
-	"purple-pale",
+const colorCycle = [
+	"primary-900",
+	"primary-700",
+	"primary-500",
+	"primary-300",
+	"primary-100",
 ];
 </script>
 
@@ -17,14 +17,8 @@ const brandColors = [
 	{#each testimonials as data, i}
 		<Testimonial
 			{...data}
-			color={brandColors[i % brandColors.length]}
+			color={colorCycle[i % colorCycle.length]}
 			direction={i % 2 === 0 ? 'right' : 'left'}
 		/>
 	{/each}
 </section>
-
-<style>
-h2 {
-	color: var(--purple-main);
-}
-</style>

@@ -24,14 +24,10 @@ import Faq from "./Faq.svelte";
 
 <style>
 section {
-	background-color: var(--purple-main);
+	background-color: var(--primary-700);
 
 	h2 {
-		color: var(--text-contrast);
-	}
-
-	hr {
-		border-color: var(--purple-light);
+		color: var(--h1-contrast);
 	}
 
 	footer p {

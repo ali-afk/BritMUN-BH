@@ -1,10 +1,9 @@
 <script lang="ts">
-import { quadOut } from "svelte/easing";
 import { slide } from "svelte/transition";
 import toggleIcon from "$assets/home/toggle.svg";
-import { generateId, getMediaValue } from "$scripts/utils";
+import { standardSlide } from "$scripts/media";
+import { generateId } from "$scripts/utils";
 
-const duration = getMediaValue("(prefers-reduced-motion: reduce)", 0, 300);
 const contentId = generateId("content");
 const labelId = generateId("label");
 
@@ -13,7 +12,7 @@ let isOpen = $state(false);
 </script>
 
 <article class="wrapper">
-	<h2 id="{labelId}">
+	<h4 id="{labelId}">
 		<button
 			onclick={() => (isOpen = !isOpen)}
 			type="button"
@@ -28,11 +27,11 @@ let isOpen = $state(false);
 				aria-hidden="true"
 			>
 		</button>
-	</h2>
+	</h4>
 
 	{#if isOpen}
 		<div
-			transition:slide={{ duration, easing: quadOut }}
+			transition:slide={standardSlide}
 			id="{contentId}"
 			role="region"
 			aria-labelledby="{labelId}"
@@ -48,10 +47,12 @@ article {
 	background: var(--bg-card);
 	border-radius: var(--radius);
 	box-shadow: var(--shadow-1);
+	transition-property: box-shadow, transform;
 
 	&:hover {
-		filter: brightness(0.96);
+		filter: var(--hover-main);
 		box-shadow: var(--shadow-2);
+		transform: var(--scale-hover);
 	}
 
 	button {
@@ -67,8 +68,6 @@ article {
 		span {
 			font-weight: var(--fw-light);
 			font-family: var(--font-body);
-			font-size: var(--fs-4);
-			color: var(--purple-deep);
 		}
 
 		img {

@@ -5,7 +5,9 @@
 	margin: 0;
 	padding: 0;
 
-	transition: var(--transition);
+	transition-duration: var(--transition-duration);
+	transition-timing-function: var(--transition-timing-function);
+	transition-property: color;
 
 	scrollbar-color: var(--sb-thumb) var(--sb-track);
 	scrollbar-width: thin;
@@ -44,17 +46,17 @@ svg {
 }
 
 :focus-visible {
-	outline: 2px solid var(--action-blue);
+	outline: 2px solid var(--color-info-500);
 	outline-offset: 2px;
 }
 
 :focus:not(:focus-visible) {
-	outline: transparent;
+	outline-color: transparent;
 }
 
 /* Generic container */
 .wrapper {
-	width: min(100% - var(--space-4), 1280px);
+	width: min(100% - var(--space-4), var(--container-max));
 	margin-inline: auto;
 }
 
@@ -76,7 +78,7 @@ body {
 	background-color: var(--bg-main);
 	color: var(--text-main);
 
-	font: var(--fw-regular) var(--fs-3) / 1.6 var(--font-body);
+	font: var(--fw-regular) var(--fs-3) / var(--lh-3) var(--font-body);
 
 	display: flex;
 	flex-direction: column;
@@ -96,40 +98,56 @@ h1,
 h2,
 h3,
 h4 {
-	color: var(--text-main);
 	font-family: var(--font-head);
-	line-height: 1.1;
 }
 
-/* If a heading follows other content, give it more space above */
-:where(h1, h2, h3, h4):not(:first-child) {
-	margin-top: var(--space-5);
+h1 {
+	font-size: var(--fs-7);
+	line-height: var(--lh-1);
+	color: var(--h1-main);
+}
+
+h2 {
+	font-size: var(--fs-6);
+	line-height: var(--lh-1);
+	color: var(--h2-main);
+}
+
+h3 {
+	font-size: var(--fs-5);
+	line-height: var(--lh-2);
+	color: var(--h3-main);
+}
+
+h4 {
+	font-size: var(--fs-4);
+	line-height: var(--lh-2);
+	color: var(--h4-main);
+}
+
+h3 {
+	font-size: var(--fs-3);
+	line-height: var(--lh-3);
+	color: var(--h5-main);
+}
+
+section {
+	/* Calculates inline padding */
+	--gutter: calc((100% - var(--container-max)) / 2);
+
+	/* if 100% < container-max then use --space-5 */
+	padding-inline: max(var(--space-5), var(--gutter));
+	padding-block: var(--space-5);
+
+	> :where(h1, h2, h3, h4):first-child {
+		margin-bottom: var(--space-4);
+	}
 }
 
 .stack {
 	display: flex;
 	flex-direction: column;
 	gap: var(--space-4);
-}
-
-h1 {
-	font-size: var(--fs-7);
-}
-
-h2 {
-	font-size: var(--fs-6);
-}
-
-h3 {
-	font-size: var(--fs-5);
-}
-
-h4 {
-	font-size: var(--fs-4);
-}
-
-section {
-	padding: var(--space-5) var(--space-5);
 }
 
 ul {
@@ -173,15 +191,12 @@ button {
 	transition-property: transform, filter, box-shadow;
 
 	&:hover {
-		filter: brightness(0.96);
+		filter: var(--hover-main);
+		transform: var(--scale-hover);
 		box-shadow: var(--shadow-2);
 	}
 
-	&.light:hover {
-		filter: brightness(1.1);
-	}
-
 	&:active {
-		transform: scale(0.98);
+		transform: var(--scale-active);
 	}
 }
