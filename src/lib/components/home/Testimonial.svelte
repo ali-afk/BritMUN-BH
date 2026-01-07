@@ -1,31 +1,36 @@
 <script lang="ts">
 import src from "$assets/logo.png";
+import { generateId } from "$scripts/utils";
+
+const titleId = generateId("testimonial-title");
 
 let { color, title, year, comment, direction } = $props();
-const isLight = ["purple-light", "purple-pale"].includes(color);
+const isContrast = ["primary-900", "primary-700", "primary-500"].includes(
+	color,
+);
 </script>
 
 <article
+	aria-labelledby={titleId}
 	style:background-color="var(--{color})"
-	class:light-theme={isLight}
+	class:contrast={isContrast}
 	class:reverse={direction === 'right'}
 	class="wrapper"
 >
-	<aside>
-		<img {src} alt="{title} logo">
-		<h3>{title}</h3>
+	<header>
+		<img {src} alt="">
+		<h5 id={titleId}>{title}</h5>
 		<p>BRITMUN {year}</p>
-	</aside>
+	</header>
 
-	<div class="content">
+	<blockquote class="content">
 		<p>{comment}</p>
-	</div>
+	</blockquote>
 </article>
 
 <style>
 article {
 	display: flex;
-	color: var(--text-contrast);
 	border-radius: var(--radius);
 	border: 1px solid var(--border-subtle);
 	box-shadow: var(--shadow-1);
@@ -43,40 +48,49 @@ article {
 
 	&.reverse {
 		flex-direction: row-reverse;
+
+		.content {
+			padding: var(--space-5) 0 var(--space-5) var(--space-7);
+		}
 	}
 
-	&.light-theme {
-		--text-contrast: var(--text-main);
+	&.contrast {
+		color: var(--text-contrast);
+		filter: var(--hover-contrast);
+
+		h5 {
+			color: var(--h5-contrast);
+		}
 	}
 
 	&:hover {
-		transform: translateY(-4px);
+		transform: translateY(-4px) var(--scale-hover);
 		box-shadow: var(--shadow-2);
+		filter: var(--hover-main);
 	}
 
-	aside {
+	header {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		text-align: center;
-		padding: var(--space-4);
+		padding: var(--space-3);
 		width: clamp(180px, 30%, 250px);
-		background: rgba(0, 0, 0, 0.1);
 
 		img {
 			width: 64px;
 			aspect-ratio: 1;
 			border-radius: 50%;
-			background: var(--white);
+			background: var(--bg-main);
 			padding: 4px;
 			object-fit: contain;
 		}
 
-		h3 {
-			font-size: var(--fs-3);
+		h5 {
 			margin-top: var(--space-2);
 		}
+
 		p {
 			font-size: var(--fs-1);
 			opacity: 0.8;
@@ -85,13 +99,13 @@ article {
 
 	.content {
 		flex: 1;
-		padding: var(--space-5) var(--space-6);
+		padding: var(--space-5) var(--space-7) var(--space-5) 0;
 		display: flex;
 		align-items: center;
 
 		p {
 			font-size: var(--fs-4);
-			line-height: 1.5;
+			line-height: var(--lh-2);
 			font-style: italic;
 		}
 	}
@@ -102,9 +116,13 @@ article {
 	article.reverse {
 		flex-direction: column;
 
-		aside {
+		header {
 			width: 100%;
 			padding-block: var(--space-5);
+		}
+
+		.content {
+			padding: 0 var(--space-5) var(--space-5);
 		}
 	}
 }

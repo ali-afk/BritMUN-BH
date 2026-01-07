@@ -61,7 +61,7 @@ header {
 	position: sticky;
 	top: 0;
 	z-index: 1000;
-	background-color: var(--white);
+	background-color: var(--bg-main);
 	box-shadow: var(--shadow-1);
 	transition-property: transform;
 	will-change: transform;
@@ -100,10 +100,10 @@ ul {
 		}
 
 		.councils {
-			color: var(--purple-mid);
+			color: var(--primary-700);
 		}
 		.photos {
-			color: var(--magenta);
+			color: var(--secondary-500);
 		}
 
 		&.cta {
@@ -117,7 +117,9 @@ ul {
 			}
 
 			&:hover {
-				filter: brightness(1.1);
+				filter: var(--hover-main);
+				transform: var(--scale-hover);
+				box-shadow: var(--shadow-1);
 			}
 		}
 	}

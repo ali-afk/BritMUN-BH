@@ -8,15 +8,3 @@ export function generateId(prefix: string = "id"): string {
 	idCounter++;
 	return `${prefix}-${idCounter}-${Math.random().toString(36).substring(2, 5)}`;
 }
-
-/**
- * Returns a value based on whether a CSS media query matches the current viewport.
- * @param query - Media query
- * @param onTrue - Value if query returns true
- * @param onFalse - Value if query returns false
- */
-export function getMediaValue<T>(query: string, onTrue: T, onFalse: T): T {
-	if (typeof window === "undefined") return onFalse;
-
-	return window.matchMedia(query).matches ? onTrue : onFalse;
-}
