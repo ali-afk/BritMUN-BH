@@ -5,8 +5,8 @@ import "./variables.css";
 import "@fontsource/girassol";
 import "@fontsource/average";
 import { onMount } from "svelte";
-import { registerProperties } from "$lib/scripts/register-properties";
 import { DefaultProperties } from "$data";
+import { registerProperties } from "$scripts/register-properties";
 
 onMount(() => {
 	registerProperties();
