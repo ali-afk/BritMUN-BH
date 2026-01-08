@@ -5,38 +5,25 @@ import { getStandardSlide } from "$scripts/transition";
 import { generateId } from "$scripts/utils";
 
 const contentId = generateId("content");
-const labelId = generateId("label");
 
 let { question, children } = $props();
 let isOpen = $state(false);
 </script>
 
 <article class="wrapper">
-	<h4 id="{labelId}">
-		<button
-			onclick={() => (isOpen = !isOpen)}
-			type="button"
-			aria-expanded={isOpen}
-			aria-controls="{contentId}"
-		>
-			<span>{question}</span>
-			<img
-				src={toggleIcon}
-				alt="Toggle"
-				class:active={isOpen}
-				aria-hidden="true"
-			>
-		</button>
-	</h4>
+	<button
+		onclick={() => (isOpen = !isOpen)}
+		type="button"
+		aria-expanded={isOpen}
+		aria-controls="{contentId}"
+	>
+		<span>{question}</span>
+		<img src={toggleIcon} alt="" class:active={isOpen} aria-hidden="true">
+	</button>
 
 	{#if isOpen}
-		<div
-			transition:slide={getStandardSlide()}
-			id="{contentId}"
-			role="region"
-			aria-labelledby="{labelId}"
-		>
-			<hr>
+		<div transition:slide={getStandardSlide()} id="{contentId}">
+			<hr aria-hidden="true">
 			<p>{@render children()}</p>
 		</div>
 	{/if}

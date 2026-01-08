@@ -1,8 +1,5 @@
 <script lang="ts">
 import src from "$assets/logo.png";
-import { generateId } from "$scripts/utils";
-
-const titleId = generateId("testimonial-title");
 
 let { color, title, year, comment, direction } = $props();
 const isContrast = [
@@ -13,7 +10,6 @@ const isContrast = [
 </script>
 
 <article
-	aria-labelledby={titleId}
 	style:background-color="var(--{color})"
 	class:contrast={isContrast}
 	class:reverse={direction === 'right'}
@@ -21,8 +17,10 @@ const isContrast = [
 >
 	<header>
 		<img {src} alt="">
-		<h5 id={titleId}>{title}</h5>
-		<p>BRITMUN {year}</p>
+		<h5>{title}</h5>
+		<p>
+			BRITMUN <time datetime={year}>{year}</time>
+		</p>
 	</header>
 
 	<blockquote class="content">
