@@ -28,6 +28,8 @@ export function registerProperties() {
 		const syntax = groupConfig?.syntax || "*";
 		const inherits = groupConfig?.inherits ?? true;
 		const initialValue = typeof value === "object" ? "" : String(value);
+
+		const failedProperties: any[] = [];
 		try {
 			window.CSS.registerProperty({
 				name: cssVarName,
@@ -35,6 +37,14 @@ export function registerProperties() {
 				inherits: inherits,
 				initialValue: initialValue,
 			});
-		} catch (e: any) {}
+		} catch (e: any) {
+			failedProperties.push({
+				Property: cssVarName,
+				Syntax: syntax,
+				Value: initialValue,
+				Reason: e.message.split(":")[0],
+				Details: e.message,
+			});
+		}
 	});
 }

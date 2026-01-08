@@ -11,6 +11,7 @@ const config = {
 			$data: "src/lib/data",
 			$assets: "src/lib/assets",
 			$scripts: "src/lib/scripts",
+			$styles: "src/lib/styles",
 		},
 	},
 	compilerOptions: {
