@@ -63,9 +63,10 @@ function parseBezierCoords(bezier: string): number[] {
  */
 export function getPreferredTransitionDuration(milliseconds?: number): number {
 	const raw =
-		milliseconds ?? parseCssTime(queryCssProperty("transition-duration"));
+		milliseconds ??
+		parseCssTime(queryCssProperty("transition-duration-medium")); // TODO: Make sure that parseCSSTime returns value if property not found.
 	const duration = Number.isNaN(raw)
-		? parseInt(DefaultProperties.transition.duration.value, 10)
+		? parseInt(DefaultProperties.transition.duration.medium, 10)
 		: raw;
 
 	return getMediaCurrent(prefersReducedMotion, 0, duration);

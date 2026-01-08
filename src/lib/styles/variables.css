@@ -27,7 +27,7 @@
 	--lh-4: 1.8; /* For small captions (fs-1, fs-2) */
 
 	/* --- Neutral Color Mix Logic --- */
-	--mix-strength: 10%;
+	--mix-strength: 5%;
 
 	--color-base-900: color-mix(
 		in srgb,
@@ -56,72 +56,26 @@
 	);
 
 	/* --- Component Colors --- */
-	--bg-main: var(--color-base-100);
-	--bg-card: color-mix(
-		in srgb,
-		var(--color-base-100),
-		var(--color-primary-500) 2%
-	);
-	--bg-contrast: color-mix(
-		in srgb,
-		var(--color-base-500),
-		var(--color-primary-500) 2%
-	);
-
-	--text-main: var(--color-base-900);
-	--text-muted: var(--color-base-700);
-	--text-contrast: var(--color-base-100);
-
-	--h1-main: var(--color-primary-500);
-	--h1-contrast: var(--color-base-100);
-
-	--h2-main: var(--color-primary-500);
-	--h2-contrast: var(--color-base-100);
-
-	--h3-main: var(--color-primary-500);
-	--h3-contrast: var(--color-base-100);
-
-	--h4-main: var(--color-base-900);
-	--h4-contrast: var(--color-base-100);
-
-	--h5-main: var(--color-base-900);
-	--h5-contrast: var(--color-base-100);
-
-	--border-main: var(--color-base-900);
-	--border-subtle: var(--color-base-300);
-
-	--sb-track: var(--color-primary-100);
-	--sb-thumb: var(--color-primary-900);
-
-	/* --- Interactive State --- */
-	--hover-main: brightness(0.98);
-	--hover-contrast: brightness(1.1);
-	--scale-hover: scale(1.02);
-	--scale-active: scale(0.98);
-
-	/* --- Buttons & Links --- */
-	--link: var(--status-info-500);
 	--accent: var(--color-primary-500);
+	--link: var(--color-status-info);
+
+	--bg-main: var(--color-base-100);
+	--bg-card: color-mix(in srgb, var(--color-base-100), var(--accent) 5%);
+	--bg-contrast: color-mix(in srgb, var(--color-base-500), var(--accent) 5%);
 
 	--btn-primary: var(--color-primary-700);
-	--btn-primary-hover: var(--color-primary-900);
-
-	--btn-danger: var(--status-danger-500);
-	--btn-danger-hover: var(--status-danger-700);
-
-	--btn-info: var(--status-info-500);
-	--btn-info-hover: var(--status-info-700);
-
-	--btn-warn: var(--status-warn-500);
-	--btn-warn-hover: var(--status-warn-700);
-
-	--btn-success: var(--status-success-500);
-	--btn-success-hover: var(--status-success-700);
+	--btn-danger: var(--color-status-danger);
+	--btn-info: var(--color-status-info);
+	--btn-warn: var(--color-status-warn);
+	--btn-success: var(--color-status-success);
 
 	/* --- Effects & Animation --- */
 	--shadow-color: color-mix(in srgb, var(--color-base-900), transparent 80%);
-	--shadow-1: 0 2px 4px var(--shadow-color);
-	--shadow-2: 0 10px 40px var(--shadow-color);
+	--shadow-weak: 0 2px 4px var(--shadow-color);
+	--shadow-strong: 0 10px 40px var(--shadow-color);
+
+	--scale-hover: scale(1.02);
+	--scale-active: scale(0.98);
 
 	/* --- Breakpoints --- */
 	--bp-1: 480px;

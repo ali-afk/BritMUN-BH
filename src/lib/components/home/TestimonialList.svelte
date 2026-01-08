@@ -1,24 +1,26 @@
 <script lang="ts">
+import { DefaultProperties } from "$data";
 import { testimonials } from "$data/home/";
 import Testimonial from "./Testimonial.svelte";
 
-const colorCycle = [
-	"color-primary-900",
-	"color-primary-700",
-	"color-primary-500",
-	"color-primary-300",
-	"color-primary-100",
-];
+const colorScale: (100 | 300 | 500 | 700 | 900)[] = [900, 700, 500, 300, 100];
+const colors = DefaultProperties.color.primary;
 </script>
 
 <section class="stack">
-	<h2>What students have said about us...</h2>
+	<h1>What students have said about us...</h1>
 
 	{#each testimonials as data, i}
 		<Testimonial
 			{...data}
-			color={colorCycle[i % colorCycle.length]}
+			color={colors[colorScale[i % 5]]}
 			direction={i % 2 === 0 ? 'right' : 'left'}
 		/>
 	{/each}
 </section>
+
+<style>
+h1 {
+	color: var(--color-primary-700);
+}
+</style>

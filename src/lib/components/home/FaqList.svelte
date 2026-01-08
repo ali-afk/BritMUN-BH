@@ -3,8 +3,8 @@ import { faqs } from "$data/home";
 import Faq from "./Faq.svelte";
 </script>
 
-<section class="stack faq">
-	<h2>FAQs</h2>
+<section class="stack">
+	<h1>FAQs</h1>
 
 	{#each faqs as faq}
 		<Faq question={faq.question}>{@html faq.answer}</Faq>
@@ -24,14 +24,13 @@ import Faq from "./Faq.svelte";
 
 <style>
 section {
-	background-color: var(--color-primary-700);
-
-	h2 {
-		color: var(--h1-contrast);
+	h1 {
+		color: var(--bg-main);
 	}
 
+	background-color: var(--color-primary-700);
+
 	footer p {
-		color: var(--text-contrast);
 		font-size: var(--fs-2);
 	}
 }

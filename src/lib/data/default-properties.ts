@@ -36,13 +36,15 @@ export const DefaultProperties = {
 			300: "#cccccc",
 			100: "#ffffff",
 		},
-	},
-	status: {
-		config: { syntax: "<color>", inherits: true },
-		danger: { 500: "#ec2c2b", 700: "#c00000" },
-		warn: { 500: "#f59e0b", 700: "#b45309" },
-		info: { 500: "#1dace8", 700: "#1682af" },
-		success: { 500: "#22c55e", 700: "#15803d" },
+		status: {
+			danger: "#ec2c2b",
+			warn: "#f59e0b",
+			info: "#1dace8",
+			success: "#22c55e",
+		},
+		context: {
+			value: " #ffffff",
+		},
 	},
 	fw: {
 		config: { syntax: "<number>", inherits: true },
@@ -74,16 +76,46 @@ export const DefaultProperties = {
 	},
 	transition: {
 		easing: {
-			config: { syntax: "*", inherits: true },
+			config: { syntax: "<easing-function> | *", inherits: true },
 			value: "ease-out",
 		},
-		duration: { config: { syntax: "<time>", inherits: true }, value: "200ms" },
+		duration: {
+			config: { syntax: "<time>", inherits: true },
+			long: "400ms",
+			medium: "200ms",
+			short: "100ms",
+		},
 	},
-	radius: { config: { syntax: "<length>", inherits: true }, value: "16px" },
+	border: {
+		radius: { config: { syntax: "<length>", inherits: true }, value: "16px" },
+		darkness: {
+			config: { syntax: "<percentage>", inherits: true },
+			value: "5%",
+		},
+		color: {
+			config: { syntax: "<color>", inherits: true },
+			value: "#ccc",
+		},
+	},
 	shadow: {
 		color: {
 			config: { syntax: "<color>", inherits: true },
 			value: "rgba(0, 0, 0, 0.25)",
 		},
+	},
+	hover: {
+		color: {
+			config: { syntax: "<color> | none", inherits: true },
+			value: "none",
+		},
+		degree: {
+			config: { syntax: "<number>", inherits: true },
+			value: "0.5",
+		},
+	},
+	text: {
+		config: { syntax: "<color>", inherits: true },
+		main: "#000",
+		mute: "#444",
 	},
 } as const;

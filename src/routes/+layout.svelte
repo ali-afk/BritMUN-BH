@@ -1,7 +1,7 @@
 <script lang="ts">
 import { Footer, Header } from "$components";
 import "./layout.css";
-import "./variables.css";
+import "$styles/variables.css";
 import "@fontsource/girassol";
 import "@fontsource/average";
 import { onMount } from "svelte";

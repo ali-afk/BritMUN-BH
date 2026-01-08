@@ -2,25 +2,19 @@
 import src from "$assets/logo.png";
 
 let { color, title, year, comment, direction } = $props();
-const isContrast = [
-	"color-primary-900",
-	"color-primary-700",
-	"color-primary-500",
-].includes(color);
 </script>
 
 <article
-	style:background-color="var(--{color})"
-	class:contrast={isContrast}
+	style="--color-context: {color}"
 	class:reverse={direction === 'right'}
-	class="wrapper"
+	class="wrapper interactive"
 >
 	<header>
 		<img {src} alt="">
-		<h5>{title}</h5>
-		<p>
+		<h2>{title}</h2>
+		<h3>
 			BRITMUN <time datetime={year}>{year}</time>
-		</p>
+		</h3>
 	</header>
 
 	<blockquote class="content">
@@ -31,12 +25,7 @@ const isContrast = [
 <style>
 article {
 	display: flex;
-	border-radius: var(--radius);
-	border: 1px solid var(--border-subtle);
-	box-shadow: var(--shadow-1);
-	transition-property: transform, box-shadow;
 	position: relative;
-	overflow: hidden;
 
 	&::before {
 		content: "“";
@@ -54,19 +43,8 @@ article {
 		}
 	}
 
-	&.contrast {
-		color: var(--text-contrast);
-		filter: var(--hover-contrast);
-
-		h5 {
-			color: var(--h5-contrast);
-		}
-	}
-
-	&:hover {
-		transform: translateY(-4px) var(--scale-hover);
-		box-shadow: var(--shadow-2);
-		filter: var(--hover-main);
+	:where(&:hover) {
+		transform: translateY(-4px);
 	}
 
 	header {
@@ -87,11 +65,12 @@ article {
 			object-fit: contain;
 		}
 
-		h5 {
+		h2 {
+			font-size: var(--fs-2);
 			margin-top: var(--space-2);
 		}
 
-		p {
+		h3 {
 			font-size: var(--fs-1);
 			opacity: 0.8;
 		}

@@ -28,8 +28,8 @@ img {
 	width: 100%;
 	max-height: 80dvh;
 	object-fit: contain;
-	box-shadow: var(--shadow-2);
-	border-radius: var(--radius);
+	box-shadow: var(--shadow-strong);
+	border-radius: var(--border-radius);
 	background-color: var(--color-primary-100);
 }
 </style>

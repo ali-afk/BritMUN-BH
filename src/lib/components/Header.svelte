@@ -46,7 +46,7 @@ $effect(() => {
 					>Event Photos</a
 				>
 			</li>
-			<li class="cta">
+			<li class="cta interactive">
 				<a
 					href="https://drive.google.com/file/d/1YCPxn5l6TtPkgeytVyQf--sFhn5skeZU/view"
 					>Delegate Allocations</a
@@ -58,12 +58,13 @@ $effect(() => {
 
 <style>
 header {
+	background-color: var(--bg-main);
 	position: sticky;
 	top: 0;
 	z-index: 1000;
-	background-color: var(--bg-main);
-	box-shadow: var(--shadow-1);
+	box-shadow: var(--shadow-weak);
 	transition-property: transform;
+	transition-duration: var(--transition-duration-medium);
 	will-change: transform;
 	padding-block: var(--space-2);
 
@@ -95,7 +96,7 @@ ul {
 
 			&:hover,
 			&:focus-visible {
-				text-decoration-color: unset;
+				text-decoration-color: unset; /* Forces link decoration color = link color instead of global value */
 			}
 		}
 
@@ -107,19 +108,12 @@ ul {
 		}
 
 		&.cta {
-			background-color: var(--btn-primary);
+			--color-context: var(--color-primary-700);
 			padding: var(--space-2) var(--space-3);
-			border-radius: var(--radius);
 
 			a {
-				color: var(--text-contrast);
+				color: var(--text-main);
 				font-size: var(--fs-2);
-			}
-
-			&:hover {
-				filter: var(--hover-main);
-				transform: var(--scale-hover);
-				box-shadow: var(--shadow-1);
 			}
 		}
 	}

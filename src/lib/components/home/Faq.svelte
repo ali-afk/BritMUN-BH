@@ -10,7 +10,7 @@ let { question, children } = $props();
 let isOpen = $state(false);
 </script>
 
-<article class="wrapper">
+<article class="wrapper interactive">
 	<button
 		onclick={() => (isOpen = !isOpen)}
 		type="button"
@@ -31,16 +31,7 @@ let isOpen = $state(false);
 
 <style>
 article {
-	background: var(--bg-card);
-	border-radius: var(--radius);
-	box-shadow: var(--shadow-1);
-	transition-property: box-shadow, transform;
-
-	&:hover {
-		filter: var(--hover-main);
-		box-shadow: var(--shadow-2);
-		transform: var(--scale-hover);
-	}
+	--color-context: var(--bg-card);
 
 	button {
 		padding: var(--space-4);
@@ -50,16 +41,15 @@ article {
 		align-items: center;
 		text-align: left;
 		background: transparent;
-		box-shadow: none;
 
 		span {
-			font-weight: var(--fw-light);
-			font-family: var(--font-body);
+			font: var(--fw-light) var(--fs-4) / var(--lh-2) var(--font-body);
 		}
 
 		img {
 			margin-left: var(--space-4);
 			width: var(--fs-4);
+			transition-property: transform;
 
 			&.active {
 				transform: rotate(45deg);
@@ -68,7 +58,7 @@ article {
 	}
 
 	div {
-		color: var(--text-muted);
+		color: var(--text-mute);
 		display: flex;
 		flex-direction: column;
 		padding: 0 var(--space-4) var(--space-4);
