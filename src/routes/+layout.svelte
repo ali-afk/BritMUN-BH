@@ -6,6 +6,7 @@ import "@fontsource/girassol";
 import "@fontsource/average";
 import { onMount } from "svelte";
 import { registerProperties } from "$lib/scripts/register-properties";
+import { DefaultProperties } from "$data";
 
 onMount(() => {
 	registerProperties();
@@ -27,7 +28,7 @@ let { children } = $props();
 		content="BRITMUN XI, Model United Nations, BSB MUN, British School of Bahrain, Bahrain Student Debate, Diplomacy Conference"
 	>
 	<meta name="author" content="British School of Bahrain">
-	<meta name="theme-color" content="#5d3568">
+	<meta name="theme-color" content={DefaultProperties.color.primary[500]}>
 
 	<meta property="og:title" content="BRITMUN XI - British School of Bahrain">
 	<meta
