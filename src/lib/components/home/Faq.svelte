@@ -1,7 +1,7 @@
 <script lang="ts">
 import { slide } from "svelte/transition";
 import toggleIcon from "$assets/home/toggle.svg";
-import { getStandardSlide } from "$scripts/transition";
+import { standardSlide } from "$scripts/transition";
 import { generateId } from "$scripts/utils";
 
 const contentId = generateId("content");
@@ -22,7 +22,7 @@ let isOpen = $state(false);
 	</button>
 
 	{#if isOpen}
-		<div transition:slide={getStandardSlide()} id="{contentId}">
+		<div transition:slide={standardSlide()} id="{contentId}">
 			<hr aria-hidden="true">
 			<p>{@render children()}</p>
 		</div>

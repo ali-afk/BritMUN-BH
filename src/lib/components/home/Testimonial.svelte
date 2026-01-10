@@ -10,7 +10,7 @@ let { color, title, year, comment, direction } = $props();
 	class="wrapper interactive"
 >
 	<header>
-		<img {src} alt="">
+		<img {src} alt="" width="64px">
 		<h2>{title}</h2>
 		<h3>
 			BRITMUN <time datetime={year}>{year}</time>
@@ -57,7 +57,6 @@ article {
 		width: clamp(180px, 30%, 250px);
 
 		img {
-			width: 64px;
 			aspect-ratio: 1;
 			border-radius: 50%;
 			background: var(--bg-main);
@@ -76,7 +75,7 @@ article {
 		}
 	}
 
-	.content {
+	blockquote {
 		flex: 1;
 		padding: var(--space-5) var(--space-7) var(--space-5) 0;
 		display: flex;
@@ -100,7 +99,7 @@ article {
 			padding-block: var(--space-5);
 		}
 
-		.content {
+		blockquote {
 			padding: 0 var(--space-5) var(--space-5);
 		}
 	}

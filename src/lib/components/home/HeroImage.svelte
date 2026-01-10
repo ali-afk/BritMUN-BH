@@ -4,7 +4,13 @@ import hero from "$assets/home/hero.png";
 
 <section>
 	<div class="hero-frame wrapper">
-		<img src={hero} alt="Through the Looking Glass" loading="eager">
+		<img
+			src={hero}
+			alt="Through the Looking Glass"
+			loading="eager"
+			fetchpriority="high"
+			width="100%"
+		>
 	</div>
 </section>
 
@@ -25,7 +31,6 @@ section {
 }
 
 img {
-	width: 100%;
 	max-height: 80dvh;
 	object-fit: contain;
 	box-shadow: var(--shadow-strong);

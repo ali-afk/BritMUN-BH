@@ -26,8 +26,8 @@ export const DefaultProperties = {
 			900: "#5d0634",
 			700: "#940c53",
 			500: "#b00e63",
-			300: "#e695be",
-			100: "#faeff5",
+			300: "#d66da4",
+			100: "#f4d7e6",
 		},
 		base: {
 			900: "#000000",
@@ -37,10 +37,10 @@ export const DefaultProperties = {
 			100: "#ffffff",
 		},
 		status: {
-			danger: "#ec2c2b",
-			warn: "#f59e0b",
-			info: "#1dace8",
-			success: "#22c55e",
+			danger: "#dc2626",
+			warn: "#d97706",
+			info: "#00b4d8",
+			success: "#16a34a",
 		},
 		context: {
 			value: " #ffffff",
@@ -81,16 +81,16 @@ export const DefaultProperties = {
 		},
 		duration: {
 			config: { syntax: "<time>", inherits: true },
-			long: "400ms",
+			long: "300ms",
 			medium: "200ms",
-			short: "100ms",
+			short: "150ms",
 		},
 	},
 	border: {
 		radius: { config: { syntax: "<length>", inherits: true }, value: "16px" },
 		darkness: {
-			config: { syntax: "<percentage>", inherits: true },
-			value: "5%",
+			config: { syntax: "<number>", inherits: true },
+			value: "0.025",
 		},
 		color: {
 			config: { syntax: "<color>", inherits: true },
@@ -110,7 +110,7 @@ export const DefaultProperties = {
 		},
 		degree: {
 			config: { syntax: "<number>", inherits: true },
-			value: "0.5",
+			value: "0.03",
 		},
 	},
 	text: {
