@@ -1,14 +1,14 @@
 <script lang="ts">
 import { Footer, Header } from "$components";
-import "./layout.css";
-import "$styles/variables.css";
-import "@fontsource/girassol";
-import "@fontsource/average";
-import { onMount } from "svelte";
 import { DefaultProperties } from "$data";
 import { registerProperties } from "$scripts/register-properties";
+import "$styles/variables.css";
+import { onMount } from "svelte";
+import "./layout.css";
+// import { optimiseInteractive } from "$scripts/interactive";
 
 onMount(() => {
+	// optimiseInteractive(); Currently causes font blurring on chromuim browsers
 	registerProperties();
 	document.documentElement.classList.add("document-loaded");
 });

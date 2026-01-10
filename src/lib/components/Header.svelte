@@ -64,7 +64,7 @@ header {
 	z-index: 1000;
 	box-shadow: var(--shadow-weak);
 	transition-property: transform;
-	transition-duration: var(--transition-duration-medium);
+	transition-duration: var(--transition-duration-long);
 	will-change: transform;
 	padding-block: var(--space-2);
 
@@ -110,6 +110,11 @@ ul {
 		&.cta {
 			--color-context: var(--color-primary-700);
 			padding: var(--space-2) var(--space-3);
+			box-shadow: var(--shadow-weak);
+
+			&:hover {
+				box-shadow: unset;
+			}
 
 			a {
 				color: var(--text-main);

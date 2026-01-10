@@ -58,28 +58,14 @@ function parseBezierCoords(bezier: string): number[] {
 }
 
 /**
- * Returns 0 if prefersReducedMotion is true, else returns provided duration.
- * Defaults to "transition-duration" property if duration not provided.
- */
-export function getPreferredTransitionDuration(milliseconds?: number): number {
-	const raw =
-		milliseconds ??
-		parseCssTime(queryCssProperty("transition-duration-medium")); // TODO: Make sure that parseCSSTime returns value if property not found.
-	const duration = Number.isNaN(raw)
-		? parseInt(DefaultProperties.transition.duration.medium, 10)
-		: raw;
-
-	return getMediaCurrent(prefersReducedMotion, 0, duration);
-}
-
-/**
  * Standard transition object for Svelte directives
  * usage: transition:slide={getStandardSlide(options?)}
  */
-export function getStandardSlide(options?: SlideParams): SlideParams {
+export function standardSlide(duration?: number): SlideParams {
+	const raw =
+		duration ?? parseCssTime(DefaultProperties.transition.duration.medium);
 	return {
-		duration: getPreferredTransitionDuration(),
+		duration: getMediaCurrent(prefersReducedMotion, 0, raw),
 		easing: getTransitionEasing(),
-		...options,
 	};
 }

@@ -1,22 +1,9 @@
+@import "@fontsource/girassol/latin-400.css" layer(base);
+@import "@fontsource/average/latin-400.css" layer(base);
+
 *,
 *::before,
 *::after {
-	--text-main: oklch(from var(--color-context) calc((0.5 - l) * infinity) 0 0);
-	--text-mute: oklch(from var(--color-context) 0.5 c h);
-
-	--border-color: oklch(
-		from var(--color-context)
-			calc(l + (0.5 - l) * 0.2 - (var(--border-darkness) / 100)) c h /
-		0.25
-	);
-
-	--hover-color: oklch(
-		from var(--color-context) calc((0.5 - l) * infinity * var(--hover-degree)) c
-			h
-	);
-
-	--hover-filter: drop-shadow(0 0 0 var(--hover-color));
-
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
@@ -29,17 +16,40 @@
 }
 
 .interactive {
+	--contrast-direction: sign(0.6 - l);
+
+	--text-main: oklch(
+		from var(--color-context) clamp(0, var(--contrast-direction), 1) 0 0
+	);
+	--text-mute: oklch(from var(--color-context) 0.5 c h);
+
+	--border-brightness: calc(
+		l +
+		(var(--contrast-direction) * (var(--border-darkness)))
+	);
+	--border-color: oklch(
+		from var(--color-context) clamp(0, var(--border-brightness), 1) c h
+	);
+
+	--hover-brightness: calc(
+		l +
+		(var(--contrast-direction) * var(--hover-degree))
+	);
+	--hover-color: oklch(
+		from var(--color-context) clamp(0, var(--hover-brightness), 1) c h
+	);
+
 	background-color: var(--color-context);
 	color: var(--text-main);
 
-	border-color: var(--border-color);
+	border: 1px solid var(--border-color);
 	border-radius: var(--border-radius);
 
 	box-shadow: var(--shadow-weak);
-	transition-property: transform, filter, box-shadow;
+	transition-property: transform, background-color, box-shadow;
 
 	&:hover {
-		filter: var(--hover-target);
+		background-color: var(--hover-color);
 		transform: var(--scale-hover);
 		box-shadow: var(--shadow-strong);
 	}
@@ -47,6 +57,11 @@
 	&:active {
 		transform: var(--scale-active);
 	}
+
+	/* GPU Optimisations */
+	backface-visibility: hidden;
+	perspective: 1000px;
+	transform: translateZ(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -143,8 +158,9 @@ body {
 
 	color: var(--text-main);
 	background-color: var(--bg-main);
-	font: var(--fw-regular) var(--fs-3) / var(--lh-3) var(--font-body);
 
+	font: var(--fw-regular) var(--fs-3) / var(--lh-3) var(--font-body);
+	font-display: swap; /* Lazy font loading */
 	display: flex;
 	flex-direction: column;
 }
