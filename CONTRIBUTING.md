@@ -208,14 +208,18 @@ Why this change was needed
 ### Commit Types
 
 | Type | When to Use | Example |
-| ------ | ------------- | --------- |
+| ---------- | ----------------------------------------- | ----------------------------------------------- |
 | `feat` | New feature | `feat: add council registration form` |
+| `feat-rm` | Remove feature | `feat-rm: remove outdated conference countdown` |
 | `fix` | Bug fix | `fix: mobile menu not closing on link click` |
+| `update` | Update existing functionality | `update: improve form validation messages` |
 | `content` | Content updates | `content: update FAQs for BRITMUN XII` |
 | `style` | Visual/CSS changes | `style: improve testimonial card spacing` |
 | `refactor` | Code improvement (no behavior change) | `refactor: simplify header scroll logic` |
+| `docs` | Documentation changes | `docs: add deployment instructions to README` |
 | `config` | Configuration changes | `config: update Netlify build settings` |
 | `chore` | Maintenance tasks | `chore: update dependencies` |
+| `misc` | Other changes that don't fit categories | `misc: fix typos in code comments` |
 
 ### Examples
 
