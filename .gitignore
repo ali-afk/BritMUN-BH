@@ -4,5 +4,6 @@ build/
 *.bak
 .env
 .env.*
+.serena
 !.env.test
 .vite

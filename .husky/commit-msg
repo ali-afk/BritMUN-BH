@@ -1,4 +1,4 @@
-types="fix|config|feat|feat-rm|update|experimental|chore|style|content|misc|refactor"
+types="fix|config|feat|feat-rm|update|docs|chore|style|content|misc|refactor"
 
 pattern="^($types)(\+($types))*: .+"
 
