@@ -1,2 +1,2 @@
 echo "🧹 Fixing staged changes..."
-pnpm fix
+bun fix

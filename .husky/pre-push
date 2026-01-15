@@ -1,2 +1,2 @@
 echo "🛡️ Running code validation..."
-pnpm fix-all
+bun fix-all
