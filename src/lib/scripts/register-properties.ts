@@ -57,7 +57,7 @@ export function registerProperties() {
 	// Flatten nested object: { color: { primary: { 500: "#934599" } } }
 	// Becomes: { "color-primary-500": "#934599" }
 	const properties = flatten(DefaultProperties, {
-		delimiter: "-", // Use hyphen as separator (CSS convention)
+		delimiter: "-", // Use hyphen as separator
 	}) as Record<string, PropertyNode>;
 
 	const keys = Object.keys(properties);
@@ -80,31 +80,31 @@ export function registerProperties() {
 		// Convert to CSS variable name: "transition.easing.value" → "--transition-easing"
 		const cssVarName = `--${key.replace("-value", "")}`;
 
-		// Extract path parts to find the config
 		// Example: "color-primary-500" → ["color", "primary", "500"]
 		const pathParts = key.split("-");
-		const rootKey = pathParts[0]; // "color"
-		const subKey = pathParts[1]; // "primary"
+		const rootKey = pathParts[0] as keyof typeof DefaultProperties | undefined; // "color"
+		const subKey = pathParts[1] as string | undefined; // "primary"
 
-		// Find the appropriate config for this property
-		// Check sub-group config first (more specific), then group config (more general)
 		// Example: color.primary.config takes precedence over color.config
-		const props = DefaultProperties as any;
+		// Step through safely: get root object, then sub-object, then check for configs
+		const root = rootKey ? DefaultProperties[rootKey] : undefined;
+		const sub =
+			root && subKey
+				? (root as Record<string, PropertyNode>)[subKey]
+				: undefined;
 		const groupConfig: PropertyConfig | undefined =
-			props[rootKey]?.[subKey]?.config || props[rootKey]?.config;
+			sub?.config ?? (root as PropertyNode | undefined)?.config;
 
-		// Get registration parameters with fallbacks
-		const syntax = groupConfig?.syntax || "*"; // "*" accepts any value
-		const inherits = groupConfig?.inherits ?? true; // Most properties should inherit
+		const syntax = groupConfig?.syntax ?? "*";
+		const inherits = groupConfig?.inherits ?? true;
 		const initialValue = typeof value === "object" ? "" : String(value);
 
-		// Register with browser's CSS Properties and Values API
 		try {
 			window.CSS.registerProperty({
-				name: cssVarName, // e.g., "--color-primary-500"
-				syntax: syntax, // e.g., "<color>"
-				inherits: inherits, // e.g., true
-				initialValue: initialValue, // e.g., "#934599"
+				name: cssVarName,
+				syntax: syntax,
+				inherits: inherits,
+				initialValue: initialValue,
 			});
 		} catch (e: any) {
 			// Property registration can fail if:
