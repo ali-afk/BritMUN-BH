@@ -38,7 +38,7 @@ article {
 	&.reverse {
 		flex-direction: row-reverse;
 
-		.content {
+		blockquote {
 			padding: var(--space-5) 0 var(--space-5) var(--space-7);
 		}
 	}
