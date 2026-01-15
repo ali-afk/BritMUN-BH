@@ -13,7 +13,7 @@ const colors = DefaultProperties.color.primary;
 	{#each testimonials as data, i}
 		<Testimonial
 			{...data}
-			color={colors[colorScale[i % 5]]}
+			color={colors[colorScale[i % 5] ?? 500]}
 			direction={i % 2 === 0 ? 'right' : 'left'}
 		/>
 	{/each}
