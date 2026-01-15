@@ -32,7 +32,7 @@ export function parseCssTime(time: string): number {
 		return Number.isNaN(fallback) ? 0 : fallback;
 	}
 
-	const [_, value, unit] = match;
+	const [_, value = "0", unit = "ms"] = match;
 	const numValue = parseFloat(value);
 
 	return unit === "s" ? numValue * 1000 : numValue;
