@@ -88,8 +88,8 @@
 	--container-max: var(--bp-4);
 }
 
-/* Shift sizes down on smaller screens */
-@media (max-width: 768px) {
+/* Responsive scaling: fonts shift more aggressively than spaces */
+@media (max-width: 1024px) {
 	:root {
 		/* Font sizes: shift down 1 level */
 		--fs-1: clamp(1rem, 0.95rem + 0.25vw, 1.2rem); /* was fs-0 */
@@ -99,6 +99,18 @@
 		--fs-5: clamp(1.8rem, 1.7rem + 0.5vw, 2.2rem); /* was fs-4 */
 		--fs-6: clamp(2.2rem, 2.05rem + 0.75vw, 2.8rem); /* was fs-5 */
 		--fs-7: clamp(2.8rem, 2.5rem + 1.5vw, 4rem); /* was fs-6 */
+	}
+}
+
+@media (max-width: 768px) {
+	:root {
+		/* Font sizes: shift down 2 levels */
+		--fs-2: clamp(1rem, 0.95rem + 0.25vw, 1.2rem); /* was fs-0 */
+		--fs-3: clamp(1.2rem, 1.15rem + 0.25vw, 1.4rem); /* was fs-1 */
+		--fs-4: clamp(1.4rem, 1.35rem + 0.25vw, 1.6rem); /* was fs-2 */
+		--fs-5: clamp(1.6rem, 1.55rem + 0.25vw, 1.8rem); /* was fs-3 */
+		--fs-6: clamp(1.8rem, 1.7rem + 0.5vw, 2.2rem); /* was fs-4 */
+		--fs-7: clamp(2.2rem, 2.05rem + 0.75vw, 2.8rem); /* was fs-5 */
 
 		/* Spaces: shift down 1 level */
 		--space-1: clamp(0.2rem, 0.175rem + 0.075vw, 0.3rem); /* was space-0 */
@@ -114,13 +126,12 @@
 
 @media (max-width: 480px) {
 	:root {
-		/* Font sizes: shift down 2 levels */
-		--fs-2: clamp(1rem, 0.95rem + 0.25vw, 1.2rem); /* was fs-0 */
-		--fs-3: clamp(1.2rem, 1.15rem + 0.25vw, 1.4rem); /* was fs-1 */
-		--fs-4: clamp(1.4rem, 1.35rem + 0.25vw, 1.6rem); /* was fs-2 */
-		--fs-5: clamp(1.6rem, 1.55rem + 0.25vw, 1.8rem); /* was fs-3 */
-		--fs-6: clamp(1.8rem, 1.7rem + 0.5vw, 2.2rem); /* was fs-4 */
-		--fs-7: clamp(2.2rem, 2.05rem + 0.75vw, 2.8rem); /* was fs-5 */
+		/* Font sizes: shift down 3 levels */
+		--fs-3: clamp(1rem, 0.95rem + 0.25vw, 1.2rem); /* was fs-0 */
+		--fs-4: clamp(1.2rem, 1.15rem + 0.25vw, 1.4rem); /* was fs-1 */
+		--fs-5: clamp(1.4rem, 1.35rem + 0.25vw, 1.6rem); /* was fs-2 */
+		--fs-6: clamp(1.6rem, 1.55rem + 0.25vw, 1.8rem); /* was fs-3 */
+		--fs-7: clamp(1.8rem, 1.7rem + 0.5vw, 2.2rem); /* was fs-4 */
 
 		/* Spaces: shift down 2 levels */
 		--space-2: clamp(0.2rem, 0.175rem + 0.075vw, 0.3rem); /* was space-0 */
