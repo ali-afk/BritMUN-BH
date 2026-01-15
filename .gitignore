@@ -5,6 +5,9 @@ build/
 *.bak
 .env
 .env.*
-.serena
 !.env.test
 .vite
+
+# AI Tools
+.claude
+.serena
