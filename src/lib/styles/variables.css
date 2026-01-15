@@ -85,3 +85,15 @@
 
 	--container-max: var(--bp-4);
 }
+
+/* Shift all font sizes down one level on small screens */
+@media (max-width: 768px) {
+	:root {
+		--fs-2: clamp(1.2rem, 1.15rem + 0.25vw, 1.4rem); /* was fs-1 */
+		--fs-3: clamp(1.4rem, 1.35rem + 0.25vw, 1.6rem); /* was fs-2 */
+		--fs-4: clamp(1.6rem, 1.55rem + 0.25vw, 1.8rem); /* was fs-3 */
+		--fs-5: clamp(1.8rem, 1.7rem + 0.5vw, 2.2rem); /* was fs-4 */
+		--fs-6: clamp(2.2rem, 2.05rem + 0.75vw, 2.8rem); /* was fs-5 */
+		--fs-7: clamp(2.8rem, 2.5rem + 1.5vw, 4rem); /* was fs-6 */
+	}
+}
