@@ -125,7 +125,7 @@ export const DefaultProperties = {
 	},
 	transition: {
 		easing: {
-			config: { syntax: "<easing-function>", inherits: true },
+			config: { syntax: "*", inherits: true },
 			value: "ease-out",
 		},
 		duration: {
@@ -161,10 +161,20 @@ export const DefaultProperties = {
 			config: { syntax: "<number>", inherits: true },
 			value: "0.03",
 		},
+		border: {
+			darkness: {
+				config: { syntax: "<number>", inherits: true },
+				value: "0.1",
+			},
+			color: {
+				config: { syntax: "<color>", inherits: true },
+				value: "#888",
+			},
+		},
 	},
 	text: {
 		config: { syntax: "<color>", inherits: true },
 		main: "#000",
 		mute: "#444",
 	},
-} as const;
+} as const satisfies Record<string, PropertyNode>;
