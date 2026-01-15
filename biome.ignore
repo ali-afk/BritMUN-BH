@@ -1,6 +1,5 @@
 node_modules/
-pnpm-lock.yaml
-pnpm-workspace.yaml
+bun-lock.yaml
 .env
 .env.*
 *.bak
