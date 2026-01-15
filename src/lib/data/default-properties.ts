@@ -104,6 +104,7 @@ export const DefaultProperties = {
 	},
 	fs: {
 		config: { syntax: "<length>", inherits: true },
+		0: "10px",
 		1: "12px",
 		2: "14px",
 		3: "16px",
@@ -114,6 +115,7 @@ export const DefaultProperties = {
 	},
 	space: {
 		config: { syntax: "<length>", inherits: true },
+		0: "3px",
 		1: "5px",
 		2: "10px",
 		3: "14px",
