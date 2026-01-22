@@ -36,38 +36,32 @@ export const councilCategories: CouncilCategory[] = [
 			{
 				name: "United Nations International Children's Emergency Fund (UNICEF)",
 				image: unicef,
-				backgroundGuide:
-					"https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
+				backgroundGuide: "/404",
 			},
 			{
 				name: "United Nations Office on Drugs & Crime (UNODC)",
 				image: unodc,
-				backgroundGuide:
-					"https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
+				backgroundGuide: "/404",
 			},
 			{
 				name: "Economic and Financial Committee (ECOFIN)",
 				image: ecofin,
-				backgroundGuide:
-					"https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
+				backgroundGuide: "/404",
 			},
 			{
 				name: "United Nations Educational, Scientific and Cultural Organization (UNESCO)",
 				image: unesco,
-				backgroundGuide:
-					"https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
+				backgroundGuide: "/404",
 			},
 			{
 				name: "United Nations Commission on the Status of Women (UNCSW)",
 				image: uncsw,
-				backgroundGuide:
-					"https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
+				backgroundGuide: "/404",
 			},
 			{
 				name: "Disarmament and International Security Committee (DISEC)",
 				image: disec,
-				backgroundGuide:
-					"https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
+				backgroundGuide: "/404",
 			},
 		],
 	},
@@ -77,44 +71,37 @@ export const councilCategories: CouncilCategory[] = [
 			{
 				name: "United Nations Security Council (UNSC)",
 				image: unsc,
-				backgroundGuide:
-					"https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
+				backgroundGuide: "/404",
 			},
 			{
 				name: "Grey's Anatomy",
 				image: greysanatomy,
-				backgroundGuide:
-					"https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
+				backgroundGuide: "/404",
 			},
 			{
 				name: "Legally Blonde",
 				image: legallyblonde,
-				backgroundGuide:
-					"https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
+				backgroundGuide: "/404",
 			},
 			{
 				name: "J.P. Morgan",
 				image: jpmorgan,
-				backgroundGuide:
-					"https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
+				backgroundGuide: "/404",
 			},
 			{
 				name: "International Sports Regulation Committee",
 				image: sports,
-				backgroundGuide:
-					"https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
+				backgroundGuide: "/404",
 			},
 			{
 				name: "Confederación De Psicología",
 				image: psicologia,
-				backgroundGuide:
-					"https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
+				backgroundGuide: "/404",
 			},
 			{
 				name: "International Atomic Energy Agency (IAEA)",
 				image: iaea,
-				backgroundGuide:
-					"https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
+				backgroundGuide: "/404",
 			},
 		],
 	},
@@ -124,26 +111,22 @@ export const councilCategories: CouncilCategory[] = [
 			{
 				name: "Jumanji",
 				image: jumanji,
-				backgroundGuide:
-					"https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
+				backgroundGuide: "/404",
 			},
 			{
 				name: "Fantasy",
 				image: fantasy,
-				backgroundGuide:
-					"https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
+				backgroundGuide: "/404",
 			},
 			{
 				name: "Dexter",
 				image: dexter,
-				backgroundGuide:
-					"https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
+				backgroundGuide: "/404",
 			},
 			{
 				name: "Vigilante Enforcement Division",
 				image: vigilante,
-				backgroundGuide:
-					"https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
+				backgroundGuide: "/404",
 			},
 		],
 	},
@@ -153,8 +136,7 @@ export const councilCategories: CouncilCategory[] = [
 			{
 				name: "World Health Organization (WHO)",
 				image: who,
-				backgroundGuide:
-					"https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
+				backgroundGuide: "/404",
 			},
 		],
 	},
@@ -164,8 +146,7 @@ export const councilCategories: CouncilCategory[] = [
 			{
 				name: "جامعة الدول العربية (The Arab League)",
 				image: arableague,
-				backgroundGuide:
-					"https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
+				backgroundGuide: "/404",
 			},
 		],
 	},
