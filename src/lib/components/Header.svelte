@@ -74,6 +74,7 @@ header {
 }
 
 ul {
+	margin-inline: var(--space-4);
 	align-items: center;
 	gap: var(--space-5);
 	width: 100%;
