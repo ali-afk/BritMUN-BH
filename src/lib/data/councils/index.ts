@@ -1,22 +1,22 @@
+import arableague from "$assets/councils/arableague.png";
+import dexter from "$assets/councils/dexter.png";
+import disec from "$assets/councils/disec.png";
+import ecofin from "$assets/councils/ecofin.png";
+import fantasy from "$assets/councils/fantasy.png";
+import greysanatomy from "$assets/councils/greysanatomy.png";
+import iaea from "$assets/councils/iaea.png";
+import jpmorgan from "$assets/councils/jpmorgan.jpg";
+import jumanji from "$assets/councils/jumanji.png";
+import legallyblonde from "$assets/councils/legallyblonde.png";
+import psicologia from "$assets/councils/psicologia.png";
+import sports from "$assets/councils/sports.svg";
+import uncsw from "$assets/councils/uncsw.webp";
+import unesco from "$assets/councils/unesco.png";
 import unicef from "$assets/councils/unicef.png";
 import unodc from "$assets/councils/unodc.png";
-import ecofin from "$assets/councils/ecofin.png";
-import unesco from "$assets/councils/unesco.png";
-import uncsw from "$assets/councils/uncsw.webp";
-import disec from "$assets/councils/disec.png";
 import unsc from "$assets/councils/unsc.png";
-import greysanatomy from "$assets/councils/greysanatomy.png";
-import legallyblonde from "$assets/councils/legallyblonde.png";
-import jpmorgan from "$assets/councils/jpmorgan.jpg";
-import sports from "$assets/councils/sports.svg";
-import psicologia from "$assets/councils/psicologia.png";
-import iaea from "$assets/councils/iaea.png";
-import jumanji from "$assets/councils/jumanji.png";
-import fantasy from "$assets/councils/fantasy.png";
-import dexter from "$assets/councils/dexter.png";
 import vigilante from "$assets/councils/vigilante.png";
 import who from "$assets/councils/who.png";
-import arableague from "$assets/councils/arableague.png";
 
 export type Council = {
 	name: string;
@@ -170,4 +170,3 @@ export const councilCategories: CouncilCategory[] = [
 		],
 	},
 ];
-
