@@ -68,6 +68,10 @@
 		}
 	}
 
+	a {
+		border: none;
+	}
+
 	&:active {
 		transform: var(--scale-active);
 	}
@@ -197,20 +201,21 @@ h4 {
 }
 
 section {
-	/* Calculates inline padding */
-	--gutter: calc((100% - var(--container-max)) / 2);
-
-	/* if 100% < container-max then use --space-5 */
-	padding-inline: max(var(--space-5), var(--gutter));
-	padding-block: var(--space-5);
-
 	> :where(h1, h2, h3, h4):first-child {
 		margin-bottom: var(--space-4);
 	}
 
-	> h1 {
-		font-size: var(--fs-6);
-		line-height: var(--lh-1);
+	main > & {
+		/* Calculates inline padding */
+		--gutter: calc((100% - var(--container-max)) / 2);
+
+		/* if 100% < container-max then use --space-5 */
+		padding-inline: max(var(--space-5), var(--gutter));
+		padding-block: var(--space-5);
+
+		> h1 {
+			font: var(--fw-bold) var(--fs-6) / var(--lh-1) var(--font-head);
+		}
 	}
 }
 
@@ -231,6 +236,7 @@ ul {
 }
 
 a {
+	border: none;
 	color: var(--link);
 	text-decoration: underline;
 	text-decoration-color: transparent;
