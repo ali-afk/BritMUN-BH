@@ -2,9 +2,11 @@
 import { Footer, Header } from "$components";
 import { DefaultProperties } from "$data";
 import { registerProperties } from "$scripts/register-properties";
+import "$styles/layout.css";
 import "$styles/variables.css";
 import { onMount } from "svelte";
-import "./layout.css";
+import heroImage from "$assets/home/hero.webp";
+
 // import { optimiseInteractive } from "$scripts/interactive";
 
 onMount(() => {
@@ -35,18 +37,15 @@ let { children } = $props();
 		property="og:description"
 		content="Experience the 11th edition of Bahrain's premier student-led MUN. Register now for debate, diplomacy, and change."
 	>
-	<meta
-		property="og:image"
-		content="https://britmun.netlify.app/social-preview.png"
-	>
+	<meta property="og:image" content={heroImage}>
 	<meta property="og:type" content="website">
-	<meta property="og:url" content="https://britmun.com">
+	<meta property="og:url" content="https://britmun.netlify.app">
 
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:title" content="BRITMUN XI">
 	<meta
 		name="twitter:description"
-		content="Join us for the 11th annual BRITMUN conference at BSB."
+		content="Join us for the 11th annual BRITMUN conference at BSB Bahrain."
 	>
 </svelte:head>
 
