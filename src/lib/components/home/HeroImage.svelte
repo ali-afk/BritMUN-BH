@@ -1,17 +1,15 @@
 <script>
-import hero from "$assets/home/hero.png";
+import hero from "$assets/home/hero.webp";
 </script>
 
 <section>
-	<div class="hero-frame wrapper">
-		<img
-			src={hero}
-			alt="Through the Looking Glass"
-			loading="eager"
-			fetchpriority="high"
-			width="100%"
-		>
-	</div>
+	<img
+		src={hero}
+		alt="Through the Looking Glass"
+		loading="eager"
+		fetchpriority="high"
+		width="100%"
+	>
 </section>
 
 <style>
@@ -20,14 +18,6 @@ section {
 	padding-block: var(--space-6);
 	position: relative;
 	overflow: hidden;
-}
-
-.hero-frame {
-	position: relative;
-	z-index: 2;
-	width: 100%;
-	display: flex;
-	justify-content: center;
 }
 
 img {
