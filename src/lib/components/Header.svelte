@@ -46,12 +46,6 @@ $effect(() => {
 					>Event Photos</a
 				>
 			</li>
-			<li class="cta interactive">
-				<a
-					href="https://drive.google.com/file/d/1YCPxn5l6TtPkgeytVyQf--sFhn5skeZU/view"
-					>Delegate Allocations</a
-				>
-			</li>
 		</ul>
 	</nav>
 </header>
@@ -66,7 +60,7 @@ header {
 	transition-property: transform;
 	transition-duration: var(--transition-duration-long);
 	will-change: transform;
-	padding-block: var(--space-2);
+	padding: var(--space-4);
 
 	&.hidden {
 		transform: translateY(-100%);
@@ -74,26 +68,25 @@ header {
 }
 
 ul {
-	margin-inline: var(--space-4);
 	align-items: center;
-	gap: var(--space-5);
+	gap: var(--space-7);
 	width: 100%;
 
 	li {
 		transition-property: transform;
+		text-align: center;
 
-		&:not(.logo, .cta):hover {
+		&:not(.logo):hover {
 			transform: translateY(-2px);
 		}
 
 		&.logo {
 			margin-right: auto;
 		}
-		text-align: center;
 
 		a {
 			font-family: var(--font-head);
-			font-size: var(--fs-4);
+			font-size: var(--fs-5);
 
 			&:hover,
 			&:focus-visible {
@@ -107,21 +100,6 @@ ul {
 		.photos {
 			color: var(--color-secondary-500);
 		}
-
-		&.cta {
-			--color-context: var(--color-primary-700);
-			padding: var(--space-2) var(--space-3);
-			box-shadow: var(--shadow-weak);
-
-			&:hover {
-				box-shadow: unset;
-			}
-
-			a {
-				color: var(--text-main);
-				font-size: var(--fs-2);
-			}
-		}
 	}
 }
 
@@ -131,16 +109,12 @@ img {
 	height: auto;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
 	ul {
-		gap: var(--space-3);
-
 		li:not(.logo) {
-			font-size: var(--fs-2);
-		}
-
-		li.cta {
-			padding: var(--space-2) var(--space-2);
+			a {
+				font-size: var(--fs-4);
+			}
 		}
 	}
 }

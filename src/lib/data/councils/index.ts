@@ -5,7 +5,7 @@ import ecofin from "$assets/councils/ecofin.png";
 import fantasy from "$assets/councils/fantasy.png";
 import greysanatomy from "$assets/councils/greysanatomy.png";
 import iaea from "$assets/councils/iaea.png";
-import jpmorgan from "$assets/councils/jpmorgan.jpg";
+import jpmorgan from "$assets/councils/jpmorgan.png";
 import jumanji from "$assets/councils/jumanji.png";
 import legallyblonde from "$assets/councils/legallyblonde.png";
 import psicologia from "$assets/councils/psicologia.png";
