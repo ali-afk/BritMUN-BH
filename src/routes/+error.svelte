@@ -9,7 +9,7 @@ import { page } from "$app/stores";
 <section class="page-center">
 	<h1>{$page.status}</h1>
 	<p>{$page.error?.message || "Page not found"}</p>
-	<a href="/" class="interactive btn--info">Return Home</a>
+	<a href="/" class="btn">Return Home</a>
 </section>
 
 <style>
@@ -23,6 +23,7 @@ p {
 }
 
 a {
+	--_background: var(--color-status-info);
 	padding: var(--space-3) var(--space-5);
 	font: var(--fw-regular) var(--fs-3) / var(--lh-3) var(--font-body);
 }

@@ -4,12 +4,12 @@ import type { Council } from "$lib/data/councils";
 let { council } = $props<{ council: Council }>();
 </script>
 
-<div class="interactive center">
+<div class="card center">
 	<img src={council.image} alt={council.name} loading="lazy">
 	<h3 class="center">{council.name}</h3>
 	<a
 		href={council.backgroundGuide}
-		class="interactive btn--info"
+		class="btn"
 		target="_blank"
 		rel="noopener noreferrer"
 		>Background Guide</a
@@ -18,6 +18,7 @@ let { council } = $props<{ council: Council }>();
 
 <style>
 div {
+	--_background: var(--bg-card);
 	flex: 0 1 300px;
 	padding: var(--space-4);
 	min-height: 180px;
@@ -36,7 +37,7 @@ h3 {
 }
 
 a {
-	padding: var(--space-2) var(--space-4);
+	--_background: var(--color-status-info);
 	font: var(--fw-regular) var(--fs-2) / var(--lh-3) var(--font-body);
 
 	&:hover {

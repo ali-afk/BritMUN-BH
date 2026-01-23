@@ -8,11 +8,11 @@ import { cycleColors } from "$scripts/cycleColors";
 	{#each documentGroups as group, i}
 		<div
 			class="card-grid--tight"
-			style="--color-context: {cycleColors(DefaultProperties.color.secondary, i)}"
+			style="--_background: {cycleColors(DefaultProperties.color.secondary, i)}"
 		>
 			{#each group.links as link}
 				<a
-					class="interactive btn"
+					class="btn"
 					href={link.href}
 					target="_blank"
 					rel="noopener noreferrer"

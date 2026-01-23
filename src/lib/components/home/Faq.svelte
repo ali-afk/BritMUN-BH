@@ -10,7 +10,7 @@ let { question, children } = $props();
 let isOpen = $state(false);
 </script>
 
-<article class="wrapper interactive">
+<article class="wrapper card">
 	<button
 		onclick={() => (isOpen = !isOpen)}
 		type="button"
@@ -31,7 +31,7 @@ let isOpen = $state(false);
 
 <style>
 article {
-	--color-context: var(--bg-card);
+	--_background: var(--bg-card);
 
 	button {
 		padding: var(--space-4);

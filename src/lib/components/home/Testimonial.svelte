@@ -5,9 +5,9 @@ let { color, title, year, comment, direction } = $props();
 </script>
 
 <article
-	style="--color-context: {color}"
+	style="--_background: {color}"
 	class:reverse={direction === 'right'}
-	class="wrapper interactive"
+	class="wrapper card"
 >
 	<header class="center">
 		<img {src} alt="" width="64px">
