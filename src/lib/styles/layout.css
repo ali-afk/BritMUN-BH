@@ -45,9 +45,6 @@ section {
 	}
 
 	main > & {
-		/* Calculates inline padding */
-		--gutter: calc((100% - var(--container-max)) / 2);
-
 		/* if 100% < container-max then use --space-5 */
 		padding-inline: max(var(--space-5), var(--gutter));
 		padding-block: var(--space-5);
