@@ -42,6 +42,7 @@ $effect(() => {
 				<a
 					href="https://drive.google.com/drive/folders/17hrrzjpgucemAw2dpzEsceGlmHDVxcQk?usp=share_link"
 					target="_blank"
+					rel="noopener noreferrer"
 					class="photos"
 					>Event Photos</a
 				>

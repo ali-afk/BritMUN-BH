@@ -15,7 +15,7 @@ export const faqs: Faq[] = [
 	},
 	{
 		question: "What councils are there at BRITMUN XI?",
-		answer: `Check out the "<a href='/about'>Councils</a>" Page on our website to find out more about councils!`,
+		answer: `Check out the "<a href='/councils'>Councils</a>" Page on our website to find out more about councils!`,
 	},
 	{
 		question: "Is there an entry fee for BRITMUN XI?",
