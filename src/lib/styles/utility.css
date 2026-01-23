@@ -1,0 +1,154 @@
+/* ================================
+   LAYOUT PATTERNS
+   ================================ */
+
+/* Centered wrapping grid for cards and buttons */
+[class*="card-grid"] {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: var(--space-5);
+}
+
+.card-grid--tight {
+	gap: var(--space-4);
+}
+
+/* Vertically centered content (for cards, dialogs) */
+[class*="center"] {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+/* Full-page centered section (errors, empty states) */
+.page-center {
+	justify-content: center;
+	min-height: 60vh;
+	gap: var(--space-4);
+}
+
+.stack {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-4);
+}
+
+/* Generic container */
+.wrapper {
+	width: min(100% - var(--space-4), var(--container-max));
+	margin-inline: auto;
+}
+
+/* ================================
+   TYPOGRAPHY PATTERNS
+   ================================ */
+
+/* Main section/page title */
+.section-title {
+	font: var(--fw-bold) var(--fs-6) / var(--lh-1) var(--font-head);
+	text-align: center;
+	margin-bottom: var(--space-6);
+}
+
+/* ================================
+   BUTTON PATTERNS
+   ================================ */
+
+/* Base button styling (use with .interactive) */
+[class*="btn"] {
+	padding: var(--space-2) var(--space-4);
+	display: inline-block;
+
+	&:hover {
+		text-decoration-color: unset;
+	}
+}
+
+.btn--info {
+	--color-context: var(--btn-info);
+}
+
+.btn--primary {
+	--color-context: var(--btn-primary);
+}
+
+.btn--danger {
+	--color-context: var(--btn-danger);
+}
+
+.btn--success {
+	--color-context: var(--btn-success);
+}
+
+.btn--warn {
+	--color-context: var(--btn-warn);
+}
+
+.interactive {
+	--contrast-direction: sign(0.6 - l);
+
+	--text-main: oklch(
+		from var(--color-context) clamp(0, var(--contrast-direction), 1) 0 0
+	);
+	--text-mute: oklch(from var(--color-context) 0.5 c h);
+
+	--border-brightness: calc(
+		l +
+		(var(--contrast-direction) * var(--border-darkness))
+	);
+	--border-color: oklch(
+		from var(--color-context) clamp(0, var(--border-brightness), 1) c h
+	);
+
+	--hover-brightness: calc(
+		l +
+		(var(--contrast-direction) * var(--hover-degree))
+	);
+	--hover-color: oklch(
+		from var(--color-context) clamp(0, var(--hover-brightness), 1) c h
+	);
+
+	background-color: var(--color-context);
+	color: var(--text-main);
+
+	border: 1px solid var(--border-color);
+	border-radius: var(--border-radius);
+
+	box-shadow: var(--shadow-weak);
+	transition-property: transform, background-color, box-shadow;
+
+	&:hover {
+		--hover-border-brightness: calc(
+			l +
+			(var(--contrast-direction) * var(--hover-border-darkness))
+		);
+
+		--hover-border-color: oklch(
+			from var(--color-context) clamp(0, var(--hover-border-brightness), 1) c h
+		);
+
+		border-color: var(--hover-border-color);
+		background-color: var(--hover-color);
+		transform: var(--scale-hover);
+		box-shadow: var(--shadow-strong);
+
+		hr {
+			border-color: var(--hover-border-color);
+		}
+	}
+
+	a {
+		border: none;
+	}
+
+	&:active {
+		transform: var(--scale-active);
+	}
+
+	/* GPU Optimisations */
+	backface-visibility: hidden;
+	perspective: 1000px;
+	transform: translateZ(0);
+}

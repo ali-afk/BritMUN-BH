@@ -9,7 +9,7 @@ let { color, title, year, comment, direction } = $props();
 	class:reverse={direction === 'right'}
 	class="wrapper interactive"
 >
-	<header>
+	<header class="center">
 		<img {src} alt="" width="64px">
 		<h2>{title}</h2>
 		<h3>
@@ -48,11 +48,7 @@ article {
 	}
 
 	header {
-		display: flex;
-		flex-direction: column;
 		justify-content: center;
-		align-items: center;
-		text-align: center;
 		padding: var(--space-3);
 		width: clamp(180px, 30%, 250px);
 

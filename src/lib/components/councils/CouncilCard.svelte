@@ -4,12 +4,12 @@ import type { Council } from "$lib/data/councils";
 let { council } = $props<{ council: Council }>();
 </script>
 
-<div class="interactive">
+<div class="interactive center">
 	<img src={council.image} alt={council.name} loading="lazy">
-	<h3>{council.name}</h3>
+	<h3 class="center">{council.name}</h3>
 	<a
 		href={council.backgroundGuide}
-		class="interactive"
+		class="interactive btn--info"
 		target="_blank"
 		rel="noopener noreferrer"
 		>Background Guide</a
@@ -20,10 +20,6 @@ let { council } = $props<{ council: Council }>();
 div {
 	flex: 0 1 300px;
 	padding: var(--space-4);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	text-align: center;
 	min-height: 180px;
 }
 
@@ -33,10 +29,6 @@ img {
 }
 
 h3 {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-family: var(--font-head);
 	font-size: var(--fs-4);
 	line-height: var(--lh-2);
 	margin-bottom: var(--space-3);
@@ -44,8 +36,6 @@ h3 {
 }
 
 a {
-	--color-context: var(--btn-info);
-	display: inline-block;
 	padding: var(--space-2) var(--space-4);
 	font: var(--fw-regular) var(--fs-2) / var(--lh-3) var(--font-body);
 
@@ -59,6 +49,7 @@ a {
 		flex: 0 1 150px;
 		min-height: 120px;
 	}
+
 	img {
 		height: clamp(120px, 30vw, 160px);
 	}

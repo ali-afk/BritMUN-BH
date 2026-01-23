@@ -2,8 +2,7 @@
 import { Footer, Header } from "$components";
 import { DefaultProperties } from "$data";
 import { registerProperties } from "$scripts/register-properties";
-import "$styles/layout.css";
-import "$styles/variables.css";
+import "$styles/index.css";
 import { onMount } from "svelte";
 import heroImage from "$assets/home/hero.webp";
 

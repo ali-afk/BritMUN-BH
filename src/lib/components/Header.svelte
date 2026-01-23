@@ -74,7 +74,6 @@ ul {
 
 	li {
 		transition-property: transform;
-		text-align: center;
 
 		&:not(.logo):hover {
 			transform: translateY(-2px);
