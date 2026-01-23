@@ -25,7 +25,20 @@
 }
 
 [href^="http"]::after {
-	content: url("$lib/assets/external-link.svg");
+	content: "";
 	display: inline-block;
-	width: 1.5rem;
+	width: 1.2rem;
+	height: 1.2rem;
+
+	/* The color is now controlled here */
+	background-color: var(--text-main);
+
+	/* Apply the SVG as a mask */
+	-webkit-mask: url("$assets/external-link.svg") no-repeat center;
+	mask: url("$assets/external-link.svg") no-repeat center;
+	-webkit-mask-size: contain;
+	mask-size: contain;
+
+	vertical-align: middle;
+	margin-left: 4px;
 }
