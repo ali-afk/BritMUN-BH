@@ -8,7 +8,7 @@ import { councilCategories } from "$data/councils";
 </svelte:head>
 
 <section>
-	<h1>COUNCILS</h1>
+	<h1 class="section-title">COUNCILS</h1>
 
 	<DocumentButtons />
 
@@ -18,9 +18,4 @@ import { councilCategories } from "$data/councils";
 </section>
 
 <style>
-h1 {
-	font: var(--fw-bold) var(--fs-6) / var(--lh-1) var(--font-head);
-	text-align: center;
-	margin-bottom: var(--space-6);
-}
 </style>

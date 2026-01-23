@@ -7,7 +7,7 @@ let { category } = $props<{ category: CouncilCategory }>();
 
 <section class="wrapper">
 	<h2>{category.name}:</h2>
-	<div>
+	<div class="card-grid">
 		{#each category.councils as council}
 			<CouncilCard {council} />
 		{/each}
@@ -21,13 +21,6 @@ section {
 
 h2 {
 	font: var(--fw-bold) var(--fs-5) / var(--lh-2) var(--font-head);
-}
-
-div {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	gap: var(--space-5);
 }
 
 @media screen and (max-width: 480px) {
