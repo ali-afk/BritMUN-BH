@@ -91,9 +91,10 @@ export const DefaultProperties = {
 			info: "#00b4d8",
 			success: "#16a34a",
 		},
-		context: {
-			value: " #ffffff",
-		},
+	},
+	_background: {
+		config: { syntax: "<color>", inherits: true },
+		value: " #ffffff",
 	},
 	fw: {
 		config: { syntax: "<number>", inherits: true },
