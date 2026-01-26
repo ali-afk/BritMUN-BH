@@ -126,7 +126,7 @@ export const councilCategories: CouncilCategory[] = [
 			{
 				name: "Jumanji",
 				image: Jumanji,
-				backgroundGuide: "/404",
+				backgroundGuide: "https://drive.google.com/file/d/10SwQMEieTuMKA6IXluUhED_OQFbGJlFO/view?usp=sharing",
 			},
 			{
 				name: "Fantasy",
@@ -158,5 +158,4 @@ export const councilCategories: CouncilCategory[] = [
 			},
 		],
 	},
-
 ];
