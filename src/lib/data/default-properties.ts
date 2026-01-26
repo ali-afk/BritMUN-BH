@@ -114,6 +114,13 @@ export const DefaultProperties = {
 		6: "35px",
 		7: "50px",
 	},
+	lh: {
+		config: { syntax: "<number>", inherits: true },
+		1: "1.1",
+		2: "1.3",
+		3: "1.6",
+		4: "1.8",
+	},
 	space: {
 		config: { syntax: "<length>", inherits: true },
 		0: "3px",
@@ -174,6 +181,11 @@ export const DefaultProperties = {
 				value: "#888",
 			},
 		},
+	},
+	container: {
+		config: { syntax: "<length>", inherits: true },
+		min: "480px",
+		max: "1280px",
 	},
 	text: {
 		config: { syntax: "<color>", inherits: true },

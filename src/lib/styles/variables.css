@@ -26,11 +26,6 @@
 	--font-head: Girassol, ui-serif, serif;
 	--font-body: Average, ui-serif, serif;
 
-	--lh-1: 1.1; /* For large headings (fs-6, fs-7) */
-	--lh-2: 1.3; /* For subheadings (fs-4, fs-5) */
-	--lh-3: 1.6; /* For body text (fs-3) */
-	--lh-4: 1.8; /* For small captions (fs-1, fs-2) */
-
 	/* --- Neutral Color Mix Logic --- */
 	--mix-strength: 5%;
 
@@ -88,12 +83,11 @@
 	--bp-3: 1024px;
 	--bp-4: 1280px;
 
+	--container-min: var(--bp-1);
 	--container-max: var(--bp-4);
-}
 
-/* Responsive scaling: fonts shift more aggressively than spaces */
-@media (max-width: 1024px) {
-	:root {
+	/* Responsive scaling: fonts shift more aggressively than spaces */
+	@media (max-width: 1024px) {
 		/* Font sizes: shift down 1 level */
 		--fs-1: clamp(1rem, 0.95rem + 0.25vw, 1.2rem); /* was fs-0 */
 		--fs-2: clamp(1.2rem, 1.15rem + 0.25vw, 1.4rem); /* was fs-1 */
@@ -105,10 +99,8 @@
 
 		--container-max: var(--bp-3);
 	}
-}
 
-@media (max-width: 768px) {
-	:root {
+	@media (max-width: 768px) {
 		/* Font sizes: shift down 2 levels */
 		--fs-2: clamp(1rem, 0.95rem + 0.25vw, 1.2rem); /* was fs-0 */
 		--fs-3: clamp(1.2rem, 1.15rem + 0.25vw, 1.4rem); /* was fs-1 */
@@ -129,10 +121,8 @@
 
 		--container-max: var(--bp-2);
 	}
-}
 
-@media (max-width: 480px) {
-	:root {
+	@media (max-width: 480px) {
 		/* Font sizes: shift down 3 levels */
 		--fs-3: clamp(1rem, 0.95rem + 0.25vw, 1.2rem); /* was fs-0 */
 		--fs-4: clamp(1.2rem, 1.15rem + 0.25vw, 1.4rem); /* was fs-1 */
