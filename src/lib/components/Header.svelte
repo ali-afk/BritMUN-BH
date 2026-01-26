@@ -48,7 +48,10 @@ $effect(() => {
 				>
 			</li>
 			<li class="cta btn">
-				<a target="_blank" rel="noreferrer noopener" href="/404"
+				<a
+					target="_blank"
+					rel="noreferrer noopener"
+					href="https://drive.google.com/file/d/1ZWxnwD_wKgMWu2xEuDIO7RvZ6JLMMCQD/view?usp=sharing"
 					>Delegate Allocations</a
 				>
 			</li>
