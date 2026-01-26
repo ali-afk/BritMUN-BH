@@ -1,4 +1,5 @@
 <script lang="ts">
+import type { Snippet } from "svelte";
 import { slide } from "svelte/transition";
 import toggleIcon from "$assets/home/toggle.svg";
 import { standard } from "$scripts/transition";
@@ -6,7 +7,7 @@ import { generateId } from "$scripts/utils";
 
 const contentId = generateId("content");
 
-let { question, children } = $props();
+let { question, children }: { question: string; children: Snippet } = $props();
 let isOpen = $state(false);
 </script>
 

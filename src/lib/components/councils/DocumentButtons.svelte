@@ -1,14 +1,17 @@
 <script lang="ts">
 import { DefaultProperties } from "$data";
-import { documentGroups } from "$data/councils/documents";
-import { cycleColors } from "$scripts/cycleColors";
+import type { DocumentGroup } from "$data/councils";
+import { ColorScale } from "$types/colors";
+
+let { documentGroups }: { documentGroups: DocumentGroup[] } = $props();
+let colorSet = DefaultProperties.color.secondary;
 </script>
 
 <section>
 	{#each documentGroups as group, i}
 		<div
 			class="card-grid--tight"
-			style="--_background: {cycleColors(DefaultProperties.color.secondary, i)}"
+			style="--_background: {colorSet[ColorScale[i % 5] ?? 500]}"
 		>
 			{#each group.links as link}
 				<a

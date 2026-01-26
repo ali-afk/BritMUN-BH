@@ -1,7 +1,7 @@
 <script lang="ts">
-import type { Council } from "$lib/data/councils";
+import type { Council } from "$data/councils";
 
-let { council } = $props<{ council: Council }>();
+let { council }: { council: Council } = $props();
 </script>
 
 <div class="card center">

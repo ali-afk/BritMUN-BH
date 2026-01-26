@@ -1,10 +1,10 @@
 <script>
-import hero from "$assets/home/hero.webp";
+import { Hero } from "$assets/home";
 </script>
 
 <section>
 	<img
-		src={hero}
+		src={Hero}
 		alt="Through the Looking Glass"
 		loading="eager"
 		fetchpriority="high"

@@ -1,16 +1,25 @@
 <script lang="ts">
-import src from "$assets/logo.png";
+import { Logo } from "$assets";
+import { DefaultProperties } from "$data";
+import { type TestimonialData } from "$data/home";
+import type { ColorDegrees } from "$types/colors";
 
-let { color, title, year, comment, direction } = $props();
+interface TestimonialProps extends TestimonialData {
+	color: ColorDegrees;
+	direction: "left" | "right";
+}
+
+let { color, title, year, comment, direction }: TestimonialProps = $props();
+let colorSet = DefaultProperties.color.primary;
 </script>
 
 <article
-	style="--_background: {color}"
+	style="--_background: {colorSet[color]}"
 	class:reverse={direction === 'right'}
 	class="wrapper card"
 >
 	<header class="center">
-		<img {src} alt="" width="64px">
+		<img src={Logo} alt="" width="64px">
 		<h2>{title}</h2>
 		<h3>
 			BRITMUN <time datetime={year}>{year}</time>

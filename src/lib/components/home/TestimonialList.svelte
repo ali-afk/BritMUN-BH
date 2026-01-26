@@ -1,17 +1,19 @@
 <script lang="ts">
-import { DefaultProperties } from "$data";
-import { testimonials } from "$data/home/";
-import { cycleColors } from "$scripts/cycleColors";
+import { type TestimonialData } from "$data/home";
+import { ColorScale } from "$types/colors";
 import Testimonial from "./Testimonial.svelte";
+
+let { testimonialData }: { testimonialData: TestimonialData[] } = $props();
 </script>
 
 <section class="stack">
-	<h1>What students have said about us...</h1>
+	<!-- .skip-link skips to #main-content -->
+	<h1 id="main-content">What students have said about us...</h1>
 
-	{#each testimonials as data, i}
+	{#each testimonialData as content, i}
 		<Testimonial
-			{...data}
-			color={cycleColors(DefaultProperties.color.primary, i)}
+			{...content}
+			color={ColorScale[i % 5] ?? 500}
 			direction={i % 2 === 0 ? 'right' : 'left'}
 		/>
 	{/each}
