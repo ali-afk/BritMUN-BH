@@ -6,7 +6,9 @@ CSS architecture and design tokens used in the BRITMUN codebase.
 
 All values come from CSS custom properties. Never hardcode values.
 
-**Note:** Some variables (`--fw-light`, `--fw-regular`, `--text-mute`) are registered at runtime from `DefaultProperties` via `register-properties.ts`, not defined in `variables.css`.
+**Note:** Some variables (`--fw-light`, `--fw-regular`, `--text-mute`) are
+registered at runtime from `DefaultProperties` via `register-properties.ts`,
+not defined in `variables.css`.
 
 **From [`variables.css`](https://github.com/ali-afk/BritMUN-BH/blob/v0.7.1/src/lib/styles/variables.css):**
 
@@ -143,7 +145,8 @@ Fluid values handle most responsiveness. When needed:
 
 ## Auto-Contrast System (`--_background`)
 
-The `--_background` variable powers automatic color contrast for `.card` and `.btn` classes.
+The `--_background` variable powers automatic color
+contrast for `.card` and `.btn` classes.
 
 **How it works:**
 

@@ -4,7 +4,7 @@ Svelte 5 and SvelteKit patterns used in the BRITMUN codebase.
 
 ## File-Based Routing
 
-```
+```bash
 src/routes/
 ├── +page.svelte        → /
 ├── +layout.svelte      → Wraps all pages
@@ -16,9 +16,11 @@ src/routes/
 
 ```svelte
 <Header />
+<a href="#main-content" class="skip-link">Skip to main content</a>
 <main>{@render children()}</main>
-<Footer />
 ```
+
+Note: Footer was removed. Skip-link improves keyboard accessibility.
 
 ## Svelte 5 Runes
 
@@ -48,11 +50,26 @@ src/routes/
 <div>{@render children()}</div>
 ```
 
-**With types:**
+**With inline types:**
 
 ```svelte
-let { question, answer = "Default" } =
-$props<{ question: string; answer?: string }>();
+let { question, children }: { question: string; children: Snippet } = $props();
+```
+
+**With interface extension (for complex props):**
+
+```svelte
+<script lang="ts">
+import { type TestimonialData } from "$data/home";
+import type { ColorDegrees } from "$types/colors";
+
+interface TestimonialProps extends TestimonialData {
+  color: ColorDegrees;
+  direction: "left" | "right";
+}
+
+let { color, title, year, comment, direction }: TestimonialProps = $props();
+</script>
 ```
 
 ### $derived - Computed Values
@@ -66,12 +83,19 @@ let doubled = $derived(count * 2);
 
 ```svelte
 import { Header } from "$components";
-import { faqs } from "$data/home/faqs";
-import logo from "$assets/logo.png";
+import { faqs } from "$data/home";
+import { Logo } from "$assets";
 import { parseCssTime } from "$scripts/utils";
 ```
 
-**Aliases:** `$components`, `$data`, `$assets`, `$scripts` (defined in `svelte.config.js`)
+**Aliases:**
+
+- `$components`,
+- `$data`,
+- `$assets`,
+- `$scripts`,
+- `$types`
+(defined in `svelte.config.js`)
 
 ## onMount
 
@@ -88,22 +112,49 @@ onMount(() => {
 
 Use for browser-only APIs. Don't use for data fetching (use load functions).
 
-## Loops with #each
+## Server-Side Data Loading
 
-**From [`TestimonialList.svelte:11`](https://github.com/ali-afk/BritMUN-BH/blob/v0.7.1/src/lib/components/home/TestimonialList.svelte#L11):**
+Pages load data via `+page.server.ts`, then pass it to components:
+
+**`+page.server.ts`:**
+
+```typescript
+import { testimonials } from "$data/home";
+import type { PageServerLoad } from "./$types";
+
+export const load: PageServerLoad = () => {
+  return { testimonials };
+};
+```
+
+**`+page.svelte`:**
 
 ```svelte
-{#each testimonials as data, i}
+<script lang="ts">
+import { type PageProps } from "./$types";
+let { data }: PageProps = $props();
+</script>
+
+<TestimonialList testimonialData={data.testimonials} />
+```
+
+## Loops with #each
+
+**From `TestimonialList.svelte`:**
+
+```svelte
+{#each testimonialData as content, i}
   <Testimonial
-    {...data}
-    color={cycleColors(DefaultProperties.color.primary, i)}
+    {...content}
+    color={ColorScale[i % 5] ?? 500}
     direction={i % 2 === 0 ? 'right' : 'left'}
   />
 {/each}
 ```
 
-- `{...data}` spreads all properties as props
-- `i` is the index for alternating styles
+- `{...content}` spreads all properties as props
+- `ColorScale[i % 5]` cycles through color degrees (100, 300, 500, 700, 900)
+- Components handle color lookup internally
 
 ## Conditionals with #if
 

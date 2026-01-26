@@ -1,6 +1,7 @@
 # TypeScript Patterns
 
-Type safety patterns used in the BRITMUN codebase. Strict mode is enabled (`noUncheckedIndexedAccess: true`).
+Type safety patterns used in the BRITMUN codebase.
+Strict mode is enabled (`noUncheckedIndexedAccess: true`).
 
 ## Index Signatures with Union Constraints
 
@@ -15,7 +16,7 @@ colors[500];  // ✓ Valid
 colors[200];  // ✗ Compile error
 ```
 
-See `ColorScale` in `src/lib/data/default-properties.ts`.
+See `ColorScale` in `src/lib/types/colors.ts`.
 
 ## Generic Intersection Types
 
@@ -33,7 +34,7 @@ type FontWeights = PropertyGroup<{
 }>;
 ```
 
-See `PropertyGroup<T>` in `src/lib/data/default-properties.ts`.
+See `PropertyNode` in `src/lib/types/properties.ts`.
 
 ## The `satisfies` Operator
 

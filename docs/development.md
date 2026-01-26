@@ -11,21 +11,29 @@ git push                    # Auto-deploys to Netlify
 
 ## Project Structure
 
-```
+```bash
 src/
 ├── lib/
 │   ├── components/         # UI components
 │   ├── data/               # Content files
 │   │   ├── default-properties.ts  # Design tokens
+│   │   ├── home/           # Homepage data (faqs, testimonials)
+│   │   └── councils/       # Council data (categories, documents)
+│   ├── types/              # Reusable TypeScript types
+│   │   ├── colors.ts       # ColorScale, ColorDegrees, ColorRecord
+│   │   └── properties.ts   # PropertyConfig, PropertyNode
 │   ├── scripts/            # Utilities
-│   ├── assets/             # Images (bundled)
+│   ├── assets/             # Images (bundled, with barrel exports)
 │   └── styles/             # Global CSS
 └── routes/                 # Pages
     ├── +page.svelte        # Homepage (/)
-    ├── +layout.svelte      # Site layout
-    └── councils/+page.svelte
+    ├── +page.server.ts     # Homepage data loader
+    ├── +layout.svelte      # Site layout (Header only)
+    └── councils/
+        ├── +page.svelte    # Councils page
+        └── +page.server.ts # Councils data loader
 
-static/                     # Files served as-is (/favicon.png, /councils/*)
+static/                     # Files served as-is (/favicon.png)
 ```
 
 ## Common Tasks
@@ -55,17 +63,26 @@ export const testimonials: Testimonial[] = [
 
 ### Add Council
 
-Edit `src/lib/data/councils/index.ts`:
+Edit `src/lib/data/councils/council-categories.ts`:
 
 ```typescript
-export const councils: Council[] = [
- {
-  name: "UN Security Council",
-  image: "/councils/unsc.webp",
-  backgroundGuide: "/404"
- },
+import { Unsc } from "$assets/councils";
+
+export const councilCategories: CouncilCategory[] = [
+  {
+    name: "General Assembly",
+    councils: [
+      {
+        name: "UN Security Council",
+        image: Unsc,  // Import from $assets/councils barrel export
+        backgroundGuide: "/404"
+      },
+    ],
+  },
 ];
 ```
+
+Note: Council images use barrel exports from `$assets/councils` (PascalCase names).
 
 ### Change Colors
 
@@ -114,7 +131,7 @@ All themed elements update automatically.
 ## Image Optimization
 
 ```bash
-bunx sharp input.jpg --resize 800 --webp --quality 85 --output output.webp
+bunx sharp-cli input.jpg --resize 800 --webp --quality 85 --output output.webp
 ```
 
 | Type | Max Width | Format |
@@ -135,7 +152,7 @@ git push -u origin feature/my-feature
 # Create PR, merge to dev, then main
 ```
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md) for commit message format.
+See [CONTRIBUTING](../CONTRIBUTING.md) for commit message format.
 
 ## Troubleshooting
 
@@ -165,7 +182,7 @@ bun exec svelte-kit sync    # Regenerate types
 
 ```bash
 git push                    # Auto-deploys to Netlify
-# Or manual: netlify deploy --prod
+# Or manual: bun netlify deploy --prod
 ```
 
 ## Environment
