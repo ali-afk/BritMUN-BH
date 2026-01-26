@@ -1,10 +1,10 @@
-interface Testimonial {
+export interface TestimonialData {
 	title: string;
 	year: string;
 	comment: string;
 }
 
-export const testimonials: Testimonial[] = [
+export const testimonials: TestimonialData[] = [
 	{
 		title: "Security Council Runner",
 		year: "2019",
