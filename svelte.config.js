@@ -12,6 +12,7 @@ const config = {
 			$assets: "src/lib/assets",
 			$scripts: "src/lib/scripts",
 			$styles: "src/lib/styles",
+			$types: "src/lib/types",
 		},
 	},
 	compilerOptions: {
