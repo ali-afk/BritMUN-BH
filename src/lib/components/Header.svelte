@@ -1,6 +1,6 @@
 <script lang="ts">
 import { page } from "$app/state";
-import src from "$assets/logo.png";
+import { Logo } from "$assets";
 
 let headerHeight = $state(0);
 let y = $state(0);
@@ -34,7 +34,7 @@ $effect(() => {
 					href="/"
 					aria-current={page.url.pathname === '/' ? 'page' : undefined}
 				>
-					<img {src} alt="BRITMUN Logo">
+					<img src={Logo} alt="BRITMUN Logo">
 				</a>
 			</li>
 			<li><a href="/councils" class="councils">Councils</a></li>

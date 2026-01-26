@@ -1,5 +1,8 @@
 <script lang="ts">
 import { FaqList, HeroImage, TestimonialList } from "$components/home";
+import type { PageProps } from "./$types";
+
+let { data }: PageProps = $props();
 </script>
 
 <svelte:head>
@@ -7,7 +10,7 @@ import { FaqList, HeroImage, TestimonialList } from "$components/home";
 </svelte:head>
 
 <HeroImage />
-<TestimonialList />
+<TestimonialList testimonialData={data.testimonials} />
 <FaqList />
 
 <style>

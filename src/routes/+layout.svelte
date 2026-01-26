@@ -1,15 +1,14 @@
 <script lang="ts">
-import { Footer, Header } from "$components";
+import { Header } from "$components";
 import { DefaultProperties } from "$data";
 import { registerProperties } from "$scripts/register-properties";
 import "$styles/index.css";
 import { onMount } from "svelte";
-import heroImage from "$assets/home/hero.webp";
-
-// import { optimiseInteractive } from "$scripts/interactive";
+import { Hero } from "$assets/home";
+import { optimiseInteractive } from "$scripts/interactive";
 
 onMount(() => {
-	// optimiseInteractive(); Currently causes font blurring on chromuim browsers
+	optimiseInteractive();
 	registerProperties();
 	document.documentElement.classList.add("document-loaded");
 });
@@ -36,7 +35,7 @@ let { children } = $props();
 		property="og:description"
 		content="Experience the 11th edition of Bahrain's premier student-led MUN. Register now for debate, diplomacy, and change."
 	>
-	<meta property="og:image" content={heroImage}>
+	<meta property="og:image" content={Hero}>
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="https://britmun.netlify.app">
 
@@ -49,8 +48,8 @@ let { children } = $props();
 </svelte:head>
 
 <Header />
+<a href="#main-content" class="skip-link">Skip to main content</a>
 <main>{@render children()}</main>
-<Footer />
 
 <style>
 </style>

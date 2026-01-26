@@ -1,6 +1,8 @@
 <script lang="ts">
 import { CouncilCategory, DocumentButtons } from "$components/councils";
-import { councilCategories } from "$data/councils";
+import { type PageProps } from "./$types";
+
+let { data }: PageProps = $props();
 </script>
 
 <svelte:head>
@@ -10,9 +12,9 @@ import { councilCategories } from "$data/councils";
 <section>
 	<h1 class="section-title">COUNCILS</h1>
 
-	<DocumentButtons />
+	<DocumentButtons documentGroups={data.documentGroups} />
 
-	{#each councilCategories as category}
+	{#each data.councilCategories as category}
 		<CouncilCategory {category} />
 	{/each}
 </section>
