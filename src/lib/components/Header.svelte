@@ -47,6 +47,11 @@ $effect(() => {
 					>Event Photos</a
 				>
 			</li>
+			<li class="cta btn">
+				<a target="_blank" rel="noreferrer noopener" href="/404"
+					>Delegate Allocations</a
+				>
+			</li>
 		</ul>
 	</nav>
 </header>
@@ -70,19 +75,11 @@ header {
 
 ul {
 	align-items: center;
-	gap: var(--space-7);
+	gap: var(--space-6);
 	width: 100%;
 
 	li {
 		transition-property: transform;
-
-		&:not(.logo):hover {
-			transform: translateY(-2px);
-		}
-
-		&.logo {
-			margin-right: auto;
-		}
 
 		a {
 			font-family: var(--font-head);
@@ -94,9 +91,26 @@ ul {
 			}
 		}
 
+		&:not(.logo .cta):hover {
+			transform: translateY(-2px);
+		}
+
+		&.logo {
+			margin-right: auto;
+		}
+
+		&.cta {
+			--_background: var(--color-primary-700);
+			a {
+				color: var(--text-main);
+				font-size: var(--fs-4);
+			}
+		}
+
 		.councils {
 			color: var(--color-primary-700);
 		}
+
 		.photos {
 			color: var(--color-secondary-500);
 		}
