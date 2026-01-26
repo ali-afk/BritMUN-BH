@@ -1,1 +1,1 @@
-export * from "./default-properties.ts";
+export * from "./default-properties";

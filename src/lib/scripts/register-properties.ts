@@ -34,11 +34,8 @@
  */
 
 import { flatten } from "flat";
-import {
-	DefaultProperties,
-	type PropertyConfig,
-	type PropertyNode,
-} from "$data";
+import { DefaultProperties } from "$data";
+import type { PropertyConfig, PropertyNode } from "$types/properties";
 
 /**
  * Registers all design tokens as CSS custom properties
