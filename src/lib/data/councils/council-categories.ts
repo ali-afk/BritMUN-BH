@@ -110,7 +110,7 @@ export const councilCategories: CouncilCategory[] = [
 				name: "Confederación De Psicología",
 				image: Psicologia,
 				backgroundGuide:
-					"https://drive.google.com/file/d/1182O1T8x8IMlmNiU7CkGbD11OQfN_nPY/view?usp=sharing",
+					"https://drive.google.com/file/d/1nSU_Vovee_y5mEKFKMsTalVaHbTQz2k4/view?usp=sharing",
 			},
 			{
 				name: "International Atomic Energy Agency (IAEA)",
