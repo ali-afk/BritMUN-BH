@@ -80,7 +80,7 @@ export const councilCategories: CouncilCategory[] = [
 				name: "United Nations Security Council (UNSC)",
 				image: Unsc,
 				backgroundGuide:
-					"https://drive.google.com/file/d/1kpWHCOdL3YjC937ibzLdg6fPlP94RW7Y/view?usp=sharing",
+					"https://drive.google.com/file/d/1g_TqqgWMifs7Wo8J0hvh0Juj3hXg-ABe/view?usp=sharing",
 			},
 			{
 				name: "Grey's Anatomy",
@@ -126,7 +126,8 @@ export const councilCategories: CouncilCategory[] = [
 			{
 				name: "Jumanji",
 				image: Jumanji,
-				backgroundGuide: "https://drive.google.com/file/d/10SwQMEieTuMKA6IXluUhED_OQFbGJlFO/view?usp=sharing",
+				backgroundGuide:
+					"https://drive.google.com/file/d/10SwQMEieTuMKA6IXluUhED_OQFbGJlFO/view?usp=sharing",
 			},
 			{
 				name: "Fantasy",
