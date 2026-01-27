@@ -27,11 +27,6 @@ header {
 	display: flex;
 }
 
-nav {
-	display: flex;
-	align-items: center;
-}
-
 h1,
 h2,
 h3,
@@ -78,6 +73,10 @@ a {
 hr {
 	border: 1px solid var(--border-color);
 	border-radius: var(--border-radius);
+}
+
+summary {
+	cursor: pointer;
 }
 
 button {

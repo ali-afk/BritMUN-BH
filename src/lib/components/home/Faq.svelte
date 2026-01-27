@@ -6,24 +6,19 @@ import { standard } from "$scripts/transition";
 import { generateId } from "$scripts/utils";
 
 const contentId = generateId("content");
-
-let { question, children }: { question: string; children: Snippet } = $props();
 let isOpen = $state(false);
+let { question, children }: { question: string; children: Snippet } = $props();
 </script>
 
 <article class="wrapper card">
-	<button
-		onclick={() => (isOpen = !isOpen)}
-		type="button"
-		aria-expanded={isOpen}
-		aria-controls="{contentId}"
-	>
-		<span>{question}</span>
-		<img src={toggleIcon} alt="" class:active={isOpen} aria-hidden="true">
-	</button>
-
+	<details bind:open={isOpen} name="faq">
+		<summary aria-expanded={isOpen} aria-controls="{contentId}">
+			{question}
+			<img src={toggleIcon} alt="" aria-hidden="true">
+		</summary>
+	</details>
 	{#if isOpen}
-		<div transition:standard={slide} id="{contentId}">
+		<div id={contentId} transition:standard={slide}>
 			<hr aria-hidden="true">
 			<p>{@render children()}</p>
 		</div>
@@ -33,40 +28,28 @@ let isOpen = $state(false);
 <style>
 article {
 	--_background: var(--bg-card);
+	padding-inline: var(--space-4);
 
-	button {
-		padding: var(--space-4);
-		width: 100%;
+	p {
+		padding-block: var(--space-4);
+		color: var(--text-mute);
+	}
+
+	summary {
+		padding-block: var(--space-4);
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
-		text-align: left;
-		background: transparent;
-
-		span {
-			font: var(--fw-light) var(--fs-4) / var(--lh-2) var(--font-body);
-		}
+		font: var(--fw-light) var(--fs-4) / var(--lh-2) var(--font-body);
 
 		img {
 			margin-left: var(--space-4);
 			width: var(--fs-4);
 			transition-property: transform;
-
-			&.active {
-				transform: rotate(45deg);
-			}
 		}
 	}
 
-	div {
-		color: var(--text-mute);
-		display: flex;
-		flex-direction: column;
-		padding: 0 var(--space-4) var(--space-4);
-
-		hr {
-			margin-bottom: var(--space-4);
-		}
+	details[open] summary img {
+		transform: rotate(45deg);
 	}
 }
 </style>
