@@ -155,7 +155,7 @@ export const councilCategories: CouncilCategory[] = [
 				name: "World Health Organization (WHO)",
 				image: Who,
 				backgroundGuide:
-					"https://drive.google.com/file/d/1KseE3HEiak0EV_ElBnUeOOn_CyhXGGmB/view?usp=sharing",
+					"https://drive.google.com/file/d/1qYlSP6ikvtxQgY46TQ_DuUAnttCkdYdd/view?usp=sharing",
 			},
 		],
 	},
