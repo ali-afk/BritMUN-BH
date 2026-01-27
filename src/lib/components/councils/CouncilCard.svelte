@@ -4,9 +4,9 @@ import type { Council } from "$data/councils";
 let { council }: { council: Council } = $props();
 </script>
 
-<div class="card center">
+<div class="card center--column">
 	<img src={council.image} alt={council.name} loading="lazy">
-	<h3 class="center">{council.name}</h3>
+	<h3 class="center--column">{council.name}</h3>
 	<a
 		href={council.backgroundGuide}
 		class="btn"
@@ -45,7 +45,7 @@ a {
 	}
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
 	div {
 		flex: 0 1 150px;
 		min-height: 120px;

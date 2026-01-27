@@ -18,7 +18,7 @@ let colorSet = DefaultProperties.color.primary;
 	class:reverse={direction === 'right'}
 	class="wrapper card"
 >
-	<header class="center">
+	<header class="center--column">
 		<img src={Logo} alt="" width="64px">
 		<h2>{title}</h2>
 		<h3>

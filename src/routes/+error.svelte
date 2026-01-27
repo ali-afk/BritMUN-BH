@@ -6,7 +6,7 @@ import { page } from "$app/state";
 	<title>{page.status} | BRITMUN</title>
 </svelte:head>
 
-<section class="page-center">
+<section class="center--page">
 	<h1>{page.status}</h1>
 	<p>{page.error?.message || "Page not found"}</p>
 	<a href="/" class="btn">Return Home</a>
