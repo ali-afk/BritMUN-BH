@@ -51,7 +51,7 @@ $effect(() => {
 				target="_blank"
 				rel="noreferrer noopener"
 				href="https://drive.google.com/file/d/1WwaoHmm_ZCSF_I7UMPQqQU34K-k0CAEa/view?usp=sharing"
-				>Delegate Allocations</a
+				>Delegate Allocations </a
 			>
 		</li>
 	</ul>
