@@ -132,7 +132,7 @@ export const councilCategories: CouncilCategory[] = [
 			{
 				name: "Fantasy",
 				image: Fantasy,
-				backgroundGuide: "/404",
+				backgroundGuide: "https://drive.google.com/file/d/1420ZbBpbL0LlUpKZxFk6Ki8pSxxZ59AW/view?usp=sharing",
 			},
 			{
 				name: "Dexter",
