@@ -208,5 +208,6 @@ article {
 ## Related Files
 
 - `src/lib/styles/interactive.css` — Core calculations
-- `src/lib/data/default-properties.ts` — Tuning values (`--border-darkness`, `--hover-degree`, etc.)
+- `src/lib/data/default-properties.ts` — Tuning values (`--border-darkness`,
+`--hover-degree`, etc.)
 - `src/lib/scripts/register-properties.ts` — Registers CSS properties for animations

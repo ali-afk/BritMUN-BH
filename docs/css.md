@@ -10,6 +10,41 @@ All values come from CSS custom properties. Never hardcode values.
 registered at runtime from `DefaultProperties` via `register-properties.ts`,
 not defined in `variables.css`.
 
+### Why Both `variables.css` AND `default-properties.ts`?
+
+#### default-properties.ts
+
+- Purpose: Static TS values; registered as animatable CSS props.
+- Examples: `--fw-bold: 700`, `--border-darkness: 0.025`
+
+#### variables.css
+
+- Purpose: CSS functions (clamp, etc); media query overrides.
+- Examples: `clamp()`, `color-mix()`, breakpoints.
+
+**`variables.css` exists because:**
+
+1. **CSS functions can't be expressed in TypeScript**
+
+   ```css
+   --fs-4: clamp(1.8rem, 1.7rem + 0.5vw, 2.2rem);  /* Dynamic calculation */
+   --color-base-900: color-mix(in srgb, #000, var(--color-primary-500) 5%);
+   ```
+
+2. **Initial values are overridden via media queries**
+
+   ```css
+   --fs-7: clamp(3.5rem, 2.8rem + 3.5vw, 6.5rem);
+
+   @media (max-width: 768px) {
+     --fs-7: clamp(2.2rem, 2.05rem + 0.75vw, 2.8rem);  /* Shifted down */
+   }
+   ```
+
+3. **Some values don't need to be animatable**
+   Breakpoints (`--bp-1`, `--bp-2`) are pure reference values—no need to register
+   them as CSS properties with `CSS.registerProperty()`.
+
 **From `variables.css`:**
 
 ### Spacing (fluid)

@@ -169,6 +169,16 @@ let { data }: PageProps = $props();
 {/if}
 ```
 
+> **Why is FAQ content outside `<details>`?**
+>
+> The accordion content is wrapped in an `<article>` with `{#if}` instead of
+> being inside `<details>` because browsers don't yet support **discrete
+> keyword interpolation** (e.g., animating `display: none` → `display: block`).
+>
+> **Future cleanup:** Once browsers support `transition-behavior: allow-discrete`,
+> move the content inside `<details>`, remove the `{#if}` block, and use CSS
+> `display` interpolation with `@starting-style` for the open/close animation.
+
 ## Transitions
 
 **From `Faq.svelte`:**
