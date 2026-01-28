@@ -84,6 +84,15 @@ a.btn {
 }
 
 /* === HOVER ELEVATION === */
+/*
+   Subtle lift effect on hover. Composable with .card/.btn.
+   - .lift        → -2px (nav items, subtle emphasis)
+   - .lift--strong → -4px (testimonials, featured cards)
+
+   Relies on global transition-duration from * selector.
+   Does NOT set transition-property to avoid overriding
+   .card/.btn multi-property transitions.
+*/
 .lift:hover {
 	transform: translateY(-2px);
 }

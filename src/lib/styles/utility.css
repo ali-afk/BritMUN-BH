@@ -1,6 +1,25 @@
 /* ================================
-   LAYOUT PATTERNS
+   LAYOUT UTILITIES
+   ================================
+
+   Composable utility classes for common layout patterns.
+   Uses attribute selectors [class*="..."] to share base
+   styles across modifier variants.
+
+   Naming convention: .base--modifier
+   - .stack, .stack--tight, .stack--loose
+   - .row, .row--between, .row--tight
+   - .title--section, .title--page
+
+   Reserved class substrings (avoid in unrelated classes):
+   row, stack, title, card-grid, center
+
+   Usage:
+   - Combine utilities: class="wrapper stack row--between"
+   - Compose with components: class="card row lift--strong"
    ================================ */
+
+/* === GRID LAYOUTS === */
 
 /* Centered wrapping grid for cards and buttons */
 [class*="card-grid"] {
@@ -35,7 +54,9 @@
 	gap: var(--space-4);
 }
 
-/* Vertical flex layout */
+/* === FLEX LAYOUTS === */
+
+/* Vertical flex layout (column direction) */
 [class*="stack"] {
 	display: flex;
 	flex-direction: column;
@@ -53,7 +74,7 @@
 	gap: var(--space-5);
 }
 
-/* Horizontal flex layout */
+/* Horizontal flex layout (row direction, vertically centered) */
 [class*="row"] {
 	display: flex;
 	align-items: center;
