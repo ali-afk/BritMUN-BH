@@ -12,9 +12,9 @@ let { testimonialData }: { testimonialData: TestimonialData[] } = $props();
 		What students have said about us...
 	</h1>
 
-	{#each testimonialData as content, i}
+	{#each testimonialData as testimonial, i}
 		<Testimonial
-			{...content}
+			{...testimonial}
 			color={ColorScale[i % 5] ?? 500}
 			direction={i % 2 === 0 ? 'right' : 'left'}
 		/>

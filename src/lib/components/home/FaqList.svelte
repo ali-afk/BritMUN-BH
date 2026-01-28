@@ -1,12 +1,14 @@
 <script lang="ts">
-import { faqs } from "$data/home";
+import { type FaqData } from "$data/home";
 import Faq from "./Faq.svelte";
+
+let { faqData }: { faqData: FaqData[] } = $props();
 </script>
 
 <section class="stack">
 	<h1 class="title--section">FAQs</h1>
 
-	{#each faqs as faq}
+	{#each faqData as faq}
 		<Faq question={faq.question}>{@html faq.answer}</Faq>
 	{/each}
 

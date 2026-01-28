@@ -1,9 +1,9 @@
-interface Faq {
+export interface FaqData {
 	question: string;
 	answer: string;
 }
 
-export const faqs: Faq[] = [
+export const faqs: FaqData[] = [
 	{
 		question: "Do I need to have MUN experiences to apply for BRITMUN XI?",
 		answer: `Experience is only needed to apply for <b>chair</b> positions (Preferably 2 MUN Experiences). It is also needed for delegates applying for <b>crisis councils</b>. All other positions such as Press, Runner, Security, and Delegate (excluding Crisis Councils) do not require MUN experiences.`,

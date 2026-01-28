@@ -6,7 +6,6 @@ import { Hero } from "$assets/home";
 	<img
 		src={Hero}
 		alt="Through the Looking Glass"
-		loading="eager"
 		fetchpriority="high"
 		width="100%"
 	>

@@ -11,7 +11,7 @@ let { data }: PageProps = $props();
 
 <HeroImage />
 <TestimonialList testimonialData={data.testimonials} />
-<FaqList />
+<FaqList faqData={data.faqs} />
 
 <style>
 </style>
