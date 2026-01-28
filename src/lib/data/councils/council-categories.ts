@@ -36,6 +36,12 @@ export const councilCategories: CouncilCategory[] = [
 		name: "General Assembly",
 		councils: [
 			{
+				name: "United Nations Security Council (UNSC)",
+				image: Unsc,
+				backgroundGuide:
+					"https://drive.google.com/file/d/1g_TqqgWMifs7Wo8J0hvh0Juj3hXg-ABe/view?usp=sharing",
+			},
+			{
 				name: "United Nations International Children's Emergency Fund (UNICEF)",
 				image: Unicef,
 				backgroundGuide:
@@ -76,12 +82,6 @@ export const councilCategories: CouncilCategory[] = [
 	{
 		name: "Specialised Councils",
 		councils: [
-			{
-				name: "United Nations Security Council (UNSC)",
-				image: Unsc,
-				backgroundGuide:
-					"https://drive.google.com/file/d/1g_TqqgWMifs7Wo8J0hvh0Juj3hXg-ABe/view?usp=sharing",
-			},
 			{
 				name: "Grey's Anatomy",
 				image: Greysanatomy,
@@ -132,7 +132,8 @@ export const councilCategories: CouncilCategory[] = [
 			{
 				name: "Fantasy",
 				image: Fantasy,
-				backgroundGuide: "https://drive.google.com/file/d/1420ZbBpbL0LlUpKZxFk6Ki8pSxxZ59AW/view?usp=sharing",
+				backgroundGuide:
+					"https://drive.google.com/file/d/1420ZbBpbL0LlUpKZxFk6Ki8pSxxZ59AW/view?usp=sharing",
 			},
 			{
 				name: "Dexter",
