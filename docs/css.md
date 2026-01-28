@@ -184,6 +184,98 @@ Fluid values handle most responsiveness. When needed:
 
 **Breakpoints:** `--bp-1: 480px`, `--bp-2: 768px`, `--bp-3: 1024px`, `--bp-4: 1280px`
 
+### Responsive "Shift Down" Pattern
+
+At smaller breakpoints, size tokens are reassigned to smaller values:
+
+```css
+@media (max-width: 768px) {
+  /* Font sizes: shift down 2 levels */
+  --fs-5: clamp(1.6rem, ...);  /* Contains what --fs-3 would be on desktop */
+  
+  /* Spaces: shift down 1 level */
+  --space-5: clamp(1.6rem, ...);  /* Contains what --space-4 would be on desktop */
+}
+```
+
+**What this does:** `--fs-5` on mobile actually contains what `--fs-3` would be on desktop.
+The variable name stays the same but the value shifts down.
+
+**Why:** Components use semantic tokens (`--fs-5` for "medium heading") without media queries.
+Responsiveness is handled once, globally, rather than in every component.
+
+**Shift levels by breakpoint:**
+
+- `1024px` — fonts shift down 1 level
+- `768px` — fonts shift down 2 levels, spaces shift down 1 level
+- `480px` — fonts shift down 3 levels, spaces shift down 2 levels
+
+## Utility Classes
+
+### Attribute Selector Pattern
+
+Utility classes use attribute selectors to share base styles:
+
+```css
+[class*="stack"] {
+  display: flex;
+  flex-direction: column;
+}
+
+.stack { gap: var(--space-4); }
+.stack--tight { gap: var(--space-3); }
+.stack--loose { gap: var(--space-5); }
+```
+
+**What this does:** `[class*="stack"]` matches any class containing "stack".
+So `.stack`, `.stack--tight`, and `.stack--loose` all inherit the base flex styles.
+
+**Why:** DRY approach - base styles defined once, modifiers only override what changes.
+No preprocessor needed, works in vanilla CSS.
+
+**Caution:** Could cause unintended matches (e.g., a class named `.haystack` would match).
+Reserved substrings: `row`, `stack`, `title`, `card-grid`, `center`.
+
+### Lift Modifiers
+
+```css
+.lift:hover { transform: translateY(-2px); }
+.lift--strong:hover { transform: translateY(-4px); }
+```
+
+**What:** Subtle "lift" effect on hover - element moves up slightly.
+
+**Usage:**
+
+- `.lift` — Subtle, for nav links and minor elements
+- `.lift--strong` — Prominent, for testimonials and featured cards
+
+**Note:** These are independent classes, not BEM modifiers. Use one or the other, not both.
+They're kept separate from `.card`/`.btn` because lift is optional.
+
+## GPU Optimization
+
+`.card` and `.btn` include GPU layer promotion hints:
+
+```css
+.card, .btn {
+  backface-visibility: hidden;
+  perspective: 1000px;
+  transform: translateZ(0);
+}
+```
+
+**What these do:**
+
+- `translateZ(0)` — Classic "GPU layer promotion hack"
+- `perspective` and `backface-visibility` — Reinforce layer creation
+
+**Why:** Results in smoother `transform` and `background-color` transitions.
+Trade-off: slightly more memory usage for better animation performance.
+
+**Caution:** Can cause blurry text on some browsers/zoom levels. If you notice
+rendering issues, these may need adjustment.
+
 ## Auto-Contrast System (`--_background`)
 
 The `--_background` variable powers automatic color
@@ -229,7 +321,72 @@ article {
 }
 ```
 
-The underscore prefix (`--_`) indicates a private/scoped variable.
+### Critical Rule: Do NOT Manually Set Colors on Interactive Elements
+
+> **When styling `.card` or `.btn` elements, NEVER manually set:**
+>
+> - `color`
+> - `background-color`
+> - `border-color`
+>
+> **These are calculated automatically from `--_background`.**
+
+The only way to change an interactive element's appearance is by setting `--_background`.
+The system then derives all other colors to ensure proper contrast and consistency.
+
+**Exception - `--text-mute`:** Interactive elements default to `--text-main` for text color.
+If you need muted/secondary text inside a card or button, use `color: var(--text-mute)`.
+This is the only color override that's acceptable.
+
+```css
+/* WRONG - breaks auto-contrast */
+.my-card {
+  background-color: purple;
+  color: white;
+  border-color: darkpurple;
+}
+
+/* CORRECT - let the system calculate */
+.my-card {
+  --_background: var(--color-primary-500);
+}
+
+/* CORRECT - using text-mute for secondary text */
+.my-card p.subtitle {
+  color: var(--text-mute);
+}
+```
+
+**If adding new interactive variants in the future:** Always define them by setting
+`--_background` only. Never bypass the auto-contrast system with manual color overrides.
+
+### Nested `--_background` Overrides
+
+Components can contain multiple interactive elements with different backgrounds:
+
+```css
+/* CouncilCard.svelte */
+div {
+  --_background: var(--bg-card);  /* Light card background */
+}
+
+a {
+  --_background: var(--color-status-info);  /* Blue button inside */
+}
+```
+
+Each element with `.card` or `.btn` recalculates its own contrast colors based on its
+`--_background` value. The system works correctly at any nesting level.
+
+### The Underscore Prefix Convention
+
+The `--_` prefix signals a "private" or "scoped" variable:
+
+- `--_background` — Input variable that must be set by the component
+- `--_contrast` — Internal calculation, not meant for external use
+
+This convention distinguishes "input" variables (set by component) from
+"output" variables (calculated by the system) and global tokens (no underscore).
 
 ## Semantic Colors
 

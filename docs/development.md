@@ -128,6 +128,34 @@ All themed elements update automatically.
 2. Export from `src/lib/components/[page]/index.ts`
 3. Import with `import { NewComponent } from "$components/[page]"`
 
+### Barrel Export Pattern
+
+Directories use `index.ts` files to centralize exports:
+
+```typescript
+// src/lib/components/home/index.ts
+export { default as FaqList } from "./FaqList.svelte";
+export { default as Testimonial } from "./Testimonial.svelte";
+
+// src/lib/assets/councils/index.ts
+export { default as Unsc } from "./unsc.png";
+export { default as Iaea } from "./iaea.png";
+```
+
+**Benefits:**
+
+- Cleaner imports: `"$components/home"` instead of `"$components/home/FaqList.svelte"`
+- Internal file structure can change without breaking imports
+- Encapsulates implementation details
+
+**Conventions:**
+
+- Component exports: Match filename (`FaqList.svelte` → `FaqList`)
+- Asset exports: PascalCase regardless of filename (`unsc.png` → `Unsc`)
+
+**Important:** New components/assets must be manually added to `index.ts`.
+This is easy to forget - if an import fails, check the barrel export first.
+
 ## Image Optimization
 
 ```bash

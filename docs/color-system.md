@@ -205,9 +205,23 @@ article {
 1. Background might be near the 0.6 threshold—test with slightly lighter/darker
 2. Check that `--text-main` is being applied (not overridden)
 
+## Critical Rule: Only Set `--_background`
+
+> **When styling `.card` or `.btn`, NEVER manually set `color`, `background-color`,
+> or `border-color`. These are auto-calculated from `--_background`.**
+
+The only acceptable color override is `color: var(--text-mute)` for secondary text,
+since interactive elements default to `--text-main`.
+
+See [CSS Patterns](./css.md#critical-rule-do-not-manually-set-colors-on-interactive-elements)
+for detailed examples.
+
 ## Related Files
 
 - `src/lib/styles/interactive.css` — Core calculations
 - `src/lib/data/default-properties.ts` — Tuning values (`--border-darkness`,
 `--hover-degree`, etc.)
 - `src/lib/scripts/register-properties.ts` — Registers CSS properties for animations
+- [CSS Patterns](./css.md) — Usage patterns and utility classes
+- [Architecture Decisions](./architecture-decisions.md) — Why things are
+implemented this way
