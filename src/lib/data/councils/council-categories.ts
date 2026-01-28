@@ -116,7 +116,7 @@ export const councilCategories: CouncilCategory[] = [
 				name: "International Atomic Energy Agency (IAEA)",
 				image: Iaea,
 				backgroundGuide:
-					"https://drive.google.com/file/d/1PVlR3rJHJi4Ybb01vxWDsBgw-yZlkJ7e/view?usp=sharing",
+					"https://drive.google.com/file/d/15bFaDAjEHhm8HGZAAIpdjBERPC9l3XlY/view?usp=drive_link",
 			},
 		],
 	},
