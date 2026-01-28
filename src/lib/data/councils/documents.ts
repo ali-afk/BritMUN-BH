@@ -14,6 +14,10 @@ export const documentGroups: DocumentGroup[] = [
 				label: "Rules of Procedure",
 				href: "https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
 			},
+			{
+				label: "Delegate Training Slides",
+				href: "https://docs.google.com/presentation/d/1PLiG0tQns08pHSdBmXIi0cYtRPK9vX5qRwoFaGGXwy4/edit?usp=sharing",
+			},			
 		],
 	},
 	{
