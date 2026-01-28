@@ -74,6 +74,9 @@
 	--shadow-weak: 0 2px 4px var(--shadow-color);
 	--shadow-strong: 0 10px 40px var(--shadow-color);
 
+	--sb-thumb: var(--color-primary-900);
+	--sb-track: var(--color-primary-100);
+
 	--scale-hover: scale(1.02);
 	--scale-active: scale(0.98);
 
