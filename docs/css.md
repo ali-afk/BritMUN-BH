@@ -10,7 +10,7 @@ All values come from CSS custom properties. Never hardcode values.
 registered at runtime from `DefaultProperties` via `register-properties.ts`,
 not defined in `variables.css`.
 
-**From [`variables.css`](https://github.com/ali-afk/BritMUN-BH/blob/v0.7.1/src/lib/styles/variables.css):**
+**From `variables.css`:**
 
 ### Spacing (fluid)
 
@@ -47,7 +47,7 @@ not defined in `variables.css`.
 
 ## Fluid Typography
 
-**From [`variables.css:17`](https://github.com/ali-afk/BritMUN-BH/blob/v0.7.1/src/lib/styles/variables.css#L17):**
+**From `variables.css`:**
 
 ```css
 --fs-4: clamp(1.8rem, 1.7rem + 0.5vw, 2.2rem);
@@ -57,7 +57,7 @@ Scales automatically between mobile and desktop—no media queries needed.
 
 ## Color Mixing
 
-**From [`variables.css:37`](https://github.com/ali-afk/BritMUN-BH/blob/v0.7.1/src/lib/styles/variables.css#L37):**
+**From `variables.css`:**
 
 ```css
 --color-base-900: color-mix(in srgb, #000, var(--color-primary-500) 5%);
@@ -67,14 +67,17 @@ All grays are tinted with the primary color. Change the primary, everything upda
 
 ## Scoped Styles
 
-**From [`Faq.svelte:32`](https://github.com/ali-afk/BritMUN-BH/blob/v0.7.1/src/lib/components/home/Faq.svelte#L32):**
+**From `Faq.svelte`:**
 
 ```svelte
 <style>
 article {
-  button {
-    padding: var(--space-4);
-    span { font: var(--fw-light) var(--fs-4) / var(--lh-2) var(--font-body); }
+  --_background: var(--bg-card);
+  padding-inline: var(--space-4);
+
+  summary {
+    padding-block: var(--space-4);
+    font: var(--fw-light) var(--fs-4) / var(--lh-2) var(--font-body);
   }
 }
 </style>
@@ -91,12 +94,15 @@ font: var(--fw-light) var(--fs-4) / var(--lh-2) var(--font-body);
 
 ## Transitions
 
-**From [`Faq.svelte:52`](https://github.com/ali-afk/BritMUN-BH/blob/v0.7.1/src/lib/components/home/Faq.svelte#L52):**
+**From `Faq.svelte`:**
 
 ```css
-img {
+summary img {
   transition-property: transform;
-  &.active { transform: rotate(45deg); }
+}
+
+details[open] summary img {
+  transform: rotate(45deg);
 }
 ```
 
@@ -104,7 +110,7 @@ Define `transition-property` on the base element, not the state.
 
 ## Shadows
 
-**From [`variables.css:79-80`](https://github.com/ali-afk/BritMUN-BH/blob/v0.7.1/src/lib/styles/variables.css#L79-L80):**
+**From `variables.css`:**
 
 ```css
 --shadow-weak: 0 2px 4px var(--shadow-color);
@@ -172,11 +178,11 @@ article {
 
 **Examples in codebase:**
 
-- `Faq.svelte:34` — sets `--_background: var(--bg-card)`
-- `Testimonial.svelte:8` — sets via inline style for dynamic colors
-- `CouncilCard.svelte:21,40` — different backgrounds for card vs link
+- `Faq.svelte` — sets `--_background: var(--bg-card)` in component styles
+- `Testimonial.svelte` — sets via inline style for dynamic colors
+- `CouncilCard.svelte` — different backgrounds for card vs link
 
-**From [`interactive.css`](https://github.com/ali-afk/BritMUN-BH/blob/v0.7.1/src/lib/styles/interactive.css):**
+**From `interactive.css`:**
 
 ```css
 .card, .btn {

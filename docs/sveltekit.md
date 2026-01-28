@@ -26,27 +26,29 @@ Note: Footer was removed. Skip-link improves keyboard accessibility.
 
 ### $state - Reactive Variables
 
-**From [`Faq.svelte:10`](https://github.com/ali-afk/BritMUN-BH/blob/v0.7.1/src/lib/components/home/Faq.svelte#L10):**
+**From `Faq.svelte`:**
 
 ```svelte
 <script lang="ts">
   let isOpen = $state(false);
 </script>
 
-<button onclick={() => (isOpen = !isOpen)}>Toggle</button>
+<details bind:open={isOpen}>
+  <summary>Toggle</summary>
+</details>
 {#if isOpen}<div>Content</div>{/if}
 ```
 
 ### $props - Component Properties
 
-**From [`Faq.svelte:9`](https://github.com/ali-afk/BritMUN-BH/blob/v0.7.1/src/lib/components/home/Faq.svelte#L9):**
+**From `Faq.svelte`:**
 
 ```svelte
 <script lang="ts">
   let { question, children } = $props();
 </script>
 
-<button>{question}</button>
+<summary>{question}</summary>
 <div>{@render children()}</div>
 ```
 
@@ -99,12 +101,13 @@ import { parseCssTime } from "$scripts/utils";
 
 ## onMount
 
-**From [`+layout.svelte:11`](https://github.com/ali-afk/BritMUN-BH/blob/v0.7.1/src/routes/+layout.svelte#L11):**
+**From `+layout.svelte`:**
 
 ```svelte
 import { onMount } from "svelte";
 
 onMount(() => {
+  optimiseInteractive();
   registerProperties();
   document.documentElement.classList.add("document-loaded");
 });
@@ -158,7 +161,7 @@ let { data }: PageProps = $props();
 
 ## Conditionals with #if
 
-**From [`Faq.svelte:24`](https://github.com/ali-afk/BritMUN-BH/blob/v0.7.1/src/lib/components/home/Faq.svelte#L24):**
+**From `Faq.svelte`:**
 
 ```svelte
 {#if isOpen}
@@ -168,15 +171,16 @@ let { data }: PageProps = $props();
 
 ## Transitions
 
-**From [`Faq.svelte:25`](https://github.com/ali-afk/BritMUN-BH/blob/v0.7.1/src/lib/components/home/Faq.svelte#L25):**
+**From `Faq.svelte`:**
 
 ```svelte
-import { slide } from "$scripts/transition";
+import { slide } from "svelte/transition";
+import { standard } from "$scripts/transition";
 
 <div transition:standard={slide}>Slides in/out</div>
 ```
 
-Custom transitions respect `prefers-reduced-motion`.
+Custom transitions via `standard` wrapper respect `prefers-reduced-motion`.
 
 ## Snippet Rendering
 
@@ -196,10 +200,10 @@ Replaces slots from Svelte 4.
 
 ## Event Handling
 
-**From [`Faq.svelte:15`](https://github.com/ali-afk/BritMUN-BH/blob/v0.7.1/src/lib/components/home/Faq.svelte#L15):**
+**From `NavLinks.svelte`:**
 
 ```svelte
-<button onclick={() => (isOpen = !isOpen)} type="button">Toggle</button>
+<button onclick={() => (isMenuOpen = !isMenuOpen)} type="button">Toggle</button>
 ```
 
 - Use `onclick` (not `on:click`)
@@ -207,20 +211,21 @@ Replaces slots from Svelte 4.
 
 ## Accessibility
 
-**From [`Faq.svelte:17-18`](https://github.com/ali-afk/BritMUN-BH/blob/v0.7.1/src/lib/components/home/Faq.svelte#L17-L18):**
+**From `Faq.svelte`:**
 
 ```svelte
-<button aria-expanded={isOpen} aria-controls="{contentId}">
-  <img src={icon} alt="" aria-hidden="true">
-</button>
+<summary aria-expanded={isOpen} aria-controls="{contentId}">
+  {question}
+  <img src={toggleIcon} alt="" aria-hidden="true">
+</summary>
 ```
 
-- `aria-expanded` for toggles
+- `aria-expanded` for toggles (native `<details>` handles this automatically)
 - `aria-hidden="true"` + empty `alt=""` for decorative images
 
 ## svelte:head
 
-**From [`+layout.svelte:20`](https://github.com/ali-afk/BritMUN-BH/blob/v0.7.1/src/routes/+layout.svelte#L20):**
+**From `+layout.svelte`:**
 
 ```svelte
 <svelte:head>
@@ -231,7 +236,7 @@ Replaces slots from Svelte 4.
 
 ## Barrel Exports
 
-**From [`index.ts:1`](https://github.com/ali-afk/BritMUN-BH/blob/v0.7.1/src/lib/components/home/index.ts#L1):**
+**From `src/lib/components/home/index.ts`:**
 
 ```typescript
 export { default as Faq } from "./Faq.svelte";

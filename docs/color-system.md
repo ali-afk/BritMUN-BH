@@ -11,7 +11,8 @@ Without this system, every new background color would require:
 3. Duplicating hover/border color logic per component
 4. Risking accessibility failures when colors change
 
-The auto-contrast system eliminates this by **deriving all related colors from a single input**.
+The auto-contrast system eliminates this by
+**deriving all related colors from a single input**.
 
 ## How It Works
 
@@ -42,7 +43,7 @@ The auto-contrast system eliminates this by **deriving all related colors from a
 When you set `--_background`, these are calculated automatically:
 
 | Variable | Purpose | Calculation |
-|----------|---------|-------------|
+| ---------- | --------- | ------------- |
 | `--text-main` | Primary text | Black or white based on contrast |
 | `--text-mute` | Secondary text | 50% lightness, keeps hue |
 | `--border-color` | Default border | Darkened/lightened from background |
@@ -58,11 +59,13 @@ Without it, all calculations fail silently and you get broken colors.
 ### Setting `--_background`
 
 **Via inline style (dynamic colors):**
+
 ```svelte
 <article style="--_background: {colorValue}" class="card">
 ```
 
 **Via component styles (static colors):**
+
 ```css
 article {
   --_background: var(--bg-card);
@@ -70,6 +73,7 @@ article {
 ```
 
 **Via scoped overrides:**
+
 ```css
 .special-card {
   --_background: var(--color-primary-700);
@@ -78,9 +82,11 @@ article {
 
 ## Critical Limitation: Only Works on `.card` and `.btn`
 
-> **The auto variables (`--text-main`, `--border-color`, etc.) are ONLY calculated inside `.card` or `.btn` elements.**
+> **The auto variables (`--text-main`, `--border-color`, etc.) are ONLY calculated
+inside _interactive_ elements (`.card` or `.btn`).**
 
-This is because the calculations are defined in the `.card, .btn` selector block in `interactive.css`.
+This is because the calculations are defined in the
+`.card, .btn` selector block in `interactive.css`.
 
 ### What Works
 
@@ -116,6 +122,7 @@ This is because the calculations are defined in the `.card, .btn` selector block
 ### If You Need Auto-Contrast on a Non-Interactive Element
 
 Either:
+
 1. Add `.card` class (even without hover effects, it enables the system)
 2. Manually set the colors using the same calculation pattern
 
@@ -127,7 +134,10 @@ Either:
 --_contrast: sign(0.6 - l);
 ```
 
-Human perception doesn't treat 50% lightness as the midpoint. Light colors appear lighter than they "should" due to how our eyes work. The 0.6 threshold accounts for this—it switches to dark text slightly earlier than pure middle gray.
+Human perception doesn't treat 50% lightness as the midpoint.
+Light colors appear lighter than they "should" due to how our eyes work.
+The 0.6 threshold accounts for this—it switches to dark text slightly
+earlier than pure middle gray.
 
 ### Why OKLCH?
 
@@ -142,13 +152,19 @@ This makes the lightness-based contrast calculation reliable across all hues.
 ### Border Darkness Calculation
 
 ```css
---border-brightness: calc(l + var(--_contrast) * var(--border-darkness));
---border-color: oklch(from var(--_background) clamp(0, var(--border-brightness), 1) c h);
+--border-brightness: calc(
+   l + var(--_contrast) * var(--border-darkness)
+ );
+
+--border-color: oklch(
+   from var(--_background) clamp(
+   0, var(--border-brightness), 1
+ ) c h);
 ```
 
 - Light backgrounds → darken border (`--_contrast` = -1)
 - Dark backgrounds → lighten border (`--_contrast` = +1)
-- `--border-darkness` controls intensity (defined in `register-properties.ts`)
+- `--border-darkness` controls intensity (defined in `default-properties.ts`)
 
 ## Usage Examples
 
@@ -176,27 +192,21 @@ article {
 </style>
 ```
 
-### CTA Buttons
-
-```svelte
-<a class="btn" style="--_background: var(--color-primary-700)">
-  Register Now
-</a>
-```
-
 ## Debugging
 
 **Colors look wrong?**
+
 1. Check that `--_background` is defined on the element
 2. Check that element has `.card` or `.btn` class
 3. Inspect computed value of `--_contrast` (should be -1 or 1)
 
 **Text not readable?**
+
 1. Background might be near the 0.6 threshold—test with slightly lighter/darker
 2. Check that `--text-main` is being applied (not overridden)
 
 ## Related Files
 
 - `src/lib/styles/interactive.css` — Core calculations
-- `src/lib/styles/variables.css` — Tuning values (`--border-darkness`, etc.)
+- `src/lib/data/default-properties.ts` — Tuning values (`--border-darkness`, `--hover-degree`, etc.)
 - `src/lib/scripts/register-properties.ts` — Registers CSS properties for animations

@@ -81,7 +81,7 @@ if (!match?.[1]) return fallback;
 const value = match[1];  // Now safe
 ```
 
-See `parseCssTime()` in `src/lib/scripts/media.ts`.
+See `parseCssTime()` in `src/lib/scripts/utils.ts`.
 
 ## Best Practices
 

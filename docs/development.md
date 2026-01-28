@@ -102,7 +102,7 @@ All themed elements update automatically.
 ### Add Page
 
 1. Create `src/routes/about/+page.svelte`
-2. Add to navigation in `Header.svelte`
+2. Add to navigation in `src/lib/components/NavLinks.svelte`
 
 ```svelte
 <svelte:head>
