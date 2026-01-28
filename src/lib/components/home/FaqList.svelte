@@ -4,7 +4,7 @@ import Faq from "./Faq.svelte";
 </script>
 
 <section class="stack">
-	<h1>FAQs</h1>
+	<h1 class="title--section">FAQs</h1>
 
 	{#each faqs as faq}
 		<Faq question={faq.question}>{@html faq.answer}</Faq>
@@ -25,7 +25,6 @@ import Faq from "./Faq.svelte";
 <style>
 section {
 	color: var(--bg-main);
-
 	background-color: var(--color-primary-700);
 
 	footer p {

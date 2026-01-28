@@ -12,7 +12,11 @@ let { question, children }: { question: string; children: Snippet } = $props();
 
 <article class="wrapper card">
 	<details bind:open={isOpen} name="faq">
-		<summary aria-expanded={isOpen} aria-controls="{contentId}">
+		<summary
+			class="row--between"
+			aria-expanded={isOpen}
+			aria-controls="{contentId}"
+		>
 			{question}
 			<img src={toggleIcon} alt="" aria-hidden="true">
 		</summary>
@@ -37,8 +41,6 @@ article {
 
 	summary {
 		padding-block: var(--space-4);
-		display: flex;
-		justify-content: space-between;
 		font: var(--fw-light) var(--fs-4) / var(--lh-2) var(--font-body);
 
 		img {

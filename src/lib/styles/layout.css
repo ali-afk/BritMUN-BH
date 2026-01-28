@@ -22,11 +22,7 @@ body {
 	flex-direction: column;
 }
 
-header {
-	font-family: var(--font-head);
-	display: flex;
-}
-
+header,
 h1,
 h2,
 h3,
@@ -35,9 +31,7 @@ h4 {
 }
 
 section {
-	> :where(h1, h2, h3, h4):first-child {
-		margin-bottom: var(--space-4);
-	}
+	margin-bottom: var(--space-4);
 
 	main > & {
 		/* if 100% < container-max then use --space-5 */
@@ -55,10 +49,9 @@ a {
 	color: var(--link);
 	text-decoration: underline;
 	text-decoration-color: transparent;
+	text-underline-offset: 5px;
 
 	transition-property: text-decoration-color, opacity;
-
-	text-underline-offset: 5px;
 
 	&:hover,
 	&:focus-visible {
@@ -84,4 +77,21 @@ button {
 	border: 0;
 	font-weight: var(--fw-semibold);
 	cursor: pointer;
+}
+
+/* Hide-on-scroll header pattern */
+.sticky-header {
+	display: flex;
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+	background-color: var(--bg-main);
+	box-shadow: var(--shadow-weak);
+	transition-property: transform;
+	transition-duration: var(--transition-duration-long);
+	will-change: transform;
+
+	&.hidden {
+		transform: translateY(-100%);
+	}
 }

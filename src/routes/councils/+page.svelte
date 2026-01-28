@@ -10,7 +10,7 @@ let { data }: PageProps = $props();
 </svelte:head>
 
 <section>
-	<h1 class="section-title">COUNCILS</h1>
+	<h1 class="title--page">COUNCILS</h1>
 
 	<DocumentButtons documentGroups={data.documentGroups} />
 

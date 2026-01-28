@@ -8,7 +8,9 @@ let { testimonialData }: { testimonialData: TestimonialData[] } = $props();
 
 <section class="stack">
 	<!-- .skip-link skips to #main-content -->
-	<h1 id="main-content">What students have said about us...</h1>
+	<h1 id="main-content" class="title--section">
+		What students have said about us...
+	</h1>
 
 	{#each testimonialData as content, i}
 		<Testimonial

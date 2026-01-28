@@ -16,10 +16,10 @@ let colorSet = DefaultProperties.color.primary;
 <article
 	style="--_background: {colorSet[color]}"
 	class:reverse={direction === 'right'}
-	class="wrapper card"
+	class="wrapper card row lift--strong"
 >
 	<header class="center--column">
-		<img src={Logo} alt="" width="64px">
+		<img class="avatar" src={Logo} alt="" width="64px">
 		<h2>{title}</h2>
 		<h3>
 			BRITMUN <time datetime={year}>{year}</time>
@@ -33,7 +33,6 @@ let colorSet = DefaultProperties.color.primary;
 
 <style>
 article {
-	display: flex;
 	position: relative;
 
 	&::before {
@@ -52,22 +51,10 @@ article {
 		}
 	}
 
-	:where(&:hover) {
-		transform: translateY(-4px);
-	}
-
 	header {
 		justify-content: center;
 		padding: var(--space-3);
 		width: clamp(180px, 30%, 250px);
-
-		img {
-			aspect-ratio: 1;
-			border-radius: 50%;
-			background: var(--bg-main);
-			padding: 4px;
-			object-fit: contain;
-		}
 
 		h2 {
 			font-size: var(--fs-2);

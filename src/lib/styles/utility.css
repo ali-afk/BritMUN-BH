@@ -7,6 +7,9 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
+}
+
+.card-grid {
 	gap: var(--space-5);
 }
 
@@ -28,15 +31,53 @@
 /* Full-page centered section (errors, empty states) */
 .center--page {
 	flex-direction: column;
-	justify-content: center;
 	min-height: 60vh;
 	gap: var(--space-4);
 }
 
-.stack {
+/* Vertical flex layout */
+[class*="stack"] {
 	display: flex;
 	flex-direction: column;
+}
+
+.stack {
 	gap: var(--space-4);
+}
+
+.stack--tight {
+	gap: var(--space-3);
+}
+
+.stack--loose {
+	gap: var(--space-5);
+}
+
+/* Horizontal flex layout */
+[class*="row"] {
+	display: flex;
+	align-items: center;
+}
+
+.row {
+	gap: var(--space-4);
+}
+
+.row--between {
+	justify-content: space-between;
+}
+
+.row--tight {
+	gap: var(--space-3);
+}
+
+/* Circular image/avatar */
+.avatar {
+	aspect-ratio: 1;
+	border-radius: 50%;
+	background: var(--bg-main);
+	padding: 4px;
+	object-fit: contain;
 }
 
 /* Generic container */
@@ -49,9 +90,19 @@
    TYPOGRAPHY PATTERNS
    ================================ */
 
+[class*="title"] {
+	font-weight: var(--fw-bold);
+	line-height: var(--lh-1);
+	margin-bottom: var(--space-4);
+}
+
+.title--section {
+	font-size: var(--fs-6);
+}
+
 /* Main section/page title */
-.section-title {
-	font: var(--fw-bold) var(--fs-6) / var(--lh-1) var(--font-head);
+.title--page {
+	font-size: var(--fs-7);
+	margin-bottom: var(--space-5);
 	text-align: center;
-	margin-bottom: var(--space-6);
 }

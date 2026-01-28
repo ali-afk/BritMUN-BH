@@ -32,10 +32,10 @@ $effect(() => {
 </script>
 
 {#snippet links()}
-	<ul id="links" class="center" transition:standard={fly}>
-		<li><a href="/councils" class="councils">Councils</a></li>
+	<ul id="links" class="center" transition:standard={fly} role="list">
+		<li class="lift"><a href="/councils" class="councils">Councils</a></li>
 
-		<li>
+		<li class="lift">
 			<a
 				href="https://drive.google.com/drive/folders/17hrrzjpgucemAw2dpzEsceGlmHDVxcQk?usp=share_link"
 				target="_blank"
@@ -45,7 +45,7 @@ $effect(() => {
 			>
 		</li>
 
-		<li>
+		<li class="lift">
 			<a
 				class="cta btn"
 				target="_blank"
@@ -68,7 +68,7 @@ $effect(() => {
 		aria-controls="links"
 		aria-expanded={isMenuOpen}
 		onclick={() => isMenuOpen = !isMenuOpen}
-		class="btn"
+		class="btn avatar"
 	>
 		<svg
 			width="16px"
@@ -89,41 +89,31 @@ $effect(() => {
 #links {
 	gap: var(--space-6);
 
-	li {
-		transition-property: transform;
+	a {
+		font-size: var(--fs-5);
 
-		&:hover {
-			transform: translateY(-2px);
+		&:hover,
+		&:focus-visible {
+			text-decoration-color: unset; /* Forces link decoration color = link color instead of global value */
 		}
 
-		a {
-			font-size: var(--fs-5);
+		&.cta {
+			--_background: var(--color-primary-700);
+			font-size: var(--fs-4);
+		}
 
-			&:hover,
-			&:focus-visible {
-				text-decoration-color: unset; /* Forces link decoration color = link color instead of global value */
-			}
+		&.councils {
+			color: var(--color-primary-700);
+		}
 
-			&.cta {
-				--_background: var(--color-primary-700);
-				font-size: var(--fs-4);
-			}
-
-			&.councils {
-				color: var(--color-primary-700);
-			}
-
-			&.photos {
-				color: var(--color-secondary-500);
-			}
+		&.photos {
+			color: var(--color-secondary-500);
 		}
 	}
 }
 
 button {
 	--_background: var(--color-primary-300);
-	border-radius: 100%;
-	padding: var(--space-4);
 
 	svg {
 		transition-property: transform;
