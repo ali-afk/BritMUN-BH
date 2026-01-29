@@ -45,7 +45,7 @@ export const councilCategories: CouncilCategory[] = [
 				name: "Disarmament and International Security Committee (DISEC)",
 				image: CouncilImages.Disec,
 				backgroundGuide:
-					"https://drive.google.com/file/d/1udG0mCDd5OsPgzlpxZ7QzXs1XB9J5VsT/view?usp=sharing",
+					"https://drive.google.com/file/d/1vRAKXSwlUqQ5bDa4G-CKEWFSbQ2tZ4NT/view?usp=sharing",
 			},
 		],
 	},
