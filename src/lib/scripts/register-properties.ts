@@ -33,9 +33,41 @@
  * @see src/lib/data/default-properties.ts for token definitions
  */
 
-import { flatten } from "flat";
 import { DefaultProperties } from "$data";
-import type { PropertyConfig, PropertyNode } from "$types/properties";
+import type {
+	PropertyConfig,
+	PropertyNode,
+	PropertyValue,
+} from "$types/properties";
+
+/**
+ * Flattens nested object: { color: { primary: { 500: "#934599" } } }
+ * Becomes: { "color-primary-500": "#934599" }
+ */
+function toCssProperties(
+	obj: PropertyNode,
+	prefix: string = "",
+): Record<string, PropertyValue> {
+	let result: Record<string, PropertyValue> = {};
+	const delimiter: string = "-";
+
+	for (const [key, value] of Object.entries(obj)) {
+		const newKey = prefix ? `${prefix}${delimiter}${key}` : key;
+
+		if (typeof value === "object" && value !== null && !Array.isArray(value)) {
+			// Nested object → recurse deeper
+			result = {
+				...result,
+				...toCssProperties(value as PropertyNode, newKey),
+			};
+		} else {
+			// Leaf value → add to result
+			result[newKey] = value as PropertyValue;
+		}
+	}
+
+	return result;
+}
 
 /**
  * Registers all design tokens as CSS custom properties
@@ -51,11 +83,7 @@ import type { PropertyConfig, PropertyNode } from "$types/properties";
  * // Smoothly animates when --color-primary-500 changes
  */
 export function registerProperties() {
-	// Flatten nested object: { color: { primary: { 500: "#934599" } } }
-	// Becomes: { "color-primary-500": "#934599" }
-	const properties = flatten(DefaultProperties, {
-		delimiter: "-", // Use hyphen as separator
-	}) as Record<string, PropertyNode>;
+	const properties = toCssProperties(DefaultProperties);
 
 	const keys = Object.keys(properties);
 

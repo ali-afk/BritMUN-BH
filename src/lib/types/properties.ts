@@ -10,7 +10,7 @@ export interface PropertyConfig {
 
 export type PropertyValue = string | boolean | number;
 
-type PropertyData = {
+export type PropertyData = {
 	[key: string]: PropertyValue | PropertyData | PropertyConfig | undefined;
 };
 
