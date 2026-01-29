@@ -1,4 +1,3 @@
-export { default as Arableague } from "./arableague.webp";
 export { default as Dexter } from "./dexter.webp";
 export { default as Disec } from "./disec.webp";
 export { default as Ecofin } from "./ecofin.webp";
