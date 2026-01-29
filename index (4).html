@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dexter Council MUN – Miami Crime Map</title>
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <link href="https://fonts.googleapis.com/css2?family=Girassol&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Average&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --primary:#5d3568;
+      --secondary:#8a459d;
+      --tertiary:#d6aedd;
+      --light:#cd92db;
+      --accent:#b00e63;
+      --bg:#f8f9fa;
+      --panel:#ffffff;
+      --text:#212529;
+      --muted:#6c757d;
+      --border:#dee2e6;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      color:var(--text);
+      background:var(--bg);
+    }
+    .app{
+      display:grid;
+      grid-template-columns: 360px 1fr;
+      gap:16px;
+      height:100svh;
+      padding:16px;
+    }
+    .sidebar{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:20px;
+      overflow:auto;
+      box-shadow:0 8px 28px rgba(0,0,0,.1);
+    }
+    .brand{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+    .brand .dot{width:12px;height:12px;border-radius:50%;background:var(--primary);box-shadow:0 0 12px rgba(93,53,104,0.4)}
+    h1{font-size:20px;margin:0;font-family:'Girassol',serif;color:var(--primary)}
+    p.muted{color:var(--muted);font-size:13px;margin:.25rem 0 1rem;font-family:'Average',serif}
+
+    .search{position:sticky;top:0;background:var(--panel);padding:8px;border-radius:12px;border:1px solid var(--border);margin-bottom:12px;z-index:10}
+    .search input{
+      width:100%;
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid var(--border);
+      background:var(--bg);
+      color:var(--text);
+      font-family:'Average',serif;
+    }
+    .search input:focus{outline:2px solid var(--primary);border-color:var(--primary)}
+
+    .accordion{display:flex;flex-direction:column;gap:8px}
+    details{
+      background:var(--bg);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px;
+      transition:all 0.3s ease;
+    }
+    details[open]{border-color:var(--secondary);box-shadow:0 4px 12px rgba(138,69,157,.15)}
+    summary{
+      list-style:none;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-family:'Girassol',serif;
+      color:var(--primary);
+      font-size:15px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .badge{
+      font-size:11px;
+      color:#fff;
+      background:linear-gradient(90deg,var(--secondary),var(--tertiary));
+      padding:3px 10px;
+      border-radius:999px;
+      margin-left:auto;
+      font-family:'Average',serif;
+    }
+    .badge.active-case{
+      background:linear-gradient(90deg,#dc2626,#ef4444);
+      animation:pulse 2s ease-in-out infinite;
+    }
+    .badge.special-case{
+      background:linear-gradient(90deg,#ec4899,#f472b6);
+      animation:pulse 2s ease-in-out infinite;
+      font-weight:bold;
+    }
+    @keyframes pulse{
+      0%, 100%{opacity:1}
+      50%{opacity:0.7}
+    }
+    .desc{color:var(--text);font-size:13px;line-height:1.5;padding:8px 2px 2px;font-family:'Average',serif}
+
+    .map-wrap{
+      position:relative;
+      border:1px solid var(--border);
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 8px 28px rgba(0,0,0,.1);
+    }
+    #map{height:100%;width:100%}
+    .leaflet-container{background:#08101a}
+
+    .pillbar{position:absolute;z-index:400;top:12px;left:12px;display:flex;gap:8px}
+    .pill{
+      padding:6px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.95);
+      color:var(--text);
+      font-size:12px;
+      font-family:'Average',serif;
+      box-shadow:0 2px 8px rgba(0,0,0,.1);
+    }
+
+    /* Calendar Styles */
+    .calendar-container{
+      position:absolute;
+      z-index:500;
+      top:12px;
+      right:12px;
+      background:rgba(255,255,255,.98);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:16px;
+      box-shadow:0 8px 28px rgba(0,0,0,.15);
+      backdrop-filter:blur(10px);
+      max-width:340px;
+    }
+    .calendar-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:16px;
+      gap:8px;
+    }
+    .calendar-header select{
+      padding:6px 10px;
+      border:1px solid var(--border);
+      border-radius:8px;
+      background:var(--bg);
+      color:var(--primary);
+      font-family:'Girassol',serif;
+      font-size:14px;
+      cursor:pointer;
+    }
+    .calendar-header select:focus{outline:2px solid var(--primary)}
+    .calendar-grid{
+      display:grid;
+      grid-template-columns:repeat(7, 1fr);
+      gap:4px;
+    }
+    .calendar-day-label{
+      text-align:center;
+      font-size:11px;
+      color:var(--muted);
+      font-family:'Average',serif;
+      padding:4px;
+      font-weight:600;
+    }
+    .calendar-day{
+      aspect-ratio:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:8px;
+      font-size:13px;
+      font-family:'Average',serif;
+      cursor:pointer;
+      transition:all 0.2s ease;
+      position:relative;
+      background:var(--bg);
+      border:1px solid transparent;
+    }
+    .calendar-day.empty{
+      cursor:default;
+      background:transparent;
+    }
+    .calendar-day:not(.empty):hover{
+      border-color:var(--secondary);
+      transform:scale(1.05);
+    }
+    .calendar-day.has-events{
+      background:linear-gradient(135deg, var(--tertiary), var(--light));
+      color:var(--primary);
+      font-weight:600;
+    }
+    .calendar-day.has-events::after{
+      content:'';
+      position:absolute;
+      bottom:2px;
+      width:4px;
+      height:4px;
+      border-radius:50%;
+      background:var(--accent);
+    }
+    .calendar-day.selected{
+      background:var(--primary);
+      color:#fff;
+      border-color:var(--primary);
+      box-shadow:0 0 0 2px rgba(93,53,104,.3);
+    }
+    .calendar-day.today{
+      border:2px solid var(--accent);
+    }
+    .calendar-day.locked{
+      opacity:0.5;
+      cursor:not-allowed;
+    }
+    .calendar-info{
+      margin-top:12px;
+      padding:10px;
+      background:var(--bg);
+      border-radius:8px;
+      font-size:12px;
+      font-family:'Average',serif;
+      color:var(--text);
+    }
+    .event-count{
+      display:inline-block;
+      background:var(--primary);
+      color:#fff;
+      padding:2px 8px;
+      border-radius:999px;
+      font-size:11px;
+      margin-left:4px;
+    }
+
+    .attribution{
+      position:absolute;
+      z-index:400;
+      right:10px;
+      bottom:8px;
+      font-size:11px;
+      color:var(--muted);
+      background:rgba(255,255,255,.9);
+      padding:4px 8px;
+      border-radius:8px;
+      border:1px solid var(--border);
+      font-family:'Average',serif;
+    }
+
+    .loc-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+    .loc-item{
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:10px;
+      background:var(--panel);
+      cursor:pointer;
+      transition:all 0.2s ease;
+    }
+    .loc-item:hover{border-color:var(--secondary);box-shadow:0 2px 8px rgba(138,69,157,.1)}
+    .loc-item.active{border-color:var(--primary);box-shadow:0 0 0 2px rgba(93,53,104,.15)}
+    .loc-item .date-badge{
+      display:inline-block;
+      font-size:10px;
+      color:var(--accent);
+      background:rgba(176,14,99,.1);
+      padding:2px 6px;
+      border-radius:4px;
+      margin-top:4px;
+    }
+    
+    .loc-link{
+      display:inline-block;
+      margin-top:8px;
+      font-size:12px;
+      color:var(--primary);
+      text-decoration:none;
+      border:1px solid var(--primary);
+      border-radius:8px;
+      padding:5px 10px;
+      font-family:'Average',serif;
+      transition:all 0.2s ease;
+    }
+    .loc-link:hover{background:var(--primary);color:#fff}
+    .loc-link[style*="color:#3b82f6"]:hover{background:#3b82f6;border-color:#3b82f6}
+
+    @media (max-width: 1200px){
+      .calendar-container{
+        max-width:280px;
+        padding:12px;
+      }
+      .calendar-day{font-size:12px}
+    }
+
+    @media (max-width: 900px){
+      .app{grid-template-columns: 1fr; grid-template-rows: 45% 1fr}
+      .sidebar{order:2}
+      .map-wrap{order:1; min-height:50svh}
+      .calendar-container{
+        top:8px;
+        right:8px;
+        left:8px;
+        max-width:none;
+      }
+      .pillbar{flex-direction:column;gap:4px}
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="dot"></span>
+        <h1>Dexter Council MUN – Miami Crime Map</h1>
+      </div>
+      <p class="muted">Select a date to view crime cases • Click markers for case details</p>
+
+      <div class="search">
+        <input id="search" type="text" placeholder="Search cases (victim name, method, location...)">
+      </div>
+
+      <section class="accordion">
+        <details open>
+          <summary>Cases <span class="badge" id="locCount">0</span></summary>
+          <div class="desc">
+            <div id="dateDisplay" style="font-weight:600;color:var(--primary);margin-bottom:8px;font-family:'Girassol',serif">Select a date to begin investigation</div>
+            Click a case to fly the map there and open details.
+            <div id="locList" class="loc-list"></div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Map Tips <span class="badge">Info</span></summary>
+          <div class="desc">
+            • 🔴 Red pins = Crime scenes | 🔵 Blue pins = Key locations<br>
+            • Use the calendar to filter cases by date<br>
+            • 🔒 Dates from Jan 30+ require passwords<br>
+            • Pan around Miami by clicking and dragging<br>
+            • Zoom in/out using your mouse wheel or trackpad<br>
+            • Click any marker to view details<br>
+            • Days with cases are highlighted in purple<br>
+            • 💝 Check out Valentine's Day for a surprise...
+          </div>
+        </details>
+      </section>
+    </aside>
+
+    <main class="map-wrap">
+      <div class="pillbar">
+        <span class="pill">🖱️ Click + Drag to Pan</span>
+        <span class="pill">🔍 Scroll to Zoom</span>
+      </div>
+
+      <!-- Calendar Widget -->
+      <div class="calendar-container">
+        <div class="calendar-header">
+          <select id="monthSelect"></select>
+          <select id="yearSelect"></select>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+        <div class="calendar-info" id="calendarInfo">
+          🔒 Select Jan 30 or later to begin investigation
+        </div>
+      </div>
+
+      <div id="map" aria-label="Interactive map of Miami"></div>
+      <div class="attribution">Map © OpenStreetMap contributors • Tiles © Carto</div>
+    </main>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin="">
+  </script>
+  <script>
+    // Miami area boundaries
+    const miamiBounds = [
+      [25.45, -80.45], // Southwest corner
+      [26.10, -79.95]  // Northeast corner
+    ];
+
+    // Basic Leaflet map setup with restricted bounds
+    const map = L.map('map', {
+      center: [25.774, -80.193], // Miami
+      zoom: 12,
+      minZoom: 10,
+      maxZoom: 18,
+      scrollWheelZoom: true,
+      zoomControl: true,
+      dragging: true,
+      maxBounds: miamiBounds,
+      maxBoundsViscosity: 1.0
+    });
+
+    // Basemap (Carto Dark Matter)
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      maxZoom: 20
+    }).addTo(map);
+
+    // Murder cases data for Dexter Council MUN - Jan 30 to Feb 6, 2026 only
+    const locations = [
+      // January 30, 2026
+      {
+        id: 'port-jan30',
+        title: 'Case #C-A30: Container Ship Murder',
+        victim: 'Dmitri Volkov',
+        coords: [25.7795, -80.1780],
+        badge: 'Homicide',
+        description: 'Victim: Dmitri Volkov, 52, Caucasian Male | Method: Multiple lacerations (bladed weapon, surgical precision) | Location: Refrigerated cargo container, Port of Miami | Suspect: Unknown | Arms dealer supplying criminal organizations. Body temperature suggests death occurred 12-18 hours prior to discovery.',
+        date: '2026-01-30',
+        caseNumber: 'C-A30',
+        suspect: 'Unknown',
+        demographic: 'Caucasian Male, 52'
+      },
+      // January 31, 2026
+      {
+        id: 'wynwood-jan31',
+        title: 'Case #C-B31: Wynwood Gallery Murder',
+        victim: 'Isabella Martinez',
+        coords: [25.8011, -80.1997],
+        badge: 'Homicide',
+        description: 'Victim: Isabella Martinez, 29, Hispanic Female | Method: Exsanguination via precision cuts | Location: Art gallery storage room, Wynwood | Suspect: Unknown | Gallery owner involved in art forgery ring that bankrupted collectors. Body wrapped in plastic sheeting.',
+        date: '2026-01-31',
+        caseNumber: 'C-B31',
+        suspect: 'Unknown',
+        demographic: 'Hispanic Female, 29'
+      },
+      // February 2, 2026 (skipping Feb 1)
+      {
+        id: 'beach-feb2',
+        title: 'Case #C-C02: South Beach Hotel Death',
+        victim: 'Marcus Wellington',
+        coords: [25.7907, -80.1300],
+        badge: 'Homicide',
+        description: 'Victim: Marcus Wellington, 41, Caucasian Male | Method: Lethal injection (potassium chloride) | Location: Luxury hotel penthouse, South Beach | Suspect: Under investigation | Fraudulent investment advisor who stole retirement funds. No signs of forced entry.',
+        date: '2026-02-02',
+        caseNumber: 'C-C02',
+        suspect: 'Under investigation',
+        demographic: 'Caucasian Male, 41'
+      },
+      {
+        id: 'downtown-feb2',
+        title: 'Case #C-D02: Metro Station Disposal',
+        victim: 'Andre Johnson',
+        coords: [25.7752, -80.1947],
+        badge: 'Homicide',
+        description: 'Victim: Andre Johnson, 38, African American Male | Method: Blunt force trauma (single blow to skull) | Location: Abandoned metro maintenance tunnel | Suspect: Unknown | Drug distributor responsible for fentanyl overdoses in local schools. Body positioned sitting upright.',
+        date: '2026-02-02',
+        caseNumber: 'C-D02',
+        suspect: 'Unknown',
+        demographic: 'African American Male, 38'
+      },
+      // February 4, 2026 (skipping Feb 3)
+      {
+        id: 'brickell-feb4',
+        title: 'Case #C-E04: Brickell Penthouse Fall',
+        victim: 'Sandra Kimura',
+        coords: [25.7617, -80.1918],
+        badge: 'Homicide',
+        description: 'Victim: Sandra Kimura, 33, Asian Female | Method: Defenestration (staged suicide) | Location: 38th floor office, Brickell Avenue | Suspect: Person of Interest detained | Corporate lawyer who covered up toxic waste dumping. Forensics indicate struggle before fall.',
+        date: '2026-02-04',
+        caseNumber: 'C-E04',
+        suspect: 'Person of Interest detained',
+        demographic: 'Asian Female, 33'
+      },
+      // February 5, 2026
+      {
+        id: 'havana-feb5',
+        title: 'Case #C-F05: Little Havana Execution',
+        victim: 'Roberto Diaz',
+        coords: [25.7653, -80.2195],
+        badge: 'Homicide',
+        description: 'Victim: Roberto Diaz, 47, Hispanic Male | Method: Manual strangulation with ligature marks | Location: Behind Domino Park, Calle Ocho | Suspect: Unknown | Human trafficker with connections to cartel. Body displayed in kneeling position with hands bound.',
+        date: '2026-02-05',
+        caseNumber: 'C-F05',
+        suspect: 'Unknown',
+        demographic: 'Hispanic Male, 47'
+      },
+      {
+        id: 'coconut-feb5',
+        title: 'Case #C-G05: Coconut Grove Poisoning',
+        victim: 'Patricia Morrison',
+        coords: [25.7282, -80.2436],
+        badge: 'Homicide',
+        description: 'Victim: Patricia Morrison, 56, Caucasian Female | Method: Arsenic poisoning (gradual exposure) | Location: Residential home, Coconut Grove | Suspect: Unknown | Unlicensed therapist who drove three patients to suicide. Toxicology shows buildup over 3 weeks.',
+        date: '2026-02-05',
+        caseNumber: 'C-G05',
+        suspect: 'Unknown',
+        demographic: 'Caucasian Female, 56'
+      },
+      // February 6, 2026
+      {
+        id: 'airport-feb6',
+        title: 'Case #C-H06: MIA Cargo Terminal Murder',
+        victim: 'Hassan Al-Rahman',
+        coords: [25.7959, -80.2870],
+        badge: 'ACTIVE',
+        description: 'Victim: Hassan Al-Rahman, 44, Middle Eastern Male | Method: UNDER INVESTIGATION | Location: Cargo terminal warehouse, Miami International Airport | Suspect: INVESTIGATION ONGOING | International smuggler trafficking weapons to terrorist cells. Body discovered 4 hours ago.',
+        date: '2026-02-06',
+        caseNumber: 'C-H06',
+        suspect: 'Investigation ongoing',
+        demographic: 'Middle Eastern Male, 44'
+      },
+      {
+        id: 'key-feb6',
+        title: 'Case #C-I06: Key Biscayne Marina Death',
+        victim: 'Thomas Bradford',
+        coords: [25.6926, -80.1629],
+        badge: 'ACTIVE',
+        description: 'Victim: Thomas Bradford, 62, Caucasian Male | Method: UNDER INVESTIGATION | Location: Private yacht marina, Key Biscayne | Suspect: INVESTIGATION ONGOING | Child predator with extensive dark web distribution network. Crime scene being processed.',
+        date: '2026-02-06',
+        caseNumber: 'C-I06',
+        suspect: 'Investigation ongoing',
+        demographic: 'Caucasian Male, 62'
+      },
+      // February 14, 2026 - Valentine's Day Special
+      {
+        id: 'surprise-feb14',
+        title: 'Case #C-V14: Valentine\'s Day Surprise',
+        victim: 'James Doakes',
+        coords: [25.8845, -80.1234],
+        badge: '💀 SPECIAL',
+        description: 'Victim: James Doakes, 45, African American Male | Method: SURPRISE MOTHERFUCKER | Location: Bay Harbor cabin | Suspect: Unknown | Doakes was investigating the Bay Harbor Butcher when he became a victim himself. Body found in cabin remains.',
+        date: '2026-02-14',
+        caseNumber: 'C-V14',
+        suspect: '???',
+        demographic: 'African American Male, 45'
+      }
+    ];
+
+    // Key Locations - Different location for each murder date (BLUE PINS)
+    const keyLocations = [
+      // Jan 30 - Port of Miami related
+      {
+        id: 'port-authority-jan30',
+        title: 'Port of Miami Security Office',
+        coords: [25.7810, -80.1765],
+        badge: 'Security',
+        description: 'Port security headquarters. Contains surveillance footage and access logs for Jan 30 incident at cargo terminals.',
+        type: 'location',
+        date: '2026-01-30'
+      },
+      // Jan 31 - Wynwood related
+      {
+        id: 'wynwood-police-jan31',
+        title: 'Wynwood Arts District Police Station',
+        coords: [25.8045, -80.1985],
+        badge: 'Station',
+        description: 'Local police substation. First responders to Jan 31 gallery murder scene. Contains initial witness statements.',
+        type: 'location',
+        date: '2026-01-31'
+      },
+      // Feb 2 - Two murders, two locations
+      {
+        id: 'beach-hotel-lobby-feb2',
+        title: 'South Beach Hotel Lobby',
+        coords: [25.7920, -80.1315],
+        badge: 'Scene',
+        description: 'Hotel main entrance and security desk. Review guest logs and security camera footage from Feb 2 penthouse incident.',
+        type: 'location',
+        date: '2026-02-02'
+      },
+      {
+        id: 'metro-operations-feb2',
+        title: 'Metro Transit Operations Center',
+        coords: [25.7730, -80.1930],
+        badge: 'Transit',
+        description: 'Metrorail command center. Access to tunnel maintenance schedules and worker assignments for Feb 2 disposal site.',
+        type: 'location',
+        date: '2026-02-02'
+      },
+      // Feb 4 - Brickell related
+      {
+        id: 'brickell-building-security-feb4',
+        title: 'Brickell Tower Security Control',
+        coords: [25.7625, -80.1905],
+        badge: 'Security',
+        description: 'Building security office. Keycard access records and elevator surveillance for Feb 4 penthouse incident.',
+        type: 'location',
+        date: '2026-02-04'
+      },
+      // Feb 5 - Two murders, two locations
+      {
+        id: 'havana-community-center-feb5',
+        title: 'Little Havana Community Center',
+        coords: [25.7665, -80.2210],
+        badge: 'Community',
+        description: 'Local gathering place near Feb 5 Domino Park murder. Witnesses and community informants may provide leads.',
+        type: 'location',
+        date: '2026-02-05'
+      },
+      {
+        id: 'coconut-grove-clinic-feb5',
+        title: 'Coconut Grove Medical Clinic',
+        coords: [25.7295, -80.2450],
+        badge: 'Medical',
+        description: 'Neighborhood clinic. Victim\'s medical records and potential arsenic poisoning treatment history for Feb 5 case.',
+        type: 'location',
+        date: '2026-02-05'
+      },
+      // Feb 6 - Two murders, two locations
+      {
+        id: 'airport-customs-feb6',
+        title: 'MIA Customs & Border Protection',
+        coords: [25.7945, -80.2855],
+        badge: 'Federal',
+        description: 'Airport customs office. Cargo manifests and smuggling intelligence related to Feb 6 terminal murder.',
+        type: 'location',
+        date: '2026-02-06'
+      },
+      {
+        id: 'key-biscayne-yacht-club-feb6',
+        title: 'Key Biscayne Yacht Club',
+        coords: [25.6940, -80.1615],
+        badge: 'Marina',
+        description: 'Private yacht club office. Member records and marina surveillance for Feb 6 Key Biscayne incident.',
+        type: 'location',
+        date: '2026-02-06'
+      },
+      // Feb 14 - Valentine's Day Special
+      {
+        id: 'bay-harbor-cabin-feb14',
+        title: 'Bay Harbor Cabin (Crime Scene)',
+        coords: [25.8860, -80.1250],
+        badge: '💀 Scene',
+        description: 'Abandoned cabin where Doakes met his end. The location where the Bay Harbor Butcher case took its darkest turn. SURPRISE MOTHERFUCKER!',
+        type: 'location',
+        date: '2026-02-14'
+      },
+      {
+        id: 'memorial-feb14',
+        title: 'Doakes Memorial Site',
+        coords: [25.7890, -80.2180],
+        badge: '🕯️ Memorial',
+        description: 'Memorial dedicated to Sgt. James Doakes at Miami Metro HQ. A reminder of the detective who got too close to the truth.',
+        type: 'location',
+        date: '2026-02-14'
+      },
+      // Always visible locations
+      {
+        id: 'miami-metro-hq',
+        title: 'Miami Metro Police HQ',
+        coords: [25.7877, -80.2166],
+        badge: 'HQ',
+        description: 'Main headquarters for Miami Metro Police Department. Task force operations center and forensics lab.',
+        type: 'location',
+        date: 'always'
+      },
+      {
+        id: 'morgue',
+        title: 'Miami-Dade Medical Examiner',
+        coords: [25.7912, -80.2089],
+        badge: 'Forensics',
+        description: 'County morgue and autopsy facility. All victims are processed here for forensic analysis.',
+        type: 'location',
+        date: 'always'
+      }
+    ];
+
+    // Custom marker icon for CRIME SCENES - RED
+    const crimeIcon = L.icon({
+      iconUrl: 'data:image/svg+xml;base64,' + btoa(`
+        <svg width="25" height="41" viewBox="0 0 25 41" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#dc2626;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#ef4444;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+          <path d="M12.5 0C5.6 0 0 5.6 0 12.5c0 9.4 12.5 28.5 12.5 28.5S25 21.9 25 12.5C25 5.6 19.4 0 12.5 0z" fill="url(#grad)"/>
+          <circle cx="12.5" cy="12.5" r="5" fill="#7f1d1d"/>
+        </svg>
+      `),
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [0, -41]
+    });
+
+    // Custom marker icon for KEY LOCATIONS - BLUE
+    const locationIcon = L.icon({
+      iconUrl: 'data:image/svg+xml;base64,' + btoa(`
+        <svg width="25" height="41" viewBox="0 0 25 41" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gradBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+          <path d="M12.5 0C5.6 0 0 5.6 0 12.5c0 9.4 12.5 28.5 12.5 28.5S25 21.9 25 12.5C25 5.6 19.4 0 12.5 0z" fill="url(#gradBlue)"/>
+          <circle cx="12.5" cy="12.5" r="5" fill="#1e3a8a"/>
+        </svg>
+      `),
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [0, -41]
+    });
+
+    // Create markers storage
+    const markersById = new Map();
+    let allMarkers = [];
+    let selectedDate = null;
+
+    // Password system for future dates (Jan 30 - Feb 6, Feb 14 special)
+    const datePasswords = {
+      '2026-01-30': 'BUTCHER',
+      '2026-01-31': 'ICETRUCK',
+      '2026-02-01': 'BLOODSLIDE',
+      '2026-02-02': 'TRINITY',
+      '2026-02-03': 'DARKPASSENGER',
+      '2026-02-04': 'HARRYSCODE',
+      '2026-02-05': 'MIAMIMETRO',
+      '2026-02-06': 'DEXTERMUN',
+      '2026-02-14': 'INSERT DOAKES MEME'
+    };
+
+    // Track unlocked dates (dates before Jan 30 are always unlocked)
+    const unlockedDates = new Set();
+
+    // Check if a date is locked
+    function isDateLocked(dateStr) {
+      const date = new Date(dateStr);
+      const cutoffDate = new Date('2026-01-30');
+      if (date < cutoffDate) return false; // Past dates are unlocked
+      return !unlockedDates.has(dateStr);
+    }
+
+    // Prompt for password
+    function promptForPassword(dateStr) {
+      const password = prompt(`This date is locked. Enter password to unlock ${new Date(dateStr).toLocaleDateString('en-US', {month: 'long', day: 'numeric'})}:`);
+      if (password && password.toUpperCase() === datePasswords[dateStr]) {
+        unlockedDates.add(dateStr);
+        
+        // Special behavior for February 14
+        if (dateStr === '2026-02-14') {
+          // Open Doakes image in new tab
+          const doakesImage = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMTEhUSExMVFhUXFRcXFxYXFxYXGBcVFxUWFxUVFxcYHSggGBolHRUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGhAQGy0dHR8tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS04Lf/AABEIALoBDwMBIgACEQEDEQH/xAAcAAACAwEBAQEAAAAAAAAAAAAEBQIDBgEHAAj/xABAEAABAwIEAwYEBAQFAwUBAAABAAIRAwQFITFBElFhBhMicYGRMrHB8EJS0dEUI2JyFWKToeEzB8HiFiRDc/EV/8AABAADAQEAAAAAAAAAAAAAAAABAgMABP/EAC0RAAIBAgUCBgEEAwAAAAAAAAECABEDBBIhMUETUWGBkaHwMsHRFFLh8SNx8f/aAAwDAQACEQMRAD8A8iOQzT1r8w/RBN0+dAcvF5lSSI11RT/SEOx2q+qVJMf9D5n3Tss1qT7fUrhqfRUU1J6otDt/YV4KYuT0KucVQT+gTFsqfRdUySFMKx1PVSJqyZHRc46vb/h/j9E0e6ArW0iU3kqE8u/v/iC1Hs9dCXF7A0GCXGQSeZH5c+iFpY+LF3EWktaZa5m5JjNv9OoJVoFOdyKzGe1lZhEkDiInl5xySOh2ke5pc2rJ4pBGQ26jOVGFW9l5efULWY1WXl1VqcOLN57dX4lRdGYVw7bWbAR3rw0iD4SYgjP3KTt/o9FWsPLJ/KJ/2+p0HulYf2/Idbxp/s+8W3FdlK9aXVWcIJ+GTmBvn5D5o4/6c2jczLuoH0ErlVUxu4xL0RJZK0Xb/vBQd+FxLeGSMwTrEprT7M22Fxw0u7I+KXS8A6EzrrvIKn7WtgE6dKP5YJbW/wBMGmDTcY10y+o9k+c9tZjmsgifvBMH80E/DKV4pWsKo8Yo0+ECJBDRlmcxv81q8N7RWNKo3gbw05eG8AjnqT/qq17KZ/o/t+Zzx8S+Fgfx9ekKXbqZpBojJ8xz+KCfh+E0cHqC5q1BUZTGTGyXO8yQPPiJRt1b25rlxeGimPEXZwYmZ2+/VDXd7hLiHk1HUxlBfTGvvK45j4xC1EpOwmC/GEdzS1zT+XeQp4eYxWFRnC56H7RL6hwZ9ULRkTJyI0XO6po71xG0gjktCKYjCPdTBWlw6wHJMKdjOiO2iU6s1NKQThq1+S0jKAwSVBl+tI0pzQsgtZsqaSCe1XW7Zzyo8Iik2tCvq0FTwqZdCSCGHC/CqnBW8JXA2ylIBUJqQ02pqtQrKcHJfOA/JEVqFJzuFtNxB1JAg9ChQCVVQiMBbaXGjQf0RrVV3Iy19UpNuqw0X0vUVbUFKD0FZ6NOnHWEkuRquh0kxuSVfXq/RDJW2qSpVXfQ7oeivLqqA0ZLiGHc/wB9DQaXN3+vSYQdK1OuqtdU3ytVxBxwSR6f3dN78ZSG7U34fxqVMn6rO4h2avXf9H1R+o8lsW0UUp8SWGkJ0+P5mOu+xt42RUZ4iNRv7eSO7H42TcV2kCRxu0icg0wOu69EFuFLuVHBU3b2lHFlVTU8R19V5fZ9oa9vj1UMBAtXUzxTBNMvkyD+ixl72gua73cL+AEmGfmjfnmvbLywpVGlrwC06EZLxvtVhwtq7qQPhdIA3gn0+fzU4eMLDMm1rX97xvtFctqXLnUgQ3PRDWVo+o8NY0knYKGFYDVuHcLBHUs0C9Ut+yNJrQD4j+o6KsRxVF2j4lGDSLVPDIudP6v9pSLFsHrUjDxkdHD4fmPNepVqFKhTNRzWsaOJzWgBo3JheVW+L/xFZ9eq8u4iS87eQnYDQdFGGrKLGabeBV/L/sHw85u6gTG+v6rB9u7Yvptro20Pc/yMcTujcvTMrfGzJ+EdIPqFm+0dvVq0u7oPdTa6Z4SAYBgET6LJiO+KNPr+eZfCosgPivzvjODup1CFmaNZeo4zg/FqF54KO0HVZ4ZMsb9TvEHl6MeqpwKdLLrzK9cpVgDOS5VsGnRA4xDqwuZhOroV0DKgr0pHBAnMLKxTJanVkM1U1tDNHX1MtmAolcHpEcSo5THUabqQ5Lls7OETCGZSWijJpK2Eqo1iqyUQ9i50UFblQVxTVgKiUSyp9iqnQrG+ZVlMfbKECR3vAfun9gqXVuaErXhIy8l8K06LpqgquIhFQKwDySEkxOcys5ideeWia4gZ0yWb/ivC+FKRZ0rntDivE9zZzSm//UGSxoP4gV7T2Ax7vqQaT42wf7hsvB+0FVxquJMk5lPdxJKz5I6TldkQncbfa+M/wAZWfVqANLjwhu4aBouh9uP9UHB4kHOJJP+Zx3JKx1vbEiQmNC3VtgsNEALcbfT9w/jYTY+bUdfG19R0Hs/h5uLhtJv4jJ5AZk/5RPqvb+2OEcLSYWbwOwNGkK1xSFV0Q3Np/lEOXz+bGdm9g9egJDIABzcZJM6D6nktPYWfdU2kCAOWpMDNKsW7Lsuc5TmEg7BjhrGGHKPYGJ+SMRybRPRwlpnhH3VFmw13hjTxQc+SR1Rb+wlxUMveB0jP3TWlglZpxD/AJaf8xVV1a3LgTwk/P1Wvl80S/p1P+hLF8oiLvX/AOEyt/8ATOmDxNrsaQOTD/7WTvexvG+Q6D1WjwrDcVZTilwk6yfqqH2+Ktx/yKbZcF9g6w6KjlA1w/3/ALBxMp8S8pPP+Z4DjVr3NV9Phrw0qW2KiLa2fU0YCcuqfYV2evLl0U2EnmhFR3ITgZONu15g7lnwADvb95iHCsVZUaC0gp7UdVOq+Y/YZfbfR7qL6ldzpiN0MMdl2K7KGFvqGk3iJk8l+lcK7OWt7TP/ANnDH4Tkg+zuEWdnSbYW9NmfxO1J6lNe0d1Uazur23a4t2IkLjxsMZ/+XmMTxGsC1YaV/wAV4nxfYCoPGJ8su/NbW+LdY+a80+0r+hfRd/M4/wB0ovL2q9xLnEnqs5hg02SJBJOSyYjKy+LFXTMjf7Ry/DVMupqb+pj+3zcupCZYa8FjXHQAT6FE1QXxJnlJTjsz2QfcUxWqvrNaQHNDQ4B0gwYzAzynoFzLZLExACL3m+FTWxFAOzgfx+Y97H9oAyqadOmWsPxPJBcRygaDySftx2qp3V1TbTqcUUySAYndonn9nNWv7Aup03u/qbTLG7cRIJ19vJYRluOX/wDJP5H+ZMV8x4VPP9zRYFb0+81+OO+aeYjbUyIcOCcx+Uh0HY7+Y1WPsHEa5dRpE87uL/6X/F/p/wC0mWjF04+vfmZ8SnqNz/X9TTp2WpFrSMi0iPMLKdk+x9G0u61c1S8vjhpng8Lg2JAgZN6LT/4o1uXESfy/3HqoUe0lB59jKMZIsdCef8ieDguWHqf/AM/SMm/OUZWtATl9/JE4fW+WYW4t7UvA4g0/S0CQp4v3c3gp4Z02PvJ1LVh1A+6Kr0abcyPLXrK+pW0x+pTq2woPy0OuS5Xy28M+z/ccMf4b6fAEtbhjc5cTGp/0q24xem2RMxn+n2UyquAkiWGYy1+p5bdt4id2uH+USbEg5LRdsbY0r6u07kH5oJtBTbBx2qYaRuD/AHjC0sHQxG88v7+yF4H1BzHst3c9la9s0vZVBjfLyXnl/wBnK9I5tcPdanLs+htHvCcIWxsXn4Y9Fawp1h+EVVMQEcq+W1FUlU45mYc1YSr6YQqEVrhQe5QdUCgnunNCVF5NJM/VCVGZorB+0NShIa6ATm0gB7eRlsj0zWmZgDa7WVreqHMqiW+dUC2qN5jzMhCqW1X1EnvcIrU2vfToVKtqwAtdGg+Hxz4XRpP2EA3CblzsrWp6QD9kPYpswm2L7/LJ3/SUpd2nuW+Gk92QgeSIodsbyJ4C4dWNhN2+1atENsNQQN2mR8imz5MjjQbTT+s1xZ2XsfA2Oob99V6h2av/AOIsqbj+KA79D+qU2mNWz6fFxup1R8UZT06EJXgN0W3Fq8vdw/G0DScmEDSNyue3m6GXw7+wm7+S51M7+tVuO3N7wWnc0XEEEwdiFls1RdXl86tTp9/UDH6eJ35+hCOw2PXtmIo1SG7t0Ky8kcQlcb20U5bfh+/bV+Pes9ibg+j7q1jRLqxJJyWps8Vo1RNJ4PQ5H2TqKs0hIZvP++jKHKZi1QK/cRw8ATL/APkJ6KLJPC6RxCR7j9fohLd9KrR76m+OHPmOYI5I2i4jx1D8Pp+qt8bEVbkbbEf2g2wGyPwMaJU8gPn17ekbWuLTgcW3RblwzB/z9dFz0sKc1X/w1MWYl2P3/wBq7XEb5waNHATAnMpmPmGMKZI1+/EWf4Y0uHceofaKrqjG0ycwBqQk94+eAAz++Y1S65rX7/hZQ8gAuMH1Sb4eYzEfTT6xh5xC3BaDJGug5zDWFvNLq8YPToFoqOMa1C5pYfhDq7i97TIDoCy2I3XeDNlm+8Zrt8zHyU4nxVNQ0kH+lO/gYmKyMHXX1mgtbvlqtZY18gvGjjL6ThHOCPePmmOEdoajCOKdNjHsVHCRRe/MbjhOV7qiWVlm8B7Wtf4Hx1BGvT/dP62JUAzxxGY5fVUfA3y29P8Aqhzi13N5QwrWEJ6zIL38R0Qc/wBYQz8bfVzcBBHwp2zEv4R/Fj/xRwHmI1MrNXdu+q4va3IdAGZ8szos8bEdxG5/T8IiZhW++rrcx3/KJp4D5LxPtRZVhTtKtZuYBHFvBjPoV71iWFVXtB4Dx6HLT1Wa7T3YpN+zsoZgvEUKfePyD+nqNO5/v+A/VP6fZVhGgcctdeiBwXsrdXTzToUyYnN7sh/dsvS8A+z7Nm4rj0t5A9SVZiYdyH2jfB0J+0Vk+F/a/P8AsYD/AA0UHDiaWn05hPKFoHZtTSq7RpSOtdgZlIr1SqotqmR9YfEr+3tO8pktPQjmEXh9o18lqWYKuLhsrG/CVlnBYx8Mhjl+/aPs7LuKxe/8Lef6PG8rFdgrh1C7rWb/AIWH+I4dCM/knlxiF1XJFQ9P7BsEmwvsv3VVtzVqGq93EQTAjkNYU4bshN+x+IrxF3J+vdrvLO6wtqrKe/wtBJ6yq8J/hvvavF/N4v4fo2Dw8fV2/klXbLEe8qd0NAT/AKTr7p7iFq+nZUsxwcPiGs8Z8WmZ4sp/spGFeGtFzf8Av95r8UwylmqN9T4aLXtsPy+mf95UewV7/C3rXE/zCQPmPzN1iELd3tOq6OD4dDw/I/qhjvqwgOPT9/sOmUsf6qPb/o9g8Q09xzXv9hbtxSyFcZxIqDQwSD1CxvaztRRN7TpsHC5rIzA+EZNg84R+FdvLe2s20mpQkdZq5iJ0+cYSMWxBtW34Bg02HqPouNeZqHcEe/V7TcYH2wtGWPcOd+EDxcxnBJ3WR7MX1M/ynsGUwfvUJhe47SuaIDmxOxAz6xMrL1ezVCx+F4c/mYEenXRV8T4ijBgfYGU/Sth1HV4+zNZ9F1MHwubGZynqvPB2htQcn+8J9idBxDZYSIIj6SspcYJUpn/pr/l/RFMwjL6tbaIMMPvYw0eUxH/Ul8T+sX7n/cjh/NcKn2PpjKi0D8u3ksviOM1iDwPMc4/VaL/D7v8Aa/qj/jjzBlEwh/sF6e8U3+P1qkBwBjcLP3V6apy+9/NOr/D8SaP5jI5H+68uutqjuPiO3MxotHVuadRwJdqeqhGxSRfQ/WOuFA00J0XRcU/7f8PmpOqU8x4Y8kqDqkzJXFTLqf8A0tT3V/xrCwpA62R+RiNWZiYOkyfT+6o/vhH8vJZqrdnr7x90mqwv7i+jP+kLvb0RzVtLEnjJ7xIPQzEcx+qyTg4aZ+/2Vbr1w1E9P9kUxH6mDbg3E22v5a8Lwp2yq+8PvPVYEYix9JxBGp5hFvx1pGYUvTc94u4I+kfJef8AatktbP1+RCBrsqVamg/v+gQF727ovAGWe+Sh2hxIFvCNDP3uq0w2VtT1iTiIibXtjqfA1S3Zw3NAcMuIMdJ3zYd1A/aDhHI5z/e7rnvE/wDxkJF2hIpXduc+PuKfQfCOJQxL6jaFy7v3PwzxVRw8dMiMwQC2COsrQ+T7TNe/v7xbgNSrcurUW0+IhzhqBoHOzPPZQp4qym4tqN4uLC2D/QQ5sny8Q/zJJ2cuuBgDQ7h/MJJ4eckOH2pPtDiDzbnhcOMAhjhxQR+Ez8p0hKSQe36iuL9F/wAv8xfX7Qt+h/r/AMlPsjVp4jXLaiDC35j+5WK/w85yT+UfGfNdpUAdI+K+gHk30Vr96N5NVw9OO/8AcP2x7Lutrx1U3jKofgY5o4f1EyM/I+aPxDHyGf8ASy9N1Cj/AFluZ5fqufZmMMIXS3/H2H6SsH2k7QMqPDKc/UakD9E3Db8W2B0i5hnDG1Ht7CezIvQpfCdMc9QfnC0L6r7GgxjWguBgNbvnjBi8OfEZECOilhNnTazwSGn6phhWLMa0AjUnWD5eqnFS4o1u/wBZXAqKrsCND/cXW9K0uWkkvDoyOMVmv5wcvJYztH2RvKN3UKZZ/M+AeA8gSMxr806VztKOIRoYyhgRpbaSzFKRpsaeEn08kgt75+5g+SaYzjRfABg8lneKSphUVyS1+Z0YuJh42VlsfQT4UqshzXH/AMSf0W87CYYLa2Dm+OodTsOQ69VL7AYC0N7943OrRsOf+kKW+32v9pFHDDH5P7hXaLGKlzc1K75jMADQN0AGggIAP0+/6kNWfp9NV+/LjRbhWLKN25c3+X3Plv5EcB9FxRbujXuVy/lBn3sQ/wDH3DmuVAqKhVwrqSiIwsVEXKqGKlwWv2W/K0H7OqWXNVh0A9P1UG1YVZqK8YlUGi3WM7fqVp5bYvJkQ8THmCoCq+UPVrRtHvn9U++kn+/9EHUpJp8wDDH/AIxDUaq4w9EPcNhFWeqw/tGcBuqT/TUUbTGadP4W+68vtL+t3vdiqe+OQHT2WxwrFqjSHFxcz8Llz5bCbAm5w3qf8S0+EdvWuqtpN1IWWwvFiJiNx/utPgl4wx93yWgG2Lz+P1lXxg3Egme/aG2PbVndUwHSeSC/69psb4gADr/usf24vs6PEYgwT/e6YdncTpmjDBOo1VjUxF3FjBOFS/I/iZ/+ZiPqP+5lm9oLOoxwxCtVoF0NgUnBvh/K7XojsI7f1HzWpU34aLGGg8LhxHofzAZRosw/DnAy4fO/aWHkGww7ER5Rv6S+5xvDa1F7HMINRsMJyP3PRee8MBD4LcQQRqUxr0+IpzUxAjNuVxHl+8g2CvT/AD0/7Q4gGJWp7F9qxB70xHRc7SdlaQqE0swev9jkKwJnX2g+IQW6r+9+8w+PYS2q8GDH95hAdnOz72P4w+GnlOfz/ZN8boVuIuqB0ESIifkgbTFFocIXQzLbfvaNqTB3FdfoD/ubW4wmiR/Ka4k7DPzK97wfBWU2gMaAOSxXYfs3xgeAkDOQeIec6Beis7o5BqXx2taBwVB9ufr+0RlIJtJx3hWzC6TeMujbU/svN+012+nZYUQ48PfMJB3h8R1W57I3pqONWHCHEZggjPryRt5hdJzfFRYPJqMJ8SJ/j//Z';
+          window.open(doakesImage, '_blank');
+          alert('SURPRISE MOTHERFUCKER! Date unlocked.');
+        } else {
+          alert('Date unlocked successfully!');
+        }
+        return true;
+      } else if (password) {
+        alert('Incorrect password. Date remains locked.');
+      }
+      return false;
+    }
+
+    // Calendar state
+    let currentMonth = 0; // January (0-indexed)
+    let currentYear = 2026;
+    const today = new Date(2026, 0, 29); // January 29, 2026 - day before murders begin
+
+    // Initialize calendar
+    const monthSelect = document.getElementById('monthSelect');
+    const yearSelect = document.getElementById('yearSelect');
+    const calendarGrid = document.getElementById('calendarGrid');
+    const calendarInfo = document.getElementById('calendarInfo');
+
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                    'July', 'August', 'September', 'October', 'November', 'December'];
+    
+    // Populate month select
+    months.forEach((month, idx) => {
+      const opt = document.createElement('option');
+      opt.value = idx;
+      opt.textContent = month;
+      monthSelect.appendChild(opt);
+    });
+    monthSelect.value = currentMonth;
+
+    // Populate year select (2025-2027)
+    for(let y = 2025; y <= 2027; y++){
+      const opt = document.createElement('option');
+      opt.value = y;
+      opt.textContent = y;
+      yearSelect.appendChild(opt);
+    }
+    yearSelect.value = currentYear;
+
+    // Event listeners for date changes
+    monthSelect.addEventListener('change', () => {
+      currentMonth = parseInt(monthSelect.value);
+      renderCalendar();
+    });
+
+    yearSelect.addEventListener('change', () => {
+      currentYear = parseInt(yearSelect.value);
+      renderCalendar();
+    });
+
+    // Get events for a specific date
+    function getEventsForDate(dateStr){
+      return locations.filter(loc => loc.date === dateStr);
+    }
+
+    // Get all dates with events
+    function getDatesWithEvents(){
+      return new Set(locations.map(loc => loc.date));
+    }
+
+    // Render calendar
+    function renderCalendar(){
+      calendarGrid.innerHTML = '';
+      
+      // Day labels
+      const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      dayLabels.forEach(label => {
+        const div = document.createElement('div');
+        div.className = 'calendar-day-label';
+        div.textContent = label;
+        calendarGrid.appendChild(div);
+      });
+
+      // Get first day of month and number of days
+      const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+      const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+      
+      const datesWithEvents = getDatesWithEvents();
+
+      // Empty cells before first day
+      for(let i = 0; i < firstDay; i++){
+        const div = document.createElement('div');
+        div.className = 'calendar-day empty';
+        calendarGrid.appendChild(div);
+      }
+
+      // Days of month
+      for(let day = 1; day <= daysInMonth; day++){
+        const div = document.createElement('div');
+        div.className = 'calendar-day';
+        
+        const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+        const isLocked = isDateLocked(dateStr);
+        
+        // Display day number with lock icon if locked
+        if(isLocked) {
+          div.innerHTML = `${day}<span style="font-size:8px;margin-left:2px">🔒</span>`;
+        } else {
+          div.textContent = day;
+        }
+        
+        // Check if this date has events
+        if(datesWithEvents.has(dateStr)){
+          div.classList.add('has-events');
+        }
+
+        // Check if selected
+        if(selectedDate === dateStr){
+          div.classList.add('selected');
+        }
+
+        // Check if today
+        if(currentYear === today.getFullYear() && 
+           currentMonth === today.getMonth() && 
+           day === today.getDate()){
+          div.classList.add('today');
+        }
+
+        div.addEventListener('click', () => {
+          if(isLocked) {
+            if(promptForPassword(dateStr)) {
+              selectDate(dateStr);
+              renderCalendar(); // Re-render to update lock status
+            }
+          } else {
+            selectDate(dateStr);
+          }
+        });
+        calendarGrid.appendChild(div);
+      }
+    }
+
+    // Select a date and filter markers
+    function selectDate(dateStr){
+      selectedDate = dateStr;
+      renderCalendar();
+      
+      const events = getEventsForDate(dateStr);
+      const date = new Date(dateStr);
+      const formattedDate = date.toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+
+      if(events.length > 0){
+        calendarInfo.innerHTML = `<strong>${formattedDate}</strong><span class="event-count">${events.length} case${events.length > 1 ? 's' : ''}</span>`;
+        document.getElementById('dateDisplay').textContent = formattedDate;
+      } else {
+        calendarInfo.innerHTML = `<strong>${formattedDate}</strong><br>No cases on this date`;
+        document.getElementById('dateDisplay').textContent = `${formattedDate} - No cases`;
+      }
+
+      filterAndDisplayMarkers(events);
+      renderList(events);
+    }
+
+    // Filter and display markers for selected date
+    function filterAndDisplayMarkers(filteredLocs){
+      // Remove all existing markers
+      allMarkers.forEach(marker => map.removeLayer(marker));
+      allMarkers = [];
+      markersById.clear();
+
+      // Always show "always visible" key locations (HQ and Morgue)
+      const alwaysVisibleLocations = keyLocations.filter(loc => loc.date === 'always');
+      alwaysVisibleLocations.forEach(loc => {
+        const marker = L.marker(loc.coords, {icon: locationIcon}).addTo(map);
+        marker.bindPopup(`
+          <div style="font-family:'Girassol',serif;color:#3b82f6;font-weight:bold;margin-bottom:8px;font-size:14px">${loc.title}</div>
+          <div style="font-family:'Average',serif;font-size:12px;color:#e0e7ff;line-height:1.6">
+            <strong style="color:#60a5fa">Type:</strong> ${loc.badge}<br>
+            <div style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(96,165,250,0.2);font-size:11px">${loc.description}</div>
+          </div>
+        `);
+        marker.on('click', () => setActive(loc.id, true));
+        markersById.set(loc.id, marker);
+        allMarkers.push(marker);
+      });
+
+      // Show date-specific key locations if a date is selected
+      if(selectedDate) {
+        const dateSpecificLocations = keyLocations.filter(loc => loc.date === selectedDate);
+        dateSpecificLocations.forEach(loc => {
+          const marker = L.marker(loc.coords, {icon: locationIcon}).addTo(map);
+          marker.bindPopup(`
+            <div style="font-family:'Girassol',serif;color:#3b82f6;font-weight:bold;margin-bottom:8px;font-size:14px">${loc.title}</div>
+            <div style="font-family:'Average',serif;font-size:12px;color:#e0e7ff;line-height:1.6">
+              <strong style="color:#60a5fa">Type:</strong> ${loc.badge}<br>
+              <strong style="color:#60a5fa">Date:</strong> ${new Date(loc.date).toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'})}<br>
+              <div style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(96,165,250,0.2);font-size:11px">${loc.description}</div>
+            </div>
+          `);
+          marker.on('click', () => setActive(loc.id, true));
+          markersById.set(loc.id, marker);
+          allMarkers.push(marker);
+        });
+      }
+
+      if(filteredLocs.length === 0) return;
+
+      // Add markers for filtered crime locations (red pins)
+      const group = L.featureGroup();
+      filteredLocs.forEach(loc => {
+        const marker = L.marker(loc.coords, {icon: crimeIcon}).addTo(map);
+        const isSpecial = loc.badge === '💀 SPECIAL';
+        const popupColor = isSpecial ? '#ec4899' : '#ef4444';
+        const textColor = isSpecial ? '#fce7f3' : '#fee2e2';
+        const accentColor = isSpecial ? '#f9a8d4' : '#fca5a5';
+        
+        marker.bindPopup(`
+          <div style="font-family:'Girassol',serif;color:${popupColor};font-weight:bold;margin-bottom:8px;font-size:14px">${loc.title}</div>
+          <div style="font-family:'Average',serif;font-size:12px;color:${textColor};line-height:1.6">
+            <strong style="color:${accentColor}">Victim:</strong> ${loc.victim}, ${loc.demographic}<br>
+            <strong style="color:${accentColor}">Suspect:</strong> ${loc.suspect}<br>
+            <strong style="color:${accentColor}">Date:</strong> ${new Date(loc.date).toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'})}<br>
+            <div style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(252,165,165,0.2);font-size:11px">${loc.description.split('|')[0]}</div>
+          </div>
+        `);
+        marker.on('click', () => setActive(loc.id, true));
+        markersById.set(loc.id, marker);
+        allMarkers.push(marker);
+        group.addLayer(marker);
+      });
+
+      // Fit bounds to filtered locations
+      if(filteredLocs.length === 1){
+        map.flyTo(filteredLocs[0].coords, 14, {duration: 0.7});
+      } else {
+        map.fitBounds(group.getBounds().pad(0.2));
+      }
+    }
+
+    // Sidebar list rendering
+    const locList = document.getElementById('locList');
+    const locCount = document.getElementById('locCount');
+    
+    function renderList(items){
+      locList.innerHTML = '';
+      locCount.textContent = items.length;
+      
+      if(items.length === 0){
+        locList.innerHTML = '<div style="text-align:center;padding:20px;color:var(--muted);font-style:italic">No cases on this date</div>';
+      } else {
+        // Render crime cases
+        items.forEach(loc => {
+          const div = document.createElement('div');
+          div.className = 'loc-item';
+          div.id = `item-${loc.id}`;
+          const isActive = loc.badge === 'ACTIVE';
+          const isSpecial = loc.badge === '💀 SPECIAL';
+          const badgeColor = isSpecial ? '#ec4899' : (isActive ? '#dc2626' : '#ef4444');
+          const dotColor = isSpecial ? '#ec4899' : (isActive ? '#dc2626' : '#ef4444');
+          
+          div.innerHTML = `
+            <div style="display:flex;align-items:center;gap:8px;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${dotColor}"></span>
+                <strong style="font-size:13.5px;font-family:'Girassol',serif;color:${badgeColor}">${loc.title}</strong>
+              </div>
+              <span class="badge ${isActive ? 'active-case' : ''} ${isSpecial ? 'special-case' : ''}">${loc.badge}</span>
+            </div>
+            <div style="font-size:12px;color:#495057;margin-top:6px;font-family:'Average',serif">
+              <strong>Victim:</strong> ${loc.victim} | <strong>Suspect:</strong> ${loc.suspect}
+            </div>
+            <div style="font-size:12px;color:#6c757d;margin-top:4px;font-family:'Average',serif">${loc.description.split('|')[0]}</div>
+            <div class="date-badge">📅 ${new Date(loc.date).toLocaleDateString('en-US', {month: 'short', day: 'numeric'})}</div>
+            <a class="loc-link" href="#" data-goto="${loc.id}">View on map</a>
+          `;
+          locList.appendChild(div);
+        });
+      }
+      
+      // Show date-specific key locations for this date
+      const divider = document.createElement('div');
+      divider.innerHTML = '<div style="margin:16px 0;padding-top:16px;border-top:2px solid var(--border);color:var(--primary);font-family:\'Girassol\',serif;font-size:14px">📍 Key Locations for This Date</div>';
+      locList.appendChild(divider);
+      
+      // Filter key locations for selected date
+      const dateSpecificLocations = selectedDate ? keyLocations.filter(loc => loc.date === selectedDate) : [];
+      const alwaysVisibleLocations = keyLocations.filter(loc => loc.date === 'always');
+      const locationsToShow = [...dateSpecificLocations, ...alwaysVisibleLocations];
+      
+      if(locationsToShow.length === 0) {
+        const noLoc = document.createElement('div');
+        noLoc.innerHTML = '<div style="text-align:center;padding:10px;color:var(--muted);font-style:italic;font-size:12px">Select a date to view locations</div>';
+        locList.appendChild(noLoc);
+      } else {
+        locationsToShow.forEach(loc => {
+          const div = document.createElement('div');
+          div.className = 'loc-item';
+          div.id = `item-${loc.id}`;
+          const isAlwaysVisible = loc.date === 'always';
+          div.innerHTML = `
+            <div style="display:flex;align-items:center;gap:8px;justify-content:space-between;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3b82f6"></span>
+                <strong style="font-size:13.5px;font-family:'Girassol',serif;color:#3b82f6">${loc.title}</strong>
+              </div>
+              <span class="badge" style="background:linear-gradient(90deg,#3b82f6,#60a5fa)">${loc.badge}</span>
+            </div>
+            <div style="font-size:12px;color:#6c757d;margin-top:6px;font-family:'Average',serif">${loc.description}</div>
+            ${isAlwaysVisible ? '<div style="font-size:10px;color:#3b82f6;margin-top:4px;font-style:italic">Always visible</div>' : ''}
+            <a class="loc-link" href="#" data-goto="${loc.id}" style="color:#3b82f6;border-color:#3b82f6">View on map</a>
+          `;
+          locList.appendChild(div);
+        });
+      }
+    }
+
+    // Click handler for sidebar items
+    locList.addEventListener('click', (e)=>{
+      const link = e.target.closest('a.loc-link');
+      if(!link) return;
+      e.preventDefault();
+      const id = link.getAttribute('data-goto');
+      flyTo(id);
+      setActive(id, true);
+    });
+
+    // Search functionality
+    const search = document.getElementById('search');
+    search.addEventListener('input', () => {
+      const q = search.value.trim().toLowerCase();
+      if(!selectedDate) return;
+      
+      const dateEvents = getEventsForDate(selectedDate);
+      const filtered = !q ? dateEvents : dateEvents.filter(l => 
+        (l.title + " " + l.description).toLowerCase().includes(q)
+      );
+      renderList(filtered);
+      filterAndDisplayMarkers(filtered);
+    });
+
+    function flyTo(id){
+      const loc = locations.find(l => l.id === id);
+      if(!loc) return;
+      map.flyTo(loc.coords, 14, {duration: 0.7});
+      const m = markersById.get(id);
+      if(m){ m.openPopup(); }
+    }
+
+    function setActive(id, openPopup){
+      document.querySelectorAll('.loc-item').forEach(n => n.classList.remove('active'));
+      const active = document.getElementById(`item-${id}`);
+      if(active){ 
+        active.classList.add('active'); 
+        active.scrollIntoView({block:'nearest', behavior:'smooth'}); 
+      }
+      if(openPopup){
+        const m = markersById.get(id);
+        if(m){ m.openPopup(); }
+      }
+    }
+
+    // Initialize with today's date
+    renderCalendar();
+    // Don't auto-select a date - let users choose to unlock Jan 30+
+    // But show the always-visible locations
+    renderList([]);
+    filterAndDisplayMarkers([]);
+  </script>
+</body>
+</html>
