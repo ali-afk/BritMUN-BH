@@ -7,7 +7,8 @@ import { Hero } from "$assets/home";
 		src={Hero}
 		alt="Through the Looking Glass"
 		fetchpriority="high"
-		width="100%"
+		width="6400"
+		height="3600"
 	>
 </section>
 

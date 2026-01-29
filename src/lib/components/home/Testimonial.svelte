@@ -3,13 +3,16 @@ import { Logo } from "$assets";
 import { DefaultProperties } from "$data";
 import { type TestimonialData } from "$data/home";
 import type { ColorDegrees } from "$types/colors";
+import type { LoadPriority } from "$types/imageProperties";
 
 interface TestimonialProps extends TestimonialData {
+	loadPriority: LoadPriority;
 	color: ColorDegrees;
 	direction: "left" | "right";
 }
 
-let { color, title, year, comment, direction }: TestimonialProps = $props();
+let { loadPriority, color, title, year, comment, direction }: TestimonialProps =
+	$props();
 let colorSet = DefaultProperties.color.primary;
 </script>
 
@@ -19,7 +22,14 @@ let colorSet = DefaultProperties.color.primary;
 	class="wrapper card row lift--strong"
 >
 	<header class="center--column">
-		<img class="avatar" src={Logo} alt="" width="64px">
+		<img
+			class="avatar"
+			src={Logo}
+			alt=""
+			width="64px"
+			fetchpriority={loadPriority}
+			loading={loadPriority === "high" ? "eager" : "lazy"}
+		>
 		<h2>{title}</h2>
 		<h3>
 			BRITMUN <time datetime={year}>{year}</time>

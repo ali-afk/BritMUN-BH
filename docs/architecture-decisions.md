@@ -230,20 +230,50 @@ Hardcoded color is necessary because design tokens aren't available yet.
 **Potential improvement:** Use CSS `@property` at-rule declarations
 generated at build time to eliminate the JS dependency entirely.
 
-### Selective `loading="lazy"` on Images
+### Image Loading Priority System
 
-```svelte
-<!-- Council cards: below fold, many images -->
-<img src={council.image} loading="lazy">
-
-<!-- Hero: above fold, should load immediately -->
-<img src={Hero} alt="">  <!-- No loading="lazy" -->
+```typescript
+// src/lib/types/imageProperties.ts
+export type LoadPriority = "high" | "low";
 ```
 
-**What:** Only below-fold images use lazy loading.
+```svelte
+<!-- CouncilCard.svelte -->
+<img
+    src={council.image}
+    alt={council.name}
+    width={council.width}
+    height={council.height}
+    fetchpriority={loadPriority}
+    loading={loadPriority === "high" ? "eager" : "lazy"}
+    decoding="async"
+>
+```
+
+```svelte
+<!-- CouncilCategory.svelte -->
+<script>
+const councilsAboveScreenFold = 5;
+</script>
+
+{#each category.councils as council, index}
+    <CouncilCard
+        {council}
+        loadPriority={index < councilsAboveScreenFold ? "high" : "low"}
+    />
+{/each}
+```
+
+**What:** Images use explicit dimensions and priority-based loading.
 
 **Why:**
 
-- Hero/above-fold images should load immediately (affects LCP)
-- Below-fold images (council cards) benefit from deferred loading
-- Rule: lazy load below-fold, eagerly load above-fold
+- `width`/`height` attributes prevent layout shifts (CLS) by reserving space
+- `fetchpriority="high"` tells browser to prioritize above-fold images
+- `loading="eager"` loads immediately; `loading="lazy"` defers until near viewport
+- `decoding="async"` decodes images off main thread (reduces TBT)
+- Named constant documents intent and is easy to adjust
+
+**How:** Parent component determines priority based on index, child component
+applies the appropriate attributes. The `Council` type includes `width` and
+`height` from the actual image dimensions.

@@ -34,7 +34,7 @@ $effect(() => {
 			href="/"
 			aria-current={page.url.pathname === '/' ? 'page' : undefined}
 		>
-			<img src={Logo} alt="BRITMUN Logo">
+			<img src={Logo} alt="BRITMUN Logo" width="500" height="500">
 		</a>
 		<NavLinks {isHidden} />
 	</nav>

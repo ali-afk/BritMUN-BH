@@ -1,11 +1,23 @@
 <script lang="ts">
 import type { Council } from "$data/councils";
+import type { LoadPriority } from "$types/imageProperties";
 
-let { council }: { council: Council } = $props();
+let {
+	council,
+	loadPriority,
+}: { council: Council; loadPriority: LoadPriority } = $props();
 </script>
 
 <div class="card center--column">
-	<img src={council.image} alt={council.name} loading="lazy">
+	<img
+		src={council.image}
+		alt={council.name}
+		width={council.width}
+		height={council.height}
+		fetchpriority={loadPriority}
+		loading={loadPriority === "high" ? "eager" : "lazy"}
+		decoding="async"
+	>
 	<h3 class="center--column">{council.name}</h3>
 	<a
 		href={council.backgroundGuide}

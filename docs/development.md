@@ -21,6 +21,7 @@ src/
 │   │   └── councils/       # Council data (categories, documents)
 │   ├── types/              # Reusable TypeScript types
 │   │   ├── colors.ts       # ColorScale, ColorDegrees, ColorRecord
+│   │   ├── imageProperties.ts # LoadPriority for image loading
 │   │   └── properties.ts   # PropertyConfig, PropertyNode
 │   ├── scripts/            # Utilities
 │   ├── assets/             # Images (bundled, with barrel exports)
@@ -63,7 +64,10 @@ export const testimonials: Testimonial[] = [
 
 ### Add Council
 
-Edit `src/lib/data/councils/council-categories.ts`:
+1. Add optimized image to `src/lib/assets/councils/` (WebP, max 800px width)
+2. Export from barrel: `src/lib/assets/councils/index.ts`
+3. Get image dimensions: `identify your-image.webp` (returns WxH)
+4. Add to `src/lib/data/councils/council-categories.ts`:
 
 ```typescript
 import { Unsc } from "$assets/councils";
@@ -74,15 +78,18 @@ export const councilCategories: CouncilCategory[] = [
     councils: [
       {
         name: "UN Security Council",
-        image: Unsc,  // Import from $assets/councils barrel export
-        backgroundGuide: "/404"
+        image: Unsc,
+        backgroundGuide: "https://drive.google.com/...",
+        width: 800,   // Required: actual image width
+        height: 681,  // Required: actual image height
       },
     ],
   },
 ];
 ```
 
-Note: Council images use barrel exports from `$assets/councils` (PascalCase names).
+**Important:** `width` and `height` are required for CLS optimization.
+Use actual image dimensions (not display size).
 
 ### Change Colors
 
