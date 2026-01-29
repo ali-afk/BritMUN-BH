@@ -65,7 +65,7 @@ export const councilCategories: CouncilCategory[] = [
 				name: "Economic and Financial Committee (ECOFIN)",
 				image: Ecofin,
 				backgroundGuide:
-					"https://drive.google.com/file/d/1OiyxhT6J600xAg-BrPzaPtJ2SYnZZ9gd/view?usp=sharing",
+					"https://drive.google.com/file/d/1NR7_3CMCC-nAigkRI5SKP4MBjx5-we_C/view?usp=sharing",
 				width: 800,
 				height: 800,
 			},
