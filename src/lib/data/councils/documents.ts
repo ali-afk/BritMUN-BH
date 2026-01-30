@@ -51,6 +51,10 @@ export const documentGroups: DocumentGroup[] = [
 				label: "Rules of Procedure",
 				href: "https://drive.google.com/file/d/1uwLOZ5cHsZGWf32vPsCDthMege1ify6c/view?usp=sharing",
 			},
+			{
+				label: "Position Paper Submission",
+				href: "https://drive.google.com/drive/folders/1XPcXZiNl7TnL7St-3YSPTdes50if4W8t",
+			},
 		],
 	},
 ];
