@@ -1,6 +1,6 @@
 <script lang="ts">
 import { page } from "$app/state";
-import { Logo } from "$assets";
+import { Logo } from "$assets/shared";
 import NavLinks from "./NavLinks.svelte";
 
 let headerHeight = $state(0);
