@@ -32,7 +32,7 @@
 
 	background-color: var(--text-main);
 
-	mask: url("$assets/external-link.svg") no-repeat center;
+	mask: url("$assets/shared/externalLinkIcon.svg") no-repeat center;
 	mask-size: contain;
 
 	vertical-align: middle;
