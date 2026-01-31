@@ -4,10 +4,8 @@ import { registerProperties } from "$scripts/register-design-tokens";
 import "$styles/index.css";
 import { onMount } from "svelte";
 import { Hero } from "$assets/home";
-import { optimiseInteractive } from "$scripts/interactive";
 
 onMount(() => {
-	optimiseInteractive();
 	registerProperties();
 	document.documentElement.classList.add("document-loaded");
 });
