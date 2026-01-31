@@ -184,26 +184,6 @@ runes-compatible approach - no store subscription boilerplate needed.
 
 ## CSS/Styling Patterns
 
-### Dormant `optimiseInteractive()` Code
-
-```typescript
-// In interactive.ts
-export function optimiseInteractive() {
-    const toggleLayer = (target: HTMLElement, enabled: boolean) => {
-        if (!target.classList.contains("interactive")) return;
-        // ...
-    };
-}
-```
-
-**What:** This function exists but targets `.interactive` class which isn't used.
-
-**Why:** Temporarily disabled. May be removed if better solutions exist or if it
-causes issues (e.g., blurry fonts from GPU layer promotion).
-
-**How:** Currently a no-op. The CSS-based GPU hints in `.card`/`.btn`
-serve a similar purpose.
-
 ### Document Loading Shimmer
 
 ```typescript
@@ -235,15 +215,26 @@ generated at build time to eliminate the JS dependency entirely.
 ```typescript
 // src/lib/types/component-props.ts
 export type LoadPriority = "high" | "low";
+
+export type Image = {
+    url: FilePath | HttpPath;
+    dimensions: { width: number; height: number };
+};
+
+export type Council = {
+    name: string;
+    image: Image;
+    backgroundGuide: string;
+};
 ```
 
 ```svelte
 <!-- CouncilCard.svelte -->
 <img
-    src={council.image}
+    src={council.image.url}
     alt={council.name}
-    width={council.width}
-    height={council.height}
+    width={council.image.dimensions.width}
+    height={council.image.dimensions.height}
     fetchpriority={loadPriority}
     loading={loadPriority === "high" ? "eager" : "lazy"}
     decoding="async"
@@ -264,7 +255,8 @@ const councilsAboveScreenFold = 5;
 {/each}
 ```
 
-**What:** Images use explicit dimensions and priority-based loading.
+**What:** Images use explicit dimensions and priority-based loading. Dimensions
+are centralized in `src/lib/data/councils/images.ts`.
 
 **Why:**
 
@@ -273,7 +265,8 @@ const councilsAboveScreenFold = 5;
 - `loading="eager"` loads immediately; `loading="lazy"` defers until near viewport
 - `decoding="async"` decodes images off main thread (reduces TBT)
 - Named constant documents intent and is easy to adjust
+- Centralized dimensions in `images.ts` keeps category data clean
 
 **How:** Parent component determines priority based on index, child component
-applies the appropriate attributes. The `Council` type includes `width` and
-`height` from the actual image dimensions.
+applies the appropriate attributes. The `Image` type bundles URL with dimensions,
+stored in `images.ts` alongside the asset imports.
