@@ -11,12 +11,18 @@ export interface TestimonialData {
 	comment: string;
 }
 
+export type HttpPath = `http${string}://${string}`;
+export type FilePath = `/${string}`;
+
+export type Image = {
+	url: FilePath | HttpPath;
+	dimensions: { width: number; height: number };
+};
+
 export type Council = {
 	name: string;
-	image: string;
+	image: Image;
 	backgroundGuide: string;
-	width: number;
-	height: number;
 };
 
 export type CouncilCategory = {
