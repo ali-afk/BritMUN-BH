@@ -24,3 +24,10 @@ Cache-Control = "public, max-age=86400"
 for = "*.png"
 [headers.values]
 Cache-Control = "public, max-age=86400"
+
+# Lighthouse CI - runs on every deploy, reports performance/accessibility
+[[plugins]]
+package = "@netlify/plugin-lighthouse"
+
+  [plugins.inputs]
+  fail_deploy_on_score_thresholds = "false"
