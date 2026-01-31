@@ -9,10 +9,10 @@ let {
 
 <div class="card center--column">
 	<img
-		src={council.image}
+		src={council.image.url}
 		alt={council.name}
-		width={council.width}
-		height={council.height}
+		width={council.image.dimensions.width}
+		height={council.image.dimensions.height}
 		fetchpriority={loadPriority}
 		loading={loadPriority === "high" ? "eager" : "lazy"}
 		decoding="async"

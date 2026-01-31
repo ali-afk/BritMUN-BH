@@ -21,7 +21,6 @@ const globalKeywords = [
 	"Model United Nations Bahrain",
 	"BSB MUN 2026",
 	"British School of Bahrain",
-	"Diplomacy Conference",
 ];
 
 let fullTitle = $derived(`${title} | BritMUN XI`);

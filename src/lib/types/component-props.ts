@@ -12,7 +12,7 @@ export interface TestimonialData {
 }
 
 export type HttpPath = `http${string}://${string}`;
-export type FilePath = `/${string}`;
+export type FilePath = `/${string}` | `./${string}`;
 
 export type Image = {
 	url: FilePath | HttpPath;
