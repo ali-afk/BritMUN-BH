@@ -164,7 +164,7 @@ This makes the lightness-based contrast calculation reliable across all hues.
 
 - Light backgrounds → darken border (`--_contrast` = -1)
 - Dark backgrounds → lighten border (`--_contrast` = +1)
-- `--border-darkness` controls intensity (defined in `default-properties.ts`)
+- `--border-darkness` controls intensity (defined in `design-tokens.ts`)
 
 ## Usage Examples
 
@@ -219,9 +219,9 @@ for detailed examples.
 ## Related Files
 
 - `src/lib/styles/interactive.css` — Core calculations
-- `src/lib/data/default-properties.ts` — Tuning values (`--border-darkness`,
+- `src/lib/data/design-tokens.ts` — Tuning values (`--border-darkness`,
 `--hover-degree`, etc.)
-- `src/lib/scripts/register-properties.ts` — Registers CSS properties for animations
+- `src/lib/scripts/register-design-tokens.ts` — Registers CSS properties for animations
 - [CSS Patterns](./css.md) — Usage patterns and utility classes
 - [Architecture Decisions](./architecture-decisions.md) — Why things are
 implemented this way

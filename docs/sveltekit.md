@@ -84,20 +84,24 @@ let doubled = $derived(count * 2);
 ## Path Aliases
 
 ```svelte
-import { Header } from "$components";
+import { Header } from "$components/shared";
 import { faqs } from "$data/home";
-import { Logo } from "$assets";
+import { Logo } from "$assets/shared";
 import { parseCssTime } from "$scripts/utils";
+import type { Council } from "$types/component-props";
 ```
 
 **Aliases:**
 
-- `$components`,
-- `$data`,
-- `$assets`,
-- `$scripts`,
-- `$types`
+- `$components` → `src/lib/components`
+- `$data` → `src/lib/data`
+- `$assets` → `src/lib/assets`
+- `$scripts` → `src/lib/scripts`
+- `$types` → `src/lib/types`
+
 (defined in `svelte.config.js`)
+
+**Note:** Shared components/assets are in `shared/` subdirectories.
 
 ## onMount
 

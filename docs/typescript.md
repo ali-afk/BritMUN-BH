@@ -34,7 +34,7 @@ type FontWeights = PropertyGroup<{
 }>;
 ```
 
-See `PropertyNode` in `src/lib/types/properties.ts`.
+See `PropertyNode` in `src/lib/types/design-tokens.ts`.
 
 ## The `satisfies` Operator
 

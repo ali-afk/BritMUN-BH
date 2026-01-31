@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-1. Read the [Development Guide](docs/development-guide.md) for setup and workflow
+1. Read the [Development Guide](docs/development.md) for setup and workflow
 2. Run `bun dev` and make a test change to verify your setup
 3. Review the guides in `docs/` for patterns used in this codebase
 
@@ -15,7 +15,7 @@ Formatting is automatic via Biome (runs on commit). Key conventions:
 - **PascalCase.svelte** for components, **kebab-case.ts** for scripts
 - Always use design tokens: `var(--color-primary-500)`, not hardcoded values
 
-See [CSS Guide](docs/css-guide.md) and [SvelteKit Guide](docs/sveltekit-guide.md) for patterns.
+See [CSS Guide](docs/css.md) and [SvelteKit Guide](docs/sveltekit.md) for patterns.
 
 ## Commit Messages
 
@@ -63,11 +63,10 @@ git commit -m "feat+style: add countdown timer with animations"
 
 ## Resources
 
-
 | Guide | Description |
 |-------|-------------|
-| [Development Guide](docs/development-guide.md) | Daily workflow, common tasks, troubleshooting |
-| [CSS Guide](docs/css-guide.md) | Design tokens, styling patterns |
-| [SvelteKit Guide](docs/sveltekit-guide.md) | Component patterns, Svelte 5 runes |
-| [TypeScript Patterns](docs/typescript-patterns.md) | Type safety patterns |
+| [Development Guide](docs/development.md) | Daily workflow, common tasks, troubleshooting |
+| [CSS Guide](docs/css.md) | Design tokens, styling patterns |
+| [SvelteKit Guide](docs/sveltekit.md) | Component patterns, Svelte 5 runes |
+| [TypeScript Patterns](docs/typescript.md) | Type safety patterns |
 

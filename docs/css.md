@@ -7,12 +7,12 @@ CSS architecture and design tokens used in the BRITMUN codebase.
 All values come from CSS custom properties. Never hardcode values.
 
 **Note:** Some variables (`--fw-light`, `--fw-regular`, `--text-mute`) are
-registered at runtime from `DefaultProperties` via `register-properties.ts`,
+registered at runtime from `DesignTokens` via `register-design-tokens.ts`,
 not defined in `variables.css`.
 
-### Why Both `variables.css` AND `default-properties.ts`?
+### Why Both `variables.css` AND `design-tokens.ts`?
 
-#### default-properties.ts
+#### design-tokens.ts
 
 - Purpose: Static TS values; registered as animatable CSS props.
 - Examples: `--fw-bold: 700`, `--border-darkness: 0.025`

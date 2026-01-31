@@ -15,24 +15,37 @@ git push                    # Auto-deploys to Netlify
 src/
 ├── lib/
 │   ├── components/         # UI components
+│   │   ├── shared/         # Header, NavLinks, Meta (used across pages)
+│   │   ├── home/           # Homepage components (FaqList, Testimonial, etc.)
+│   │   └── councils/       # Council page components (CouncilCard, etc.)
 │   ├── data/               # Content files
-│   │   ├── default-properties.ts  # Design tokens
-│   │   ├── home/           # Homepage data (faqs, testimonials)
-│   │   └── councils/       # Council data (categories, documents)
+│   │   ├── design-tokens.ts    # Design tokens (colors, spacing, etc.)
+│   │   ├── home/               # Homepage data (faqs, testimonials)
+│   │   └── councils/           # Council data (categories, images, documents)
 │   ├── types/              # Reusable TypeScript types
-│   │   ├── colors.ts       # ColorScale, ColorDegrees, ColorRecord
-│   │   ├── imageProperties.ts # LoadPriority for image loading
-│   │   └── properties.ts   # PropertyConfig, PropertyNode
+│   │   ├── colors.ts           # ColorDegrees, ColorRecord
+│   │   ├── component-props.ts  # Council, Image, FaqData, LoadPriority, etc.
+│   │   └── design-tokens.ts    # PropertyConfig, PropertyNode
 │   ├── scripts/            # Utilities
+│   │   ├── register-design-tokens.ts  # CSS property registration
+│   │   ├── transition.ts              # Svelte transition wrapper
+│   │   ├── media.ts                   # Media query helpers
+│   │   └── utils.ts                   # General utilities
 │   ├── assets/             # Images (bundled, with barrel exports)
+│   │   ├── shared/         # Logo, external link icon
+│   │   ├── home/           # Hero image, toggle icon
+│   │   └── councils/       # Council images (WebP)
 │   └── styles/             # Global CSS
-└── routes/                 # Pages
-    ├── +page.svelte        # Homepage (/)
-    ├── +page.server.ts     # Homepage data loader
-    ├── +layout.svelte      # Site layout (Header only)
-    └── councils/
-        ├── +page.svelte    # Councils page
-        └── +page.server.ts # Councils data loader
+└── routes/                 # Pages (SvelteKit file-based routing)
+    ├── +layout.svelte      # Root layout (CSS imports, design token registration)
+    ├── +error.svelte       # Error page
+    └── (main)/             # Main site route group
+        ├── +layout.svelte  # Main layout (Header, skip-link, <main>)
+        ├── +page.svelte    # Homepage (/)
+        ├── +page.server.ts # Homepage data loader
+        └── councils/
+            ├── +page.svelte    # Councils page
+            └── +page.server.ts # Councils data loader
 
 static/                     # Files served as-is (/favicon.png)
 ```
@@ -44,7 +57,7 @@ static/                     # Files served as-is (/favicon.png)
 Edit `src/lib/data/home/faqs.ts`:
 
 ```typescript
-export const faqs: Faq[] = [
+export const faqs: FaqData[] = [
  {
   question: "What should I bring?",
   answer: "Laptop, notepad, delegate pass..."
@@ -57,7 +70,7 @@ export const faqs: Faq[] = [
 Edit `src/lib/data/home/testimonials.ts`:
 
 ```typescript
-export const testimonials: Testimonial[] = [
+export const testimonials: TestimonialData[] = [
   { title: "SC Chair", year: "2024", comment: "Amazing experience..." },
 ];
 ```
@@ -67,10 +80,24 @@ export const testimonials: Testimonial[] = [
 1. Add optimized image to `src/lib/assets/councils/` (WebP, max 800px width)
 2. Export from barrel: `src/lib/assets/councils/index.ts`
 3. Get image dimensions: `identify your-image.webp` (returns WxH)
-4. Add to `src/lib/data/councils/council-categories.ts`:
+4. Add to `src/lib/data/councils/images.ts`:
 
 ```typescript
-import { Unsc } from "$assets/councils";
+import { NewCouncil } from "$assets/councils";
+
+export const CouncilImages = {
+  // ... existing images
+  NewCouncil: {
+    url: NewCouncil as FilePath,
+    dimensions: { width: 800, height: 600 },
+  },
+} as const satisfies Record<string, Image>;
+```
+
+5. Add to `src/lib/data/councils/categories.ts`:
+
+```typescript
+import { CouncilImages } from "./images";
 
 export const councilCategories: CouncilCategory[] = [
   {
@@ -78,22 +105,19 @@ export const councilCategories: CouncilCategory[] = [
     councils: [
       {
         name: "UN Security Council",
-        image: Unsc,
+        image: CouncilImages.Unsc,
         backgroundGuide: "https://drive.google.com/...",
-        width: 800,   // Required: actual image width
-        height: 681,  // Required: actual image height
       },
     ],
   },
 ];
 ```
 
-**Important:** `width` and `height` are required for CLS optimization.
-Use actual image dimensions (not display size).
+**Note:** Image dimensions are stored in `images.ts`, not in categories.
 
 ### Change Colors
 
-Edit `src/lib/data/default-properties.ts`:
+Edit `src/lib/data/design-tokens.ts`:
 
 ```typescript
 color: {
@@ -108,13 +132,19 @@ All themed elements update automatically.
 
 ### Add Page
 
-1. Create `src/routes/about/+page.svelte`
-2. Add to navigation in `src/lib/components/NavLinks.svelte`
+1. Create `src/routes/(main)/about/+page.svelte`
+2. Add to navigation in `src/lib/components/shared/NavLinks.svelte`
 
 ```svelte
-<svelte:head>
-  <title>About | BRITMUN</title>
-</svelte:head>
+<script lang="ts">
+import { Meta } from "$components/shared";
+</script>
+
+<Meta
+  title="About"
+  description="Learn about BRITMUN XI"
+  pageURI="/about"
+/>
 
 <section class="container">
   <h1>About</h1>
@@ -135,6 +165,8 @@ All themed elements update automatically.
 2. Export from `src/lib/components/[page]/index.ts`
 3. Import with `import { NewComponent } from "$components/[page]"`
 
+For shared components, use `src/lib/components/shared/`.
+
 ### Barrel Export Pattern
 
 Directories use `index.ts` files to centralize exports:
@@ -145,8 +177,8 @@ export { default as FaqList } from "./FaqList.svelte";
 export { default as Testimonial } from "./Testimonial.svelte";
 
 // src/lib/assets/councils/index.ts
-export { default as Unsc } from "./unsc.png";
-export { default as Iaea } from "./iaea.png";
+export { default as Unsc } from "./unsc.webp";
+export { default as Iaea } from "./iaea.webp";
 ```
 
 **Benefits:**
@@ -158,7 +190,7 @@ export { default as Iaea } from "./iaea.png";
 **Conventions:**
 
 - Component exports: Match filename (`FaqList.svelte` → `FaqList`)
-- Asset exports: PascalCase regardless of filename (`unsc.png` → `Unsc`)
+- Asset exports: PascalCase regardless of filename (`unsc.webp` → `Unsc`)
 
 **Important:** New components/assets must be manually added to `index.ts`.
 This is easy to forget - if an import fails, check the barrel export first.

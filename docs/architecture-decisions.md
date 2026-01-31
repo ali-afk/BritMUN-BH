@@ -233,7 +233,7 @@ generated at build time to eliminate the JS dependency entirely.
 ### Image Loading Priority System
 
 ```typescript
-// src/lib/types/imageProperties.ts
+// src/lib/types/component-props.ts
 export type LoadPriority = "high" | "low";
 ```
 

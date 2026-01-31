@@ -8,17 +8,19 @@ Built with SvelteKit 2, Svelte 5, and TypeScript.
 ```bash
 bun install    # Install dependencies
 bun dev        # Start dev server (http://localhost:5173)
-bun run build      # Build for production
+bun run build  # Build for production
 ```
 
 ## Documentation
 
 | Guide | Description |
 |-------|-------------|
-| [Development Guide](docs/development-guide.md) | Daily workflow, common tasks, troubleshooting |
-| [CSS Guide](docs/css-guide.md) | Design tokens, styling patterns |
-| [SvelteKit Guide](docs/sveltekit-guide.md) | Component patterns, Svelte 5 runes |
-| [TypeScript Patterns](docs/typescript-patterns.md) | Type safety patterns |
+| [Development Guide](docs/development.md) | Daily workflow, common tasks, troubleshooting |
+| [CSS Guide](docs/css.md) | Design tokens, styling patterns |
+| [SvelteKit Guide](docs/sveltekit.md) | Component patterns, Svelte 5 runes |
+| [TypeScript Patterns](docs/typescript.md) | Type safety patterns |
+| [Architecture Decisions](docs/architecture-decisions.md) | Non-obvious implementation choices |
+| [Color System](docs/color-system.md) | OKLCH auto-contrast explained |
 | [Contributing](CONTRIBUTING.md) | Commit format, handoff checklist |
 
 ## Content Files
@@ -27,12 +29,13 @@ bun run build      # Build for production
 |---------|------|
 | FAQs | `src/lib/data/home/faqs.ts` |
 | Testimonials | `src/lib/data/home/testimonials.ts` |
-| Councils | `src/lib/data/councils/index.ts` |
-| Colors/Design | `src/lib/data/default-properties.ts` |
+| Councils | `src/lib/data/councils/categories.ts` |
+| Council Images | `src/lib/data/councils/images.ts` |
+| Design Tokens | `src/lib/data/design-tokens.ts` |
 
 ## Deployment
 
-Push to GitHub triggers automatic Netlify deployment.
+Push to GitHub (main, dev) triggers automatic Netlify deployment.
 
 ```bash
 git push    # Auto-deploys to production
@@ -40,5 +43,6 @@ git push    # Auto-deploys to production
 
 ## Links
 
-- **Live Site:** [Add URL]
-- **Netlify Dashboard:** [Add URL]
+- **Live Site (main):** [https://britmun.netlify.app/]
+- **Live Site (dev):** [https://britmun-dev.netlify.app/]
+- **Netlify Dashboard:** [https://app.netlify.com/teams/britmun/projects]
