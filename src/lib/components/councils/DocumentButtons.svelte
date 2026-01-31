@@ -1,10 +1,10 @@
 <script lang="ts">
-import { DefaultProperties } from "$data";
-import type { DocumentGroup } from "$data/councils";
+import { DesignTokens } from "$data";
 import { ColorScale } from "$types/colors";
+import type { DocumentGroup } from "$types/component-props";
 
 let { documentGroups }: { documentGroups: DocumentGroup[] } = $props();
-let colorSet = DefaultProperties.color.secondary;
+let colorSet = DesignTokens.color.secondary;
 </script>
 
 <section>

@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { CouncilCategory } from "$data/councils";
+import type { CouncilCategory } from "$types/component-props";
 import CouncilCard from "./CouncilCard.svelte";
 
 let { category }: { category: CouncilCategory } = $props();

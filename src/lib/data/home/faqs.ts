@@ -1,7 +1,4 @@
-export interface FaqData {
-	question: string;
-	answer: string;
-}
+import type { FaqData } from "$types/component-props";
 
 export const faqs: FaqData[] = [
 	{

@@ -4,11 +4,11 @@ import {
 	Disec,
 	Ecofin,
 	Fantasy,
-	Greysanatomy,
+	GreysAnatomy,
 	Iaea,
-	Jpmorgan,
+	JpMorgan,
 	Jumanji,
-	Legallyblonde,
+	LegallyBlonde,
 	Psicologia,
 	Sports,
 	Uncsw,
@@ -19,19 +19,7 @@ import {
 	Vigilante,
 	Who,
 } from "$assets/councils";
-
-export type Council = {
-	name: string;
-	image: string;
-	backgroundGuide: string;
-	width: number;
-	height: number;
-};
-
-export type CouncilCategory = {
-	name: string;
-	councils: Council[];
-};
+import type { CouncilCategory } from "$types/component-props";
 
 export const councilCategories: CouncilCategory[] = [
 	{
@@ -100,7 +88,7 @@ export const councilCategories: CouncilCategory[] = [
 		councils: [
 			{
 				name: "Grey's Anatomy",
-				image: Greysanatomy,
+				image: GreysAnatomy,
 				backgroundGuide:
 					"https://drive.google.com/file/d/1SQYb_7PWYqum17LNjHCnttOUUe2Wgm7F/view?usp=sharing",
 				width: 800,
@@ -108,7 +96,7 @@ export const councilCategories: CouncilCategory[] = [
 			},
 			{
 				name: "Legally Blonde",
-				image: Legallyblonde,
+				image: LegallyBlonde,
 				backgroundGuide:
 					"https://drive.google.com/file/d/1C6tIT0jhAysAWGlo5TQmCzxF5bIyQFDp/view?usp=sharing",
 				width: 800,
@@ -116,7 +104,7 @@ export const councilCategories: CouncilCategory[] = [
 			},
 			{
 				name: "J.P. Morgan",
-				image: Jpmorgan,
+				image: JpMorgan,
 				backgroundGuide:
 					"https://drive.google.com/file/d/1KiEjksJbgcAWxmWssqmlP3piOLSgOGfu/view?usp=sharing",
 				width: 800,

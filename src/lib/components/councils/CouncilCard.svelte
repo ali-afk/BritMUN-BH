@@ -1,6 +1,5 @@
 <script lang="ts">
-import type { Council } from "$data/councils";
-import type { LoadPriority } from "$types/imageProperties";
+import type { Council, LoadPriority } from "$types/component-props";
 
 let {
 	council,

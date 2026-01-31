@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Snippet } from "svelte";
 import { slide } from "svelte/transition";
-import toggleIcon from "$assets/home/toggle.svg";
+import { ToggleIcon } from "$assets/home";
 import { standard } from "$scripts/transition";
 import { generateId } from "$scripts/utils";
 
@@ -18,7 +18,7 @@ let { question, children }: { question: string; children: Snippet } = $props();
 			aria-controls="{contentId}"
 		>
 			{question}
-			<img src={toggleIcon} alt="" aria-hidden="true">
+			<img src={ToggleIcon} alt="" aria-hidden="true">
 		</summary>
 	</details>
 	{#if isOpen}

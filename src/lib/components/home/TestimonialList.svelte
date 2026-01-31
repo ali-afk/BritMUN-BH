@@ -1,6 +1,6 @@
 <script lang="ts">
-import { type TestimonialData } from "$data/home";
 import { ColorScale } from "$types/colors";
+import type { TestimonialData } from "$types/component-props";
 import Testimonial from "./Testimonial.svelte";
 
 let { testimonialData }: { testimonialData: TestimonialData[] } = $props();

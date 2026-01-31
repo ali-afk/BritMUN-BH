@@ -1,8 +1,4 @@
-export interface TestimonialData {
-	title: string;
-	year: string;
-	comment: string;
-}
+import type { TestimonialData } from "$types/component-props";
 
 export const testimonials: TestimonialData[] = [
 	{

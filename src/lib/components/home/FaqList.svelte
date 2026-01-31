@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type FaqData } from "$data/home";
+import type { FaqData } from "$types/component-props";
 import Faq from "./Faq.svelte";
 
 let { faqData }: { faqData: FaqData[] } = $props();

@@ -1,9 +1,9 @@
 <script lang="ts">
-import { Logo } from "$assets";
-import { DefaultProperties } from "$data";
-import { type TestimonialData } from "$data/home";
+import { Logo } from "$assets/shared";
+import { DesignTokens } from "$data";
 import type { ColorDegrees } from "$types/colors";
-import type { LoadPriority } from "$types/imageProperties";
+import type { LoadPriority } from "$types/component-props";
+import { type TestimonialData } from "$types/component-props";
 
 interface TestimonialProps extends TestimonialData {
 	loadPriority: LoadPriority;
@@ -13,7 +13,7 @@ interface TestimonialProps extends TestimonialData {
 
 let { loadPriority, color, title, year, comment, direction }: TestimonialProps =
 	$props();
-let colorSet = DefaultProperties.color.primary;
+let colorSet = DesignTokens.color.primary;
 </script>
 
 <article

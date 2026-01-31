@@ -1,11 +1,4 @@
-export type DocumentLink = {
-	label: string;
-	href: string;
-};
-
-export type DocumentGroup = {
-	links: DocumentLink[];
-};
+import type { DocumentGroup } from "$types/component-props";
 
 export const documentGroups: DocumentGroup[] = [
 	{

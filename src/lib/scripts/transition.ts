@@ -29,7 +29,7 @@ import BezierEasing from "bezier-easing";
 import * as svelteEasings from "svelte/easing";
 import { prefersReducedMotion } from "svelte/motion";
 import type { SlideParams, TransitionConfig } from "svelte/transition";
-import { DefaultProperties } from "$data";
+import { DesignTokens } from "$data";
 import { getMediaCurrent, queryCssProperty } from "./media";
 import { parseCssTime } from "./utils";
 
@@ -77,7 +77,7 @@ const CSS_NATIVE_COORDS: Record<string, [number, number, number, number]> = {
 export function getEasing(queriedElement?: HTMLElement): (t: number) => number {
 	const raw =
 		queryCssProperty("transition-easing", queriedElement) ||
-		DefaultProperties.transition.easing.value;
+		DesignTokens.transition.easing.value;
 
 	// Tries to map css keyword to existing svelte keyword if they differ
 	const svelteKey = CSS_TO_SVELTE_MAP[raw] || raw;
@@ -117,10 +117,10 @@ function parseBezierCoords(bezier: string): [number, number, number, number] {
 	}
 
 	// Fallback to default easing from design tokens if parsing fails
-	const fallbackMatch = DefaultProperties.transition.easing.value.match(regex);
+	const fallbackMatch = DesignTokens.transition.easing.value.match(regex);
 	if (!fallbackMatch) {
 		throw new Error(
-			`Invalid default easing value: "${DefaultProperties.transition.easing.value}". ` +
+			`Invalid default easing value: "${DesignTokens.transition.easing.value}". ` +
 				`Expected cubic-bezier() format.`,
 		);
 	}
@@ -155,8 +155,7 @@ export function standard(
 	const mergedParams: SlideParams = {
 		...params,
 		duration:
-			params?.duration ??
-			parseCssTime(DefaultProperties.transition.duration.medium),
+			params?.duration ?? parseCssTime(DesignTokens.transition.duration.medium),
 		easing: getEasing(node),
 	};
 
