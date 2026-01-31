@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { Snippet } from "svelte";
+import type { FilePath } from "$types/component-props";
 
 let {
 	title,
@@ -11,7 +12,7 @@ let {
 	title: string;
 	description: string;
 	keywords?: string[];
-	pageURI: string;
+	pageURI: FilePath;
 	children?: Snippet;
 } = $props();
 
