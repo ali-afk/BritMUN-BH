@@ -33,12 +33,12 @@
  * @see src/lib/data/default-properties.ts for token definitions
  */
 
-import { DefaultProperties } from "$data";
+import { DesignTokens } from "$data";
 import type {
 	PropertyConfig,
 	PropertyNode,
 	PropertyValue,
-} from "$types/properties";
+} from "$types/design-tokens";
 
 /**
  * Flattens nested object: { color: { primary: { 500: "#934599" } } }
@@ -83,7 +83,7 @@ function toCssProperties(
  * // Smoothly animates when --color-primary-500 changes
  */
 export function registerProperties() {
-	const properties = toCssProperties(DefaultProperties);
+	const properties = toCssProperties(DesignTokens);
 
 	const keys = Object.keys(properties);
 
@@ -107,12 +107,12 @@ export function registerProperties() {
 
 		// Example: "color-primary-500" → ["color", "primary", "500"]
 		const pathParts = key.split("-");
-		const rootKey = pathParts[0] as keyof typeof DefaultProperties | undefined; // "color"
+		const rootKey = pathParts[0] as keyof typeof DesignTokens | undefined; // "color"
 		const subKey = pathParts[1] as string | undefined; // "primary"
 
 		// Example: color.primary.config takes precedence over color.config
 		// Step through safely: get root object, then sub-object, then check for configs
-		const root = rootKey ? DefaultProperties[rootKey] : undefined;
+		const root = rootKey ? DesignTokens[rootKey] : undefined;
 		const sub =
 			root && subKey
 				? (root as Record<string, PropertyNode>)[subKey]

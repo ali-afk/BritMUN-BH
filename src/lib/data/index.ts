@@ -1,1 +1,1 @@
-export * from "./default-properties";
+export * from "./design-tokens";

@@ -33,7 +33,7 @@
  * @see src/lib/scripts/register-properties.ts for registration logic
  */
 
-import type { PropertyNode } from "$types/properties";
+import type { PropertyNode } from "$types/design-tokens";
 
 /**
  * Design tokens organized by category
@@ -43,7 +43,7 @@ import type { PropertyNode } from "$types/properties";
  * - Sub-group level (e.g., "primary") can override with its own config
  * - Leaf values are the actual design tokens
  */
-export const DefaultProperties = {
+export const DesignTokens = {
 	color: {
 		config: { syntax: "<color>", inherits: true },
 		primary: {
