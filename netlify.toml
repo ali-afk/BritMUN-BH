@@ -14,20 +14,9 @@ for = "/_app/immutable/*"
 [headers.values]
 Cache-Control = "public, max-age=31536000, immutable"
 
-# Cache images
-[[headers]]
-for = "*.webp"
-[headers.values]
-Cache-Control = "public, max-age=86400"
-
-[[headers]]
-for = "*.png"
-[headers.values]
-Cache-Control = "public, max-age=86400"
-
 # Lighthouse CI - runs on every deploy, reports performance/accessibility
 [[plugins]]
 package = "@netlify/plugin-lighthouse"
 
-  [plugins.inputs]
-  fail_deploy_on_score_thresholds = "false"
+[plugins.inputs]
+fail_deploy_on_score_thresholds = "false"
