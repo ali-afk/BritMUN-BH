@@ -33,7 +33,7 @@
  * @see src/lib/data/default-properties.ts for token definitions
  */
 
-import { DesignTokens } from "$data";
+import { DesignTokens } from "$data/shared";
 import type {
 	PropertyConfig,
 	PropertyNode,

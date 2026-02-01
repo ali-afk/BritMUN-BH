@@ -1,6 +1,5 @@
 <script lang="ts">
-import { Logo } from "$assets/shared";
-import { DesignTokens } from "$data";
+import { DesignTokens, Logo } from "$data/shared";
 import type { ColorDegrees } from "$types/colors";
 import type { LoadPriority } from "$types/component-props";
 import { type TestimonialData } from "$types/component-props";
@@ -24,9 +23,10 @@ let colorSet = DesignTokens.color.primary;
 	<header class="center--column">
 		<img
 			class="avatar"
-			src={Logo}
+			src={Logo.url}
 			alt=""
-			width="64px"
+			width={Logo.dimensions.width}
+			height={Logo.dimensions.height}
 			fetchpriority={loadPriority}
 			loading={loadPriority === "high" ? "eager" : "lazy"}
 		>
@@ -65,6 +65,11 @@ article {
 		justify-content: center;
 		padding: var(--space-3);
 		width: clamp(180px, 30%, 250px);
+
+		img {
+			width: 64px;
+			height: auto;
+		}
 
 		h2 {
 			font-size: var(--fs-2);

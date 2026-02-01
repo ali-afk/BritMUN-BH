@@ -1,6 +1,6 @@
 <script lang="ts">
 import { page } from "$app/state";
-import { Logo } from "$assets/shared";
+import { Logo } from "$data/shared";
 import NavLinks from "./NavLinks.svelte";
 
 let headerHeight = $state(0);
@@ -34,7 +34,12 @@ $effect(() => {
 			href="/"
 			aria-current={page.url.pathname === '/' ? 'page' : undefined}
 		>
-			<img src={Logo} alt="BRITMUN Logo" width="500" height="500">
+			<img
+				src={Logo.url}
+				alt="BRITMUN Logo"
+				width={Logo.dimensions.width}
+				height={Logo.dimensions.height}
+			>
 		</a>
 		<NavLinks {isHidden} />
 	</nav>

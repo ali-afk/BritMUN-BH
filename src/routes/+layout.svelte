@@ -1,5 +1,5 @@
 <script lang="ts">
-import { DesignTokens } from "$data";
+import { DesignTokens } from "$data/shared";
 import { registerProperties } from "$scripts/register-design-tokens";
 import "$styles/index.css";
 import { onMount } from "svelte";

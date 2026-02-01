@@ -1,5 +1,5 @@
 <script lang="ts">
-import { DesignTokens } from "$data";
+import { DesignTokens } from "$data/shared";
 import { ColorScale } from "$types/colors";
 import type { DocumentGroup } from "$types/component-props";
 

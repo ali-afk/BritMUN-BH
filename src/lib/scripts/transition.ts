@@ -29,7 +29,7 @@ import BezierEasing from "bezier-easing";
 import * as svelteEasings from "svelte/easing";
 import { prefersReducedMotion } from "svelte/motion";
 import type { SlideParams, TransitionConfig } from "svelte/transition";
-import { DesignTokens } from "$data";
+import { DesignTokens } from "$data/shared";
 import { getMediaCurrent, queryCssProperty } from "./media";
 import { parseCssTime } from "./utils";
 

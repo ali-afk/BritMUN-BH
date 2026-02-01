@@ -1,14 +1,14 @@
 <script>
-import { Hero } from "$assets/home";
+import { Hero } from "$data/home";
 </script>
 
 <section>
 	<img
-		src={Hero}
+		src={Hero.url}
 		alt="Through the Looking Glass"
 		fetchpriority="high"
-		width="6400"
-		height="3600"
+		width={Hero.dimensions.width}
+		height={Hero.dimensions.height}
 	>
 </section>
 
