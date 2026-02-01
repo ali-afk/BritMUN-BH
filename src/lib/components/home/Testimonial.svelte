@@ -1,8 +1,7 @@
 <script lang="ts">
 import { DesignTokens, Logo } from "$data/shared";
 import type { ColorDegrees } from "$types/colors";
-import type { LoadPriority } from "$types/component-props";
-import { type TestimonialData } from "$types/component-props";
+import type { LoadPriority, TestimonialData } from "$types/component-props";
 
 interface TestimonialProps extends TestimonialData {
 	loadPriority: LoadPriority;
@@ -12,7 +11,7 @@ interface TestimonialProps extends TestimonialData {
 
 let { loadPriority, color, title, year, comment, direction }: TestimonialProps =
 	$props();
-let colorSet = DesignTokens.color.primary;
+const colorSet = DesignTokens.color.primary;
 </script>
 
 <article
@@ -44,6 +43,19 @@ let colorSet = DesignTokens.color.primary;
 <style>
 article {
 	position: relative;
+
+	blockquote {
+		flex: 1;
+		padding: var(--space-5) var(--space-7) var(--space-5) 0;
+		display: flex;
+		align-items: center;
+
+		p {
+			font-size: var(--fs-4);
+			line-height: var(--lh-2);
+			font-style: italic;
+		}
+	}
 
 	&::before {
 		content: "“";
@@ -79,19 +91,6 @@ article {
 		h3 {
 			font-size: var(--fs-1);
 			opacity: 0.8;
-		}
-	}
-
-	blockquote {
-		flex: 1;
-		padding: var(--space-5) var(--space-7) var(--space-5) 0;
-		display: flex;
-		align-items: center;
-
-		p {
-			font-size: var(--fs-4);
-			line-height: var(--lh-2);
-			font-style: italic;
 		}
 	}
 }

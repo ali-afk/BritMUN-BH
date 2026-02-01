@@ -1,24 +1,33 @@
 <script lang="ts">
 import type { Snippet } from "svelte";
 import { slide } from "svelte/transition";
-import { ToggleIcon } from "$assets/home";
+import { ToggleIcon } from "$data/shared";
 import { standard } from "$scripts/transition";
 import { generateId } from "$scripts/utils";
 
 const contentId = generateId("content");
 let isOpen = $state(false);
-let { question, children }: { question: string; children: Snippet } = $props();
+let {
+	title,
+	name,
+	children,
+}: { title: string; name: string; children: Snippet } = $props();
 </script>
 
 <article class="wrapper card">
-	<details bind:open={isOpen} name="faq">
+	<details bind:open={isOpen} {name}>
 		<summary
 			class="row--between"
 			aria-expanded={isOpen}
 			aria-controls="{contentId}"
 		>
-			{question}
-			<img src={ToggleIcon} alt="" aria-hidden="true">
+			{title}
+			<img
+				src={ToggleIcon.url}
+				width={ToggleIcon.dimensions.width}
+				height={ToggleIcon.dimensions.height}
+				alt=""
+			>
 		</summary>
 	</details>
 	{#if isOpen}

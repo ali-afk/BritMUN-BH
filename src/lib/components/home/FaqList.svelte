@@ -1,6 +1,6 @@
 <script lang="ts">
+import { Accordion } from "$components/shared";
 import type { FaqData } from "$types/component-props";
-import Faq from "./Faq.svelte";
 
 let { faqData }: { faqData: FaqData[] } = $props();
 </script>
@@ -9,7 +9,7 @@ let { faqData }: { faqData: FaqData[] } = $props();
 	<h1 class="title--section">FAQs</h1>
 
 	{#each faqData as faq}
-		<Faq question={faq.question}>{@html faq.answer}</Faq>
+		<Accordion title={faq.question} name="faq">{@html faq.answer}</Accordion>
 	{/each}
 
 	<hr>
