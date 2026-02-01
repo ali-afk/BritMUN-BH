@@ -43,7 +43,7 @@ export const CouncilImages = {
 	},
 	Uncsw: {
 		url: Uncsw as FilePath,
-		dimensions: { width: 2054, height: 2022 },
+		dimensions: { width: 800, height: 788 },
 	},
 	Disec: {
 		url: Disec as FilePath,
