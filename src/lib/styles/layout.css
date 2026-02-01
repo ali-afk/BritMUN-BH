@@ -17,7 +17,6 @@ body {
 	background-color: var(--bg-main);
 
 	font: var(--fw-regular) var(--fs-3) / var(--lh-3) var(--font-body);
-	font-display: swap; /* Lazy font loading */
 	display: flex;
 	flex-direction: column;
 }
