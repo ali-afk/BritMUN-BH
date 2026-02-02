@@ -1,14 +1,31 @@
 <script lang="ts">
 import { DesignTokens } from "$data/shared";
 import { ColorScale } from "$types/colors";
-import type { DocumentGroup } from "$types/component-props";
+import type { DocumentLink } from "$types/component-props";
 
-let { documentGroups }: { documentGroups: DocumentGroup[] } = $props();
-let colorSet = DesignTokens.color.secondary;
+type LinkGroup = {
+	links: DocumentLink[];
+};
+
+let {
+	groups,
+	colorPalette = "primary",
+	class: className = "",
+}: {
+	groups: LinkGroup[];
+	colorPalette?: "primary" | "secondary";
+	class?: string;
+} = $props();
+
+let colorSet = $derived(
+	colorPalette === "primary"
+		? DesignTokens.color.primary
+		: DesignTokens.color.secondary,
+);
 </script>
 
-<section>
-	{#each documentGroups as group, i}
+<section class="button-grid {className}">
+	{#each groups as group, i}
 		<div
 			class="card-grid--tight"
 			style="--_background: {colorSet[ColorScale[i % 5] ?? 500]}"
@@ -28,7 +45,7 @@ let colorSet = DesignTokens.color.secondary;
 </section>
 
 <style>
-section {
+.button-grid {
 	display: grid;
 	gap: var(--space-4);
 	margin-bottom: var(--space-6);
