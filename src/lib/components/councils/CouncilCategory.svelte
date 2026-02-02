@@ -1,4 +1,5 @@
 <script lang="ts">
+import { CardSection } from "$components/shared/layout";
 import type { CouncilCategory } from "$types/component-props";
 import CouncilCard from "./CouncilCard.svelte";
 
@@ -6,14 +7,11 @@ let { category }: { category: CouncilCategory } = $props();
 const councilsAboveScreenFold = 5;
 </script>
 
-<section class="wrapper">
-	<h2 class="title--section">{category.name}:</h2>
-	<div class="card-grid">
-		{#each category.councils as council, index}
-			<CouncilCard
-				{council}
-				loadPriority={index < councilsAboveScreenFold ? "high" : "low"}
-			/>
-		{/each}
-	</div>
-</section>
+<CardSection title={category.name} headingLevel="2">
+	{#each category.councils as council, i}
+		<CouncilCard
+			{council}
+			loadPriority={i < councilsAboveScreenFold ? "high" : "low"}
+		/>
+	{/each}
+</CardSection>

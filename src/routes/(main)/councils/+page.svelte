@@ -1,6 +1,7 @@
 <script lang="ts">
-import { CouncilCategory, DocumentButtons } from "$components/councils";
+import { CouncilCategory } from "$components/councils";
 import { Meta } from "$components/shared";
+import { ButtonGrid } from "$components/shared/layout";
 import { type PageProps } from "./$types";
 
 let { data }: PageProps = $props();
@@ -16,12 +17,9 @@ let { data }: PageProps = $props();
 <section>
 	<h1 class="title--page">COUNCILS</h1>
 
-	<DocumentButtons documentGroups={data.documentGroups} />
+	<ButtonGrid groups={data.documentGroups} colorPalette="secondary" />
 
 	{#each data.councilCategories as category}
 		<CouncilCategory {category} />
 	{/each}
 </section>
-
-<style>
-</style>
