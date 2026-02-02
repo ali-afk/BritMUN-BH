@@ -37,6 +37,7 @@ $effect(() => {
 			<img
 				src={Logo.url}
 				alt="BRITMUN Logo"
+				fetchpriority="high"
 				width={Logo.dimensions.width}
 				height={Logo.dimensions.height}
 			>

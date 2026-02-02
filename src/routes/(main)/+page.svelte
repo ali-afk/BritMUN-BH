@@ -1,6 +1,7 @@
 <script lang="ts">
-import { FaqList, HeroImage, TestimonialList } from "$components/home";
-import { Meta } from "$components/shared";
+import { FaqList, TestimonialList } from "$components/home";
+import { HeroImage, Meta } from "$components/shared";
+import { Hero } from "$data/home";
 import type { PageProps } from "./$types";
 
 let { data }: PageProps = $props();
@@ -11,6 +12,7 @@ let { data }: PageProps = $props();
 	description="Experience the 11th edition of Bahrain's premier student-led MUN. Register now for debate, diplomacy, and change."
 	pageURI="/"
 />
-<HeroImage />
+
+<HeroImage image={Hero} />
 <TestimonialList testimonialData={data.testimonials} />
 <FaqList faqData={data.faqs} />
