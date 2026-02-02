@@ -1,7 +1,7 @@
 <script lang="ts">
 import { page } from "$app/state";
+import { NavLinks } from "$components/shared/helpers";
 import { Logo } from "$data/shared";
-import NavLinks from "./NavLinks.svelte";
 
 let headerHeight = $state(0);
 let y = $state(0);
