@@ -2,13 +2,17 @@
 	"linter": { "rules": { "recommended": true } },
 	"formatter": { "enabled": true },
 	"html": {
-		"experimentalFullSupportEnabled": true,
 		"formatter": { "enabled": true },
-		"linter": { "enabled": true }
+		"linter": { "enabled": true },
+		"experimentalFullSupportEnabled": true,
+		"assist": { "enabled": true },
+		"parser": { "interpolation": true }
 	},
 	"css": {
 		"formatter": { "enabled": true },
-		"linter": { "enabled": true }
+		"linter": { "enabled": true },
+		"assist": { "enabled": true },
+		"parser": { "cssModules": true }
 	},
 	"overrides": [
 		{
@@ -21,9 +25,7 @@
 					},
 					"correctness": {
 						"noUnusedVariables": "off",
-						"noUnusedImports": "off",
-						"noUnknownPseudoClass": "off",
-						"noUnknownFunction": "off"
+						"noUnusedImports": "off"
 					}
 				}
 			}
