@@ -2,19 +2,26 @@
 import type { Snippet } from "svelte";
 import type { FilePath } from "$types/component-props";
 
-let {
-	title,
-	description,
-	keywords,
-	pageURI,
-	children,
-}: {
+type BaseProps = {
 	title: string;
-	description: string;
 	keywords?: string[];
-	pageURI: FilePath;
 	children?: Snippet;
-} = $props();
+};
+
+type Props = BaseProps &
+	(
+		| { description: "NoIndex"; pageURI?: "/" }
+		| { description: string & {}; pageURI: FilePath }
+	);
+
+let { title, description, keywords, pageURI = "/", children }: Props = $props();
+
+// Runtime validation for development
+if (import.meta.env.DEV && description === "NoIndex" && pageURI !== "/") {
+	console.error(
+		`[Meta] NoIndex pages must use pageURI="/" (got "${pageURI}"). Canonical URLs should not point to non-indexed pages.`,
+	);
+}
 
 const globalKeywords = [
 	"BritMUN XI",
@@ -34,12 +41,16 @@ let fullKeywords = $derived(
 	<title>{fullTitle}</title>
 	<meta property="og:title" content={fullTitle}>
 	<meta name="twitter:title" content={fullTitle}>
-	<meta name="description" content={description}>
-	<meta property="og:description" content={description}>
-	<meta name="twitter:description" content={description}>
 	<meta name="keywords" content={fullKeywords}>
 	<meta property="og:url" content={fullURI}>
 	<link rel="canonical" href={fullURI}>
+	{#if description === "NoIndex"}
+		<meta name="robots" content="noindex, nofollow">
+	{:else}
+		<meta name="description" content={description}>
+		<meta property="og:description" content={description}>
+		<meta name="twitter:description" content={description}>
+	{/if}
 	{#if children}
 		{@render children()}
 	{/if}
