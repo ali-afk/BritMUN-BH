@@ -1,6 +1,6 @@
 <script lang="ts">
 import { DesignTokens } from "$data/shared";
-import { ColorScale } from "$types/colors";
+import { cycleColorScale } from "$scripts/utils";
 import type { DocumentLink } from "$types/component-props";
 
 type LinkGroup = {
@@ -28,7 +28,7 @@ let colorSet = $derived(
 	{#each groups as group, i}
 		<div
 			class="card-grid--tight"
-			style="--_background: {colorSet[ColorScale[i % 5] ?? 500]}"
+			style="--_background: {colorSet[cycleColorScale(i)]}"
 		>
 			{#each group.links as link}
 				<a

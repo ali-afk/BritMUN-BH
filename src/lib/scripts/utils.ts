@@ -37,3 +37,32 @@ export function parseCssTime(time: string): number {
 
 	return unit === "s" ? numValue * 1000 : numValue;
 }
+
+import type { LoadPriority } from "$types/component-props";
+
+/**
+ * Simple load priority calculation.
+ * Items above the fold get "high" priority for eager loading.
+ *
+ * @param index - The item's position in the list
+ * @param threshold - Number of items considered "above the fold"
+ * @returns "high" for items below threshold, "low" otherwise
+ */
+export function getLoadPriority(
+	index: number,
+	threshold: number,
+): LoadPriority {
+	return index < threshold ? "high" : "low";
+}
+
+import { type ColorDegrees, ColorScale } from "$types/colors";
+
+/**
+ * Simple colorset cycler.
+ *
+ * @param index - The color's index on the color scale.
+ * @returns a valuid color degree used to index a colorset type
+ */
+export function cycleColorScale(index: number): ColorDegrees {
+	return ColorScale[index % 5] ?? 500;
+}
