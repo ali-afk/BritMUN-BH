@@ -1,5 +1,6 @@
 <script lang="ts">
 import { Accordion } from "$components/shared";
+import { SiteProperties } from "$data/shared";
 import type { FaqData } from "$types/component-props";
 
 let { faqData }: { faqData: FaqData[] } = $props();
@@ -18,8 +19,10 @@ let { faqData }: { faqData: FaqData[] } = $props();
 		<p>
 			Didn’t answer your question? We are more than happy to answer any further
 			questions through our email. Contact us through
-			<a href="mailto:britmun@thebsbh.com">britmun@thebsbh.com</a> with any
-			inquiries regarding the conference.
+			<a href="mailto:{SiteProperties.contact.email}"
+				>{SiteProperties.contact.email}</a
+			>
+			with any inquiries regarding the conference.
 		</p>
 	</footer>
 </section>

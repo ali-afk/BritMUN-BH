@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { Snippet } from "svelte";
+import { SiteProperties } from "$data/shared";
 import type { FilePath } from "$types/component-props";
 
 type BaseProps = {
@@ -24,14 +25,16 @@ if (import.meta.env.DEV && description === "NoIndex" && pageURI !== "/") {
 }
 
 const globalKeywords = [
-	"BritMUN XI",
+	`BritMUN ${SiteProperties.britmunYear.roman}`,
 	"Model United Nations Bahrain",
-	"BSB MUN 2026",
+	`BSB MUN ${SiteProperties.year}`,
 	"British School of Bahrain",
 ];
 
-let fullTitle = $derived(`${title} | BritMUN XI`);
-let fullURI = $derived(`https://britmun.netlify.app${pageURI}`);
+let fullTitle = $derived(
+	`${title} | BritMUN ${SiteProperties.britmunYear.roman}`,
+);
+let fullURI = $derived(`${SiteProperties.siteUrl}${pageURI}`);
 let fullKeywords = $derived(
 	[...globalKeywords, keywords?.entries()].filter(Boolean).join(","),
 ); // Merges global and local keywords. .filter(Boolean) uses Boolean(value) to make sure the value exists (e.g skip if keywords is empty/"")

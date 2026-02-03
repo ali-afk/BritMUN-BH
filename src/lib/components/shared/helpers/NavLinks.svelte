@@ -1,6 +1,7 @@
 <script lang="ts">
 import { fly } from "svelte/transition";
 import { page } from "$app/state";
+import { SiteProperties } from "$data/shared";
 import { standard } from "$scripts/transition";
 
 let { isHidden }: { isHidden: boolean } = $props();
@@ -37,7 +38,7 @@ $effect(() => {
 
 		<li class="lift">
 			<a
-				href="https://drive.google.com/drive/folders/17hrrzjpgucemAw2dpzEsceGlmHDVxcQk?usp=share_link"
+				href={SiteProperties.resources.eventPhotos}
 				target="_blank"
 				rel="noopener noreferrer"
 				class="photos"
@@ -50,8 +51,8 @@ $effect(() => {
 				class="cta btn"
 				target="_blank"
 				rel="noreferrer noopener"
-				href="https://drive.google.com/file/d/1WwaoHmm_ZCSF_I7UMPQqQU34K-k0CAEa/view?usp=sharing"
-				>Delegate Allocations </a
+				href={SiteProperties.resources.delegateAllocations}
+				>Delegate Allocations</a
 			>
 		</li>
 	</ul>
