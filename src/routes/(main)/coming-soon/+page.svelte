@@ -1,13 +1,12 @@
 <script lang="ts">
-import { page } from "$app/state";
 import { Meta } from "$components/shared";
 </script>
 
-<Meta title={page.status.toString()} description="NoIndex" />
+<Meta title="Coming Soon" description="NoIndex" />
 
 <section class="center--page">
-	<h1 class="title--page">{page.status}</h1>
-	<p>{page.error?.message || "Page not found"}</p>
+	<h1 class="title--page">Coming Soon...</h1>
+	<p>This page has not been added or released yet!</p>
 	<a href="/" class="btn">Return Home</a>
 </section>
 

@@ -1,6 +1,6 @@
 <script lang="ts">
 import { FaqList, TestimonialList } from "$components/home";
-import { HeroImage, Meta } from "$components/shared";
+import { HeroImage, Meta, SkipLink } from "$components/shared";
 import { Hero } from "$data/home";
 import type { PageProps } from "./$types";
 
@@ -13,6 +13,7 @@ let { data }: PageProps = $props();
 	pageURI="/"
 />
 
+<SkipLink />
 <HeroImage image={Hero} />
 <TestimonialList testimonialData={data.testimonials} />
 <FaqList faqData={data.faqs} />
