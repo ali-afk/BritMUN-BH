@@ -1,6 +1,12 @@
 <script lang="ts">
-import { DesignTokens, SiteProperties } from "$data/shared";
+import {
+	DesignTokens,
+	EventData,
+	OrganizationData,
+	SiteProperties,
+} from "$data/shared";
 import { registerProperties } from "$scripts/register-design-tokens";
+import { registerServiceWorker } from "$scripts/register-service-worker";
 import "$styles/index.css";
 import { onMount } from "svelte";
 import { Hero } from "$data/home";
@@ -8,6 +14,7 @@ import { Hero } from "$data/home";
 onMount(() => {
 	registerProperties();
 	document.documentElement.classList.add("document-loaded");
+	registerServiceWorker();
 });
 
 let { children } = $props();
@@ -50,58 +57,8 @@ let { children } = $props();
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:image" content={Hero.url}>
 
-	<!-- JSON-LD Structured Data: Organization -->
-	{@html `<script type="application/ld+json">
-	{
-		"@context": "https://schema.org",
-		"@type": "Organization",
-		"name": "BritMUN ${SiteProperties.britmunYear.roman}",
-		"description": "British School of Bahrain Model United Nations Conference ${SiteProperties.year}",
-		"url": "${SiteProperties.siteUrl}",
-		"logo": "${SiteProperties.siteUrl}/icon-512.png",
-		"email": "${SiteProperties.contact.email}",
-		"sameAs": [
-			"${SiteProperties.contact.tiktok}",
-			"${SiteProperties.contact.instagram}"
-		]
-	}
-	<\/script>`}
-
-	<!-- JSON-LD Structured Data: Event -->
-	{@html `<script type="application/ld+json">
-	{
-		"@context": "https://schema.org",
-		"@type": "Event",
-		"name": "BritMUN ${SiteProperties.britmunYear.roman}",
-		"description": "Model United Nations Conference in Bahrain ${SiteProperties.year}",
-		"image": "${Hero.url}"
-		"startDate": "${SiteProperties.eventDate.start}",
-		"endDate": "${SiteProperties.eventDate.end}",
-		"eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-		"eventStatus": "https://schema.org/EventScheduled",
-		"organizer": {
-			"@type": "Organization",
-			"name": "British School of Bahrain MUN Team",
-			"email": "${SiteProperties.contact.email}"
-		},
-		"location": {
-			"@type": "Place",
-			"name": "British School of Bahrain",
-			"address": {
-				"@type": "PostalAddress",
-				"streetAddress": "Road 3241",
-				"addressLocality": "Hamala",
-				"addressCountry": "BH"
-			},
-			"url": "${SiteProperties.eventAddress}"
-		},
-		"offers": {
-			"@type": "Offer",
-			"price": "${SiteProperties.entryFee}",
-			"priceCurrency": "BHD"
-		}
-	}
-	<\/script>`}
+	{@html `<script type="application/ld+json">${OrganizationData}<\/script>`}
+	{@html `<script type="application/ld+json">${EventData}<\/script>`}
 </svelte:head>
 
 {@render children()}

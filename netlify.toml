@@ -8,6 +8,13 @@ X-XSS-Protection = "1; mode=block"
 Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 Content-Security-Policy = "frame-ancestors 'none'"
 
+# Service worker - short cache to enable quick updates
+[[headers]]
+for = "/service-worker.js"
+[headers.values]
+Cache-Control = "public, max-age=0, must-revalidate"
+Service-Worker-Allowed = "/"
+
 # Cache static assets aggressively
 [[headers]]
 for = "/_app/immutable/*"
