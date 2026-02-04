@@ -13,14 +13,26 @@ bun run build  # Build for production
 
 ## Documentation
 
+### Getting Started
 | Guide | Description |
 |-------|-------------|
 | [Development Guide](docs/development.md) | Daily workflow, common tasks, troubleshooting |
+| [Updating for Next Conference](docs/updating-for-next-conference.md) | **Step-by-step guide for BritMUN XII handoff** |
+
+### Features & Implementation
+| Guide | Description |
+|-------|-------------|
+| [PWA & Web Standards](docs/pwa-web-standards.md) | Service worker, manifest, web endpoints |
+| [SEO Strategy](docs/seo-strategy.md) | Meta tags, structured data, keywords |
 | [CSS Guide](docs/css.md) | Design tokens, styling patterns |
+| [Color System](docs/color-system.md) | OKLCH auto-contrast explained |
+
+### Development
+| Guide | Description |
+|-------|-------------|
 | [SvelteKit Guide](docs/sveltekit.md) | Component patterns, Svelte 5 runes |
 | [TypeScript Patterns](docs/typescript.md) | Type safety patterns |
 | [Architecture Decisions](docs/architecture-decisions.md) | Non-obvious implementation choices |
-| [Color System](docs/color-system.md) | OKLCH auto-contrast explained |
 | [Contributing](CONTRIBUTING.md) | Commit format, handoff checklist |
 
 ## Content Files

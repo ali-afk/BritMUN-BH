@@ -65,7 +65,10 @@ git commit -m "feat+style: add countdown timer with animations"
 
 | Guide | Description |
 |-------|-------------|
+| [Updating for Next Conference](docs/updating-for-next-conference.md) | **Essential for handoff** - Step-by-step year-to-year updates |
 | [Development Guide](docs/development.md) | Daily workflow, common tasks, troubleshooting |
+| [PWA & Web Standards](docs/pwa-web-standards.md) | Service worker, manifest, SEO endpoints |
+| [SEO Strategy](docs/seo-strategy.md) | Meta tags, structured data, social sharing |
 | [CSS Guide](docs/css.md) | Design tokens, styling patterns |
 | [SvelteKit Guide](docs/sveltekit.md) | Component patterns, Svelte 5 runes |
 | [TypeScript Patterns](docs/typescript.md) | Type safety patterns |
