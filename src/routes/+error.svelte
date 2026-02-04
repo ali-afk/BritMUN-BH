@@ -1,13 +1,31 @@
 <script lang="ts">
 import { page } from "$app/state";
 import { Meta } from "$components/shared";
+
+let errorMessageFallback = $state<string>();
+switch (page.status) {
+	case 404: {
+		errorMessageFallback = "Page not found.";
+		break;
+	}
+
+	case 503: {
+		errorMessageFallback = "You have disconnected.";
+		break;
+	}
+
+	default: {
+		errorMessageFallback = "How did you get here?";
+		break;
+	}
+}
 </script>
 
 <Meta title={page.status.toString()} description="NoIndex" />
 
 <section class="center--page">
 	<h1 class="title--page">{page.status}</h1>
-	<p>{page.error?.message || "Page not found"}</p>
+	<p>{page.error?.message || errorMessageFallback}</p>
 	<a href="/" class="btn">Return Home</a>
 </section>
 
