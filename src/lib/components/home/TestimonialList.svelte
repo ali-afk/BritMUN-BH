@@ -7,9 +7,9 @@ let { testimonialData }: { testimonialData: TestimonialData[] } = $props();
 </script>
 
 <section class="stack">
-	<h1 id="main-content" class="title--section">
+	<h2 id="main-content" class="title--section">
 		What students have said about us...
-	</h1>
+	</h2>
 
 	{#each testimonialData as testimonial, i}
 		<Testimonial
@@ -22,7 +22,7 @@ let { testimonialData }: { testimonialData: TestimonialData[] } = $props();
 </section>
 
 <style>
-h1 {
+h2 {
 	color: var(--color-primary-700);
 }
 </style>

@@ -7,7 +7,7 @@ let { faqData }: { faqData: FaqData[] } = $props();
 </script>
 
 <section class="stack">
-	<h1 class="title--section">FAQs</h1>
+	<h2 class="title--section">FAQs</h2>
 
 	{#each faqData as faq}
 		<Accordion title={faq.question} name="faq">{@html faq.answer}</Accordion>
