@@ -27,7 +27,11 @@ $effect(() => {
 
 <svelte:window bind:scrollY={y} />
 
-<header bind:clientHeight={headerHeight} class="sticky-header" class:hidden={isHidden}>
+<header
+	bind:clientHeight={headerHeight}
+	class="sticky-header"
+	class:hidden={isHidden}
+>
 	<nav class="wrapper row">
 		<a
 			class="logo"
