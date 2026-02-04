@@ -11,6 +11,14 @@ export const SiteProperties = {
 	/** Current year of the conference */
 	year: "2026",
 
+	/** Date of event */
+	eventDate: {
+		start: "2026-01-30",
+		end: "2026-01-31",
+	},
+
+	eventAddress: "https://goo.gl/maps/6JwzViLgPZE5G7H89",
+
 	/** BritMUN edition identifiers */
 	britmunYear: {
 		roman: "XI",
@@ -24,8 +32,8 @@ export const SiteProperties = {
 		instagram: "https://www.instagram.com/britmun.bh/",
 	},
 
-	/** Conference pricing */
-	entryFee: "BHD 25.000",
+	/** Conference pricing in BHD */
+	entryFee: "25.000",
 
 	/** External resource links (update annually) */
 	resources: {

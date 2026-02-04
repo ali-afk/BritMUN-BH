@@ -6,7 +6,7 @@ const site = SiteProperties.siteUrl;
 // Pages that should be included in the sitemap
 // Excludes pages with NoIndex meta (like /coming-soon)
 const pages = [
-	"", // Home page
+	"/", // Home page
 	"/councils",
 ];
 
