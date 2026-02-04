@@ -34,7 +34,14 @@ $effect(() => {
 
 {#snippet links()}
 	<ul id="links" class="center" transition:standard={fly} role="list">
-		<li class="lift"><a href="/councils" class="councils">Councils</a></li>
+		<li class="lift">
+			<a
+				aria-current={page.url.pathname === '/councils' ? 'page' : undefined}
+				href="/councils"
+				class="councils"
+				>Councils</a
+			>
+		</li>
 
 		<li class="lift">
 			<a
