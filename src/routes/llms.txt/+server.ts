@@ -1,6 +1,8 @@
 import { LlmData } from "$data/shared";
 import type { RequestHandler } from "./$types";
 
+export const prerender = true;
+
 export const GET: RequestHandler = () => {
 	return new Response(LlmData, {
 		headers: {

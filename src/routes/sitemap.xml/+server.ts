@@ -1,6 +1,8 @@
 import { SiteProperties } from "$data/shared";
 import type { RequestHandler } from "./$types";
 
+export const prerender = true;
+
 const site = SiteProperties.siteUrl;
 
 // Pages that should be included in the sitemap
@@ -18,7 +20,7 @@ ${pages
 		(page) => `	<url>
 		<loc>${site}${page}</loc>
 		<changefreq>weekly</changefreq>
-		<priority>${page === "" ? "1.0" : "0.8"}</priority>
+		<priority>${page === "/" ? "1.0" : "0.8"}</priority>
 	</url>`,
 	)
 	.join("\n")}

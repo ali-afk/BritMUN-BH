@@ -1,6 +1,8 @@
 import { DesignTokens, SiteProperties } from "$data/shared";
 import type { RequestHandler } from "./$types";
 
+export const prerender = true;
+
 export const GET: RequestHandler = () => {
 	const manifest = {
 		name: `BritMUN ${SiteProperties.britmunYear.roman} - Model United Nations Bahrain`,
