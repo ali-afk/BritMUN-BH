@@ -4,20 +4,15 @@ import type { Image } from "$types/component-props";
 let {
 	image,
 	title,
-	centeredTitle = "false",
+	centeredTitle = false,
 }: {
 	image: Image;
 	title?: string;
-	centeredTitle?: "true" | "false";
+	centeredTitle?: boolean;
 } = $props();
 </script>
 
-<section>
-	{#if title}
-		<h1 class="title--page" class:centered={centeredTitle === "true"}>
-			{title}
-		</h1>
-	{/if}
+{#snippet hero()}
 	<img
 		src={image.url}
 		alt="Through the Looking Glass"
@@ -25,6 +20,15 @@ let {
 		width={image.dimensions.width}
 		height={image.dimensions.height}
 	>
+{/snippet}
+
+<section>
+	{#if title}
+		<h1 class="title--page" class:centeredTitle={centeredTitle}>{title}</h1>
+		{@render hero()}
+	{:else}
+		<h1>{@render hero()}</h1>
+	{/if}
 </section>
 
 <style>
@@ -36,7 +40,7 @@ section {
 	overflow: hidden;
 }
 
-.centered {
+.centeredTitle {
 	z-index: 999;
 	position: absolute;
 	inset: 0;
