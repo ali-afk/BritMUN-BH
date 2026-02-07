@@ -1,4 +1,4 @@
-import { Hero } from "$data/home";
+import { Hero } from "$assets/home";
 import { SiteProperties } from "$data/shared/site-properties";
 
 /**
@@ -25,7 +25,7 @@ export const EventData = JSON.stringify({
 	"@type": "Event",
 	name: `BritMUN ${SiteProperties.britmunYear.roman}`,
 	description: `Model United Nations Conference in Bahrain ${SiteProperties.year}`,
-	image: Hero.url,
+	image: Hero,
 	startDate: SiteProperties.eventDate.start,
 	endDate: SiteProperties.eventDate.end,
 	eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
