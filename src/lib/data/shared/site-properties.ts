@@ -38,7 +38,7 @@ export const SiteProperties = {
 	/** External resource links (update annually) */
 	resources: {
 		eventPhotos:
-			"https://drive.google.com/drive/folders/17hrrzjpgucemAw2dpzEsceGlmHDVxcQk?usp=share_link",
+			"https://drive.google.com/drive/folders/1yHqfeLhVYgEgLLiInNtE8a15DRd_AvS7?usp=sharing",
 		delegateAllocations:
 			"https://drive.google.com/file/d/1ZWxnwD_wKgMWu2xEuDIO7RvZ6JLMMCQD/view?usp=sharing",
 	},
