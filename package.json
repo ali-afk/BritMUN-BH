@@ -17,7 +17,7 @@
 		"@netlify/plugin-lighthouse": "^6.0.4",
 		"@sveltejs/adapter-netlify": "^5.2.4",
 		"@sveltejs/kit": "^2.50.2",
-		"@sveltejs/vite-plugin-svelte": "^6.2.4",
+		"@sveltejs/vite-plugin-svelte": "^7.0.0",
 		"bezier-easing": "^2.1.0",
 		"browserslist": "^4.28.1",
 		"husky": "^9.1.7",
